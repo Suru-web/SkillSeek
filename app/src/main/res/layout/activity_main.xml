@@ -69,8 +69,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
-                android:fontFamily="@font/dm_sans"
-                android:hint="Phone number"
+                android:fontFamily="@font/comfortaa_bold"
+                android:hint="Mobile"
                 android:inputType="phone"
                 android:textColor="@color/black"
                 android:textColorHint="@color/black"
@@ -100,7 +100,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
-                android:fontFamily="@font/dm_sans"
+                android:fontFamily="@font/comfortaa_bold"
                 android:hint="Password"
                 android:inputType="textPassword"
                 android:textColor="@color/black"
