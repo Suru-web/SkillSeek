@@ -40,74 +40,153 @@
             android:layout_marginEnd="0dp"
             android:layout_marginBottom="430dp"
             android:fontFamily="@font/comfortaa_bold"
-            android:paddingStart="40dp"
+            android:paddingStart="30dp"
             android:paddingEnd="200dp"
             android:text="Sign Up"
             android:textColor="@color/black"
             android:textSize="40sp"
             tools:ignore="HardcodedText" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/phNum"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:paddingTop="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="130dp"
+            android:layout_marginBottom="350dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="340dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="0dp"
+                android:layout_marginTop="25dp"
+                android:layout_height="20dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/telephone"
+                android:alpha="0.4"
+                android:rotation="20"
+                android:contentDescription="phone icon"
+                tools:ignore="HardcodedText" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:paddingTop="15dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="65dp"
+            android:layout_marginTop="130dp"
+            android:layout_marginEnd="36dp"
+            android:layout_marginBottom="350dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hintEnabled="false"
+                app:boxBackgroundMode="filled" >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/comfortaa_bold"
+                    android:hint="Phone number"
+                    android:inputType="number"
+                    android:paddingStart="10dp"
+                    android:paddingBottom="10dp"
+                    tools:ignore="HardcodedText,RtlSymmetry" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="50dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="150dp"
-            android:layout_marginEnd="40dp"
-            android:layout_marginBottom="330dp"
-            app:boxCornerRadiusBottomEnd="15dp"
-            app:boxCornerRadiusBottomStart="15dp"
-            app:boxCornerRadiusTopEnd="15dp"
-            app:boxCornerRadiusTopStart="15dp"
-            app:boxStrokeColor="@color/black"
-            app:boxStrokeWidth="3dp">
+            android:layout_marginTop="230dp"
+            android:layout_marginBottom="240dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="340dp"
+            android:orientation="horizontal">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:fontFamily="@font/comfortaa_bold"
-                android:hint="Mobile"
-                android:inputType="phone"
-                android:textColor="@color/black"
-                android:textColorHint="@color/black"
-                android:textColorHighlight="@color/black"
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="0dp"
+                android:layout_height="23dp"
+                android:alpha="0.4"
+                android:layout_marginTop="36dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/goodpadlock"
+                android:contentDescription="lock icon"
                 tools:ignore="HardcodedText" />
-        </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/passWord"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="50dp"
             android:layout_alignParentStart="true"
+            android:paddingTop="15dp"
+            android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="40dp"
-            android:layout_marginBottom="229dp"
-            app:boxCornerRadiusBottomEnd="15dp"
-            app:boxCornerRadiusBottomStart="15dp"
-            app:boxCornerRadiusTopEnd="15dp"
-            app:boxCornerRadiusTopStart="15dp"
-            app:passwordToggleEnabled="true"
-            app:boxStrokeColor="@color/black"
-            app:boxStrokeWidth="3dp">
+            android:layout_marginStart="65dp"
+            android:layout_marginTop="230dp"
+            android:layout_marginEnd="36dp"
+            android:layout_marginBottom="240dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:passwordToggleEnabled="true"
+                app:boxStrokeColor="@color/black"
+                app:hintEnabled="false"
+                app:boxBackgroundMode="filled" >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="65dp"
+                android:layout_height="wrap_content"
                 android:fontFamily="@font/comfortaa_bold"
                 android:hint="Password"
                 android:inputType="textPassword"
-                android:textColor="@color/black"
-                android:textColorHint="@color/black"
-                tools:ignore="HardcodedText" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:paddingStart="10dp"
+                android:paddingBottom="10dp"
+                tools:ignore="HardcodedText,RtlSymmetry" />
 
+            </com.google.android.material.textfield.TextInputLayout>
 
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="36dp"
+            android:layout_marginEnd="36dp"
+            android:layout_marginTop="340dp"
+            android:layout_marginBottom="145dp"
+            android:fontFamily="@font/comfortaa_bold"
+            android:text="Continue"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:backgroundTint="#9adafe"
+            android:elevation="15dp"
+            android:stateListAnimator="@null"
+            tools:ignore="HardcodedText" />
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
