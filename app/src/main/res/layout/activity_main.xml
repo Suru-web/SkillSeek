@@ -28,7 +28,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="VisualLintBounds">
 
         <TextView
             android:id="@+id/signUPText"
@@ -47,8 +48,8 @@
             android:paddingEnd="100dp"
             android:text="Sign Up"
             android:textColor="@color/black"
-            android:textSize="40sp"
-            tools:ignore="HardcodedText" />
+            android:textSize="40dp"
+            tools:ignore="HardcodedText,SpUsage,VisualLintBounds" />
 
         <LinearLayout
             android:layout_width="100dp"
@@ -74,7 +75,7 @@
                 android:contentDescription="phone icon"
                 android:rotation="20"
                 app:srcCompat="@drawable/telephone"
-                tools:ignore="HardcodedText" />
+                tools:ignore="HardcodedText,ImageContrastCheck" />
         </LinearLayout>
 
         <LinearLayout
@@ -111,7 +112,7 @@
                     android:paddingBottom="10dp"
                     android:textColor="@color/black"
                     android:textColorHint="@color/grey"
-                    tools:ignore="HardcodedText,RtlSymmetry" />
+                    tools:ignore="HardcodedText,RtlSymmetry,VisualLintTextFieldSize" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -124,9 +125,9 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="180dp"
+            android:layout_marginTop="160dp"
             android:layout_marginEnd="-50dp"
-            android:layout_marginBottom="290dp"
+            android:layout_marginBottom="310dp"
             android:layout_toStartOf="@+id/pas"
             android:orientation="horizontal">
 
@@ -139,7 +140,7 @@
                 android:alpha="0.4"
                 android:contentDescription="lock icon"
                 app:srcCompat="@drawable/goodpadlock"
-                tools:ignore="HardcodedText" />
+                tools:ignore="HardcodedText,ImageContrastCheck" />
         </LinearLayout>
 
         <LinearLayout
@@ -151,9 +152,9 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="65dp"
-            android:layout_marginTop="180dp"
+            android:layout_marginTop="160dp"
             android:layout_marginEnd="36dp"
-            android:layout_marginBottom="290dp"
+            android:layout_marginBottom="310dp"
             android:orientation="horizontal"
             android:paddingTop="15dp">
 
@@ -177,7 +178,7 @@
                     android:paddingBottom="10dp"
                     android:textColor="@color/black"
                     android:textColorHint="@color/grey"
-                    tools:ignore="HardcodedText,RtlSymmetry" />
+                    tools:ignore="HardcodedText,RtlSymmetry,VisualLintTextFieldSize" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -187,52 +188,54 @@
             android:id="@+id/continuButton"
             android:layout_width="match_parent"
             android:layout_height="60dp"
+            android:layout_alignTop="@+id/pas"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="300dp"
-            android:layout_marginEnd="36dp"
-            android:layout_marginBottom="175dp"
+            android:layout_marginStart="76dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginEnd="76dp"
             android:backgroundTint="#9adafe"
             android:elevation="15dp"
             android:fontFamily="@font/comfortaa_bold"
             android:stateListAnimator="@null"
             android:text="Continue"
             android:textColor="@color/black"
-            android:textSize="18sp"
-            tools:ignore="HardcodedText" />
+            android:textSize="18dp"
+            tools:ignore="HardcodedText,SpUsage,TextSizeCheck,VisualLintButtonSize" />
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="200dp"
+            android:layout_width="160dp"
             android:layout_height="50dp"
+            android:layout_below="@+id/continuButton"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="95dp"
-            android:layout_marginTop="405dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="90dp"
+            android:layout_marginTop="43dp"
+            android:layout_marginBottom="150dp"
             android:fontFamily="@font/comfortaa_bold"
+            android:paddingLeft="0dp"
             android:text="Joined Us Before?"
             android:textColor="@color/black"
-            android:textSize="16sp"
-            tools:ignore="HardcodedText" />
+            android:textSize="16dp"
+            tools:ignore="HardcodedText,RtlHardcoded,RtlSymmetry,SpUsage,TextSizeCheck" />
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="-150dp"
-            android:layout_marginTop="391dp"
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/continuButton"
+            android:layout_marginTop="24dp"
             android:layout_toEndOf="@+id/textView"
-            android:background="@android:color/transparent"
+            android:clickable="true"
+            android:focusable="true"
             android:fontFamily="@font/alata"
+            android:paddingLeft="00dp"
+            android:paddingTop="16dp"
             android:text="Login"
-            android:textColor="#34b5fe"
-            android:textSize="20sp"
-            tools:ignore="HardcodedText" />
+            android:textColor="#0277BD"
+            android:textSize="18dp"
+            tools:ignore="HardcodedText,RtlHardcoded,RtlSymmetry,SpUsage,TextSizeCheck" />
 
 
     </RelativeLayout>
