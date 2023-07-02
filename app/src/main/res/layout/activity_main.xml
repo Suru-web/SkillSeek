@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".MainActivity">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
-        android:layout_height="350dp"
+        android:layout_height="330dp"
         android:contentDescription="@string/app_name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,10 +23,12 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="550dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView">
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.0">
 
         <TextView
             android:id="@+id/signUPText"
@@ -35,13 +38,13 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="0dp"
-            android:layout_marginBottom="430dp"
+            android:layout_marginStart="-2dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginBottom="476dp"
             android:fontFamily="@font/comfortaa_bold"
-            android:paddingStart="30dp"
-            android:paddingEnd="200dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="100dp"
             android:text="Sign Up"
             android:textColor="@color/black"
             android:textSize="40sp"
@@ -52,124 +55,136 @@
             android:layout_height="50dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:paddingTop="10dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginTop="130dp"
-            android:layout_marginBottom="350dp"
             android:layout_marginStart="15dp"
-            android:layout_marginEnd="340dp"
-            android:orientation="horizontal">
+            android:layout_marginTop="80dp"
+            android:layout_marginEnd="-50dp"
+            android:layout_marginBottom="400dp"
+            android:layout_toStartOf="@+id/phN"
+            android:orientation="horizontal"
+            android:paddingTop="10dp">
 
             <ImageView
                 android:id="@+id/imageView2"
                 android:layout_width="0dp"
-                android:layout_marginTop="25dp"
                 android:layout_height="20dp"
+                android:layout_marginTop="25dp"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/telephone"
                 android:alpha="0.4"
-                android:rotation="20"
                 android:contentDescription="phone icon"
+                android:rotation="20"
+                app:srcCompat="@drawable/telephone"
                 tools:ignore="HardcodedText" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/phN"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_alignParentStart="true"
-            android:paddingTop="15dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="65dp"
-            android:layout_marginTop="130dp"
+            android:layout_marginTop="80dp"
             android:layout_marginEnd="36dp"
-            android:layout_marginBottom="350dp"
-            android:orientation="horizontal">
+            android:layout_marginBottom="400dp"
+            android:orientation="horizontal"
+            android:paddingTop="15dp">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:hintEnabled="false"
-                app:boxBackgroundMode="filled" >
+                android:background="@color/white"
+                app:boxBackgroundMode="filled"
+                app:boxStrokeColor="@color/black"
+                app:hintEnabled="false">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/white"
                     android:fontFamily="@font/comfortaa_bold"
                     android:hint="Phone number"
                     android:inputType="number"
                     android:paddingStart="10dp"
                     android:paddingBottom="10dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/grey"
                     tools:ignore="HardcodedText,RtlSymmetry" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginTop="230dp"
-            android:layout_marginBottom="240dp"
             android:layout_marginStart="15dp"
-            android:layout_marginEnd="340dp"
+            android:layout_marginTop="180dp"
+            android:layout_marginEnd="-50dp"
+            android:layout_marginBottom="290dp"
+            android:layout_toStartOf="@+id/pas"
             android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/imageView4"
                 android:layout_width="0dp"
                 android:layout_height="23dp"
-                android:alpha="0.4"
                 android:layout_marginTop="36dp"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/goodpadlock"
+                android:alpha="0.4"
                 android:contentDescription="lock icon"
+                app:srcCompat="@drawable/goodpadlock"
                 tools:ignore="HardcodedText" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/pas"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_alignParentStart="true"
-            android:paddingTop="15dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="65dp"
-            android:layout_marginTop="230dp"
+            android:layout_marginTop="180dp"
             android:layout_marginEnd="36dp"
-            android:layout_marginBottom="240dp"
-            android:orientation="horizontal">
+            android:layout_marginBottom="290dp"
+            android:orientation="horizontal"
+            android:paddingTop="15dp">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:passwordToggleEnabled="true"
+                app:boxBackgroundMode="filled"
                 app:boxStrokeColor="@color/black"
                 app:hintEnabled="false"
-                app:boxBackgroundMode="filled" >
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/grey">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/comfortaa_bold"
-                android:hint="Password"
-                android:inputType="textPassword"
-                android:paddingStart="10dp"
-                android:paddingBottom="10dp"
-                tools:ignore="HardcodedText,RtlSymmetry" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:fontFamily="@font/comfortaa_bold"
+                    android:hint="Password"
+                    android:inputType="textPassword"
+                    android:paddingStart="10dp"
+                    android:paddingBottom="10dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/grey"
+                    tools:ignore="HardcodedText,RtlSymmetry" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/continuButton"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_alignParentStart="true"
@@ -177,16 +192,48 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="36dp"
+            android:layout_marginTop="300dp"
             android:layout_marginEnd="36dp"
-            android:layout_marginTop="340dp"
-            android:layout_marginBottom="145dp"
-            android:fontFamily="@font/comfortaa_bold"
-            android:text="Continue"
-            android:textSize="18sp"
-            android:textColor="@color/black"
+            android:layout_marginBottom="175dp"
             android:backgroundTint="#9adafe"
             android:elevation="15dp"
+            android:fontFamily="@font/comfortaa_bold"
             android:stateListAnimator="@null"
+            android:text="Continue"
+            android:textColor="@color/black"
+            android:textSize="18sp"
             tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="95dp"
+            android:layout_marginTop="405dp"
+            android:fontFamily="@font/comfortaa_bold"
+            android:text="Joined Us Before?"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            tools:ignore="HardcodedText" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="-150dp"
+            android:layout_marginTop="391dp"
+            android:layout_toEndOf="@+id/textView"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/alata"
+            android:text="Login"
+            android:textColor="#34b5fe"
+            android:textSize="20sp"
+            tools:ignore="HardcodedText" />
+
+
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
