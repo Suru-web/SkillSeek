@@ -94,6 +94,7 @@
             android:paddingTop="15dp">
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/phNumberInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
@@ -159,6 +160,7 @@
             android:paddingTop="15dp">
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/passwordInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:boxBackgroundMode="filled"
@@ -185,7 +187,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/continuButton"
+            android:id="@+id/continueButton"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_alignTop="@+id/pas"
@@ -207,7 +209,7 @@
             android:id="@+id/textView"
             android:layout_width="160dp"
             android:layout_height="50dp"
-            android:layout_below="@+id/continuButton"
+            android:layout_below="@+id/continueButton"
             android:layout_alignParentStart="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="90dp"
@@ -221,10 +223,10 @@
             tools:ignore="HardcodedText,RtlHardcoded,RtlSymmetry,SpUsage,TextSizeCheck" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/LoginButton"
             android:layout_width="100dp"
             android:layout_height="50dp"
-            android:layout_below="@+id/continuButton"
+            android:layout_below="@+id/continueButton"
             android:layout_marginTop="24dp"
             android:layout_toEndOf="@+id/textView"
             android:clickable="true"
