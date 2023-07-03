@@ -61,7 +61,7 @@
             android:layout_below="@+id/textView2"
             android:layout_alignParentStart="true"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="58dp"
             android:orientation="horizontal">
 
             <ImageView
@@ -113,7 +113,7 @@
             android:layout_below="@+id/ll1"
             android:layout_alignParentStart="true"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="66dp"
             android:orientation="horizontal">
 
             <ImageView
@@ -168,6 +168,8 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginTop="50dp"
+            android:elevation="1d5dp"
+            android:stateListAnimator="@null"
             android:fontFamily="@font/comfortaa_bold"
             android:text="Login"
             android:textColor="@color/white"
@@ -193,7 +195,7 @@
             android:layout_height="wrap_content"
             android:text="Already on SkillSeek?"
             android:layout_marginTop="120dp"
-            android:layout_marginStart="90dp"
+            android:layout_marginStart="70dp"
             android:fontFamily="@font/comfortaa_bold"
             android:textColor="#0C134F"
             android:layout_alignParentStart="true"
@@ -201,20 +203,19 @@
             tools:ignore="HardcodedText" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/register_Text_Btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Register"
             android:layout_alignTop="@+id/login_Button"
-            android:layout_alignParentEnd="true"
-            android:layout_alignStart="@+id/textView3"
-            android:layout_marginStart="144dp"
-            android:clickable="true"
+            android:layout_marginStart="7dp"
             android:layout_marginTop="120dp"
+            android:layout_toEndOf="@+id/textView3"
+            android:clickable="true"
+            android:focusable="true"
             android:fontFamily="@font/comfortaa_bold"
+            android:text="Register"
             android:textColor="#0166ff"
-            tools:ignore="HardcodedText"
-            android:focusable="true" />
+            tools:ignore="HardcodedText" />
 
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
