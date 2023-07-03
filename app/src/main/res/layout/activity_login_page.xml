@@ -168,7 +168,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginTop="50dp"
-            android:elevation="1d5dp"
+            android:elevation="15dp"
             android:stateListAnimator="@null"
             android:fontFamily="@font/comfortaa_bold"
             android:text="Login"
