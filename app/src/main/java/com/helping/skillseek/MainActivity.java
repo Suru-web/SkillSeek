@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -16,6 +17,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     Button contBtn;
     TextInputLayout phno, pass;
+    TextView lgBtn;
     String mobileNumber;
     String Password;
     @Override
@@ -39,34 +41,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         contBtn = findViewById(R.id.continueButton);
         phno = findViewById(R.id.phNumberInput);
         pass = findViewById(R.id.passwordInput);
+        lgBtn = findViewById(R.id.LoginButton);
 
         contBtn.setOnClickListener(this);
+        lgBtn.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
-    if (view.getId() == R.id.continueButton){
-        mobileNumber = phno.getEditText().getText().toString();
-        Password = pass.getEditText().getText().toString();
-        if (mobileNumber.isEmpty()){
-            Toast toast = Toast.makeText(this,"Enter the Phone number",Toast.LENGTH_SHORT);
-            toast.show();
+        if (view.getId() == R.id.continueButton){
+            mobileNumber = phno.getEditText().getText().toString();
+            Password = pass.getEditText().getText().toString();
+            if (mobileNumber.isEmpty()){
+                Toast toast = Toast.makeText(this,"Enter the Phone number",Toast.LENGTH_SHORT);
+                toast.show();
+            }
+            else if (mobileNumber.length()<10){
+                Toast toast = Toast.makeText(this,"Enter 10 digits phone number properly",Toast.LENGTH_LONG);
+                toast.show();
+            } else if (Password.isEmpty()) {
+                Toast toast = Toast.makeText(this,"Enter Password",Toast.LENGTH_SHORT);
+                toast.show();
+            }
+            else if (Password.length()<8){
+                Toast toast = Toast.makeText(this,"Minimum 8 characters password is required",Toast.LENGTH_LONG);
+                toast.show();
+            }
+            else {
+                Intent intent = new Intent(this, loginPage.class);
+                startActivity(intent);
+            }
         }
-        else if (mobileNumber.length()<10){
-            Toast toast = Toast.makeText(this,"Enter 10 digits phone number properly",Toast.LENGTH_LONG);
-            toast.show();
-        } else if (Password.isEmpty()) {
-            Toast toast = Toast.makeText(this,"Enter Password",Toast.LENGTH_SHORT);
-            toast.show();
-        }
-        else if (Password.length()<8){
-            Toast toast = Toast.makeText(this,"Minimum 8 characters password is required",Toast.LENGTH_LONG);
-            toast.show();
-        }
-        else {
+        else if (view.getId() == R.id.LoginButton){
             Intent intent = new Intent(this, loginPage.class);
             startActivity(intent);
         }
-    }
     }
 }

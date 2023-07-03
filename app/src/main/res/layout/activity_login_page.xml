@@ -32,9 +32,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="511dp"
+        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@color/white"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
@@ -69,9 +69,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/at_symbol"
                 android:alpha="0.5"
                 android:contentDescription="Email Icon"
+                app:srcCompat="@drawable/at_symbol"
                 tools:ignore="HardcodedText" />
         </LinearLayout>
 
@@ -83,26 +83,26 @@
             android:layout_alignParentEnd="true"
             android:layout_marginStart="20dp"
             android:layout_marginTop="35dp"
-            android:layout_marginEnd="40dp"
+            android:layout_marginEnd="20dp"
             android:layout_toEndOf="@+id/ll1"
-            app:boxStrokeColor="@color/grey"
-            app:boxStrokeWidth="0.3dp"
-            app:hintEnabled="false"
             android:background="@color/white"
             app:boxBackgroundMode="filled"
+            app:boxStrokeColor="@color/grey"
+            app:boxStrokeWidth="0.3dp"
             app:errorEnabled="false"
+            app:hintEnabled="false"
             tools:ignore="NotSibling">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:paddingStart="00dp"
                 android:fontFamily="@font/comfortaa_bold"
                 android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:paddingStart="00dp"
                 android:textColor="#001C30"
                 android:textColorHint="@color/grey"
-                android:inputType="textEmailAddress"
                 tools:ignore="HardcodedText,RtlSymmetry" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -111,9 +111,9 @@
             android:layout_width="20dp"
             android:layout_height="25dp"
             android:layout_below="@+id/ll1"
-            android:layout_marginTop="60dp"
             android:layout_alignParentStart="true"
             android:layout_marginStart="20dp"
+            android:layout_marginTop="60dp"
             android:orientation="horizontal">
 
             <ImageView
@@ -128,34 +128,93 @@
         </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/passBoxLogin"
             android:layout_width="270dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/emailInput"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="20dp"
             android:layout_marginTop="30dp"
-            android:layout_marginEnd="40dp"
+            android:layout_marginEnd="20dp"
+            android:layout_toEndOf="@+id/ll2"
             android:background="@color/white"
-            app:boxStrokeWidth="0.5dp"
-            app:hintEnabled="false"
             app:boxBackgroundMode="filled"
             app:boxStrokeColor="@color/black"
+            app:boxStrokeWidth="0.5dp"
+            app:hintEnabled="false"
             app:passwordToggleEnabled="true"
-            app:passwordToggleTint="@color/grey"
-            android:layout_toEndOf="@+id/ll2">
+            app:passwordToggleTint="@color/grey">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Password"
+                android:background="@color/white"
                 android:fontFamily="@font/comfortaa_bold"
+                android:hint="Password"
                 android:inputType="textPassword"
                 android:paddingStart="00dp"
                 android:textColor="#001C30"
                 android:textColorHint="@color/grey"
-                android:background="@color/white"
                 tools:ignore="HardcodedText,RtlSymmetry" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/login_Button"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_below="@+id/passBoxLogin"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="50dp"
+            android:fontFamily="@font/comfortaa_bold"
+            android:text="Login"
+            android:textColor="@color/white"
+            android:backgroundTint="#0166ff"
+            tools:ignore="HardcodedText" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/login_Button"
+            android:layout_marginTop="90dp"
+            android:layout_marginStart="120dp"
+            android:layout_marginEnd="120dp"
+            android:backgroundTint="@color/black"
+            android:background="?android:attr/listDivider" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Already on SkillSeek?"
+            android:layout_marginTop="120dp"
+            android:layout_marginStart="90dp"
+            android:fontFamily="@font/comfortaa_bold"
+            android:textColor="#0C134F"
+            android:layout_alignParentStart="true"
+            android:layout_alignTop="@+id/login_Button"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Register"
+            android:layout_alignTop="@+id/login_Button"
+            android:layout_alignParentEnd="true"
+            android:layout_alignStart="@+id/textView3"
+            android:layout_marginStart="144dp"
+            android:clickable="true"
+            android:layout_marginTop="120dp"
+            android:fontFamily="@font/comfortaa_bold"
+            android:textColor="#0166ff"
+            tools:ignore="HardcodedText"
+            android:focusable="true" />
 
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
