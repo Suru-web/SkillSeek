@@ -2,12 +2,20 @@ package com.helping.skillseek;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.TextView;
 
-public class loginPage extends AppCompatActivity {
+import com.google.android.material.textfield.TextInputLayout;
+
+public class loginPage extends AppCompatActivity implements View.OnClickListener {
+    TextView regBtn;
+    TextInputLayout phnm,passd;
+    Button loginBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,5 +33,19 @@ public class loginPage extends AppCompatActivity {
         int flags = window.getDecorView().getSystemUiVisibility();
         flags |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
         window.getDecorView().setSystemUiVisibility(flags);
+
+        phnm = findViewById(R.id.phInput);
+        passd = findViewById(R.id.passBoxLogin);
+        regBtn = findViewById(R.id.register_Text_Btn);
+
+        regBtn.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.register_Text_Btn){
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
     }
 }
