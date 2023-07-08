@@ -5,5 +5,7 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.SkillSeek" parent="Base.Theme.SkillSeek" />
+    <style name="Theme.SkillSeek" parent="Base.Theme.SkillSeek" >
+        <item name="buttonStyle">@android:style/Widget.Button</item>
+    </style>
 </resources>

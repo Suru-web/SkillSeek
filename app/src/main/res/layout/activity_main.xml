@@ -73,7 +73,6 @@
                 android:layout_weight="1"
                 android:alpha="0.4"
                 android:contentDescription="phone icon"
-                android:rotation="20"
                 app:srcCompat="@drawable/telephone"
                 tools:ignore="HardcodedText,ImageContrastCheck" />
         </LinearLayout>
@@ -120,6 +119,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/lockImgLL"
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:layout_alignParentStart="true"
@@ -130,6 +130,7 @@
             android:layout_marginEnd="-50dp"
             android:layout_marginBottom="310dp"
             android:layout_toStartOf="@+id/pas"
+            android:visibility="gone"
             android:orientation="horizontal">
 
             <ImageView
@@ -157,6 +158,7 @@
             android:layout_marginEnd="36dp"
             android:layout_marginBottom="310dp"
             android:orientation="horizontal"
+            android:visibility="gone"
             android:paddingTop="15dp">
 
             <com.google.android.material.textfield.TextInputLayout
@@ -174,8 +176,8 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:fontFamily="@font/comfortaa_bold"
-                    android:hint="Password"
-                    android:inputType="textPassword"
+                    android:hint="Enter OTP"
+                    android:inputType="number"
                     android:paddingStart="10dp"
                     android:paddingBottom="10dp"
                     android:textColor="@color/black"
@@ -203,17 +205,27 @@
             android:text="Continue"
             android:textColor="@color/black"
             android:textSize="18dp"
+            android:visibility="gone"
             tools:ignore="HardcodedText,SpUsage,TextSizeCheck,VisualLintButtonSize" />
+        <ProgressBar
+            android:id="@+id/progress_circular"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/pas"
+            android:layout_marginTop="100dp"
+            android:layout_alignParentStart="true"
+            android:visibility="gone"
+            />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="160dp"
+            android:layout_centerHorizontal="true"
             android:layout_height="50dp"
-            android:layout_below="@+id/continueButton"
             android:layout_alignParentStart="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="90dp"
-            android:layout_marginTop="43dp"
+            android:layout_marginStart="100dp"
             android:layout_marginBottom="150dp"
             android:fontFamily="@font/comfortaa_bold"
             android:paddingLeft="0dp"
@@ -227,17 +239,34 @@
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:layout_below="@+id/continueButton"
+            android:layout_alignParentBottom="true"
             android:layout_marginTop="29dp"
+            android:layout_marginBottom="150dp"
             android:layout_toEndOf="@+id/textView"
             android:clickable="true"
             android:focusable="true"
             android:fontFamily="@font/dm_sans"
             android:paddingLeft="00dp"
-            android:paddingTop="16dp"
             android:text="Login"
             android:textColor="#0277BD"
             android:textSize="18dp"
             tools:ignore="HardcodedText,RtlHardcoded,RtlSymmetry,SpUsage,TextSizeCheck" />
+
+        <Button
+            android:id="@+id/getOTPBtn"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:backgroundTint="#9adafe"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="220dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginEnd="100dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/comfortaa_bold"
+            android:textSize="18dp"
+            android:text="Get OTP" />
 
 
     </RelativeLayout>
