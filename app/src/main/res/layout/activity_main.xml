@@ -168,6 +168,7 @@
                 app:boxBackgroundMode="filled"
                 app:boxStrokeColor="@color/black"
                 app:hintEnabled="false"
+                android:focusedByDefault="true"
                 app:passwordToggleEnabled="true"
                 app:passwordToggleTint="@color/grey">
 
@@ -217,40 +218,6 @@
             android:layout_alignParentStart="true"
             android:visibility="gone"
             />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="160dp"
-            android:layout_centerHorizontal="true"
-            android:layout_height="50dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="100dp"
-            android:layout_marginBottom="150dp"
-            android:fontFamily="@font/comfortaa_bold"
-            android:paddingLeft="0dp"
-            android:text="Joined Us Before?"
-            android:textColor="@color/black"
-            android:textSize="16dp"
-            tools:ignore="HardcodedText,RtlHardcoded,RtlSymmetry,SpUsage,TextSizeCheck" />
-
-        <TextView
-            android:id="@+id/LoginButton"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:layout_below="@+id/continueButton"
-            android:layout_alignParentBottom="true"
-            android:layout_marginTop="29dp"
-            android:layout_marginBottom="150dp"
-            android:layout_toEndOf="@+id/textView"
-            android:clickable="true"
-            android:focusable="true"
-            android:fontFamily="@font/dm_sans"
-            android:paddingLeft="00dp"
-            android:text="Login"
-            android:textColor="#0277BD"
-            android:textSize="18dp"
-            tools:ignore="HardcodedText,RtlHardcoded,RtlSymmetry,SpUsage,TextSizeCheck" />
 
         <Button
             android:id="@+id/getOTPBtn"

@@ -3,6 +3,8 @@ package com.helping.skillseek;
 import static android.widget.Toast.LENGTH_LONG;
 import static android.widget.Toast.makeText;
 
+import android.content.Context;
+import android.os.Vibrator;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,6 +25,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.ktx.Firebase;
@@ -40,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ProgressBar pgb;
     LinearLayout lockimgLl, passLL;
     String otpVerify;
+    Vibrator vibrator;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,13 +66,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getotpbtn = findViewById(R.id.getOTPBtn);
         phno = findViewById(R.id.phNumberInput);
         pass = findViewById(R.id.passwordInput);
-        lgBtn = findViewById(R.id.LoginButton);
         pgb = findViewById(R.id.progress_circular);
         passLL = findViewById(R.id.pas);
         lockimgLl = findViewById(R.id.lockImgLL);
         contBtn.setOnClickListener(this);
-        lgBtn.setOnClickListener(this);
         getotpbtn.setOnClickListener(this);
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
     }
 
     @Override
@@ -78,29 +81,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Password = pass.getEditText().getText().toString();
             pgb.setVisibility(View.VISIBLE);
             contBtn.setVisibility(View.INVISIBLE);
-
+            vibrator.vibrate(5);
             if (!otpVerify.isEmpty()){
                 PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(otpVerify, Password);
                 FirebaseAuth.getInstance().signInWithCredential(phoneAuthCredential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                          if (task.isComplete()){
-                             Toast toast = Toast.makeText(MainActivity.this,"OTP SUCCESSFULLY VERIFED", LENGTH_LONG);
+                             Toast toast = Toast.makeText(MainActivity.this,"Otp Successfully Verified", Toast.LENGTH_SHORT);
                              toast.show();
+                             contBtn.setVisibility(View.VISIBLE);
                              Intent intent = new Intent(MainActivity.this, CategorySelect.class);
                              startActivity(intent);
                          }
                          else {
-                             Toast toast = Toast.makeText(MainActivity.this,"OTP VERIFICATION UNSUCCESSFULL", LENGTH_LONG);
+                             Toast toast = Toast.makeText(MainActivity.this,"Otp verification failed", Toast.LENGTH_SHORT);
                              toast.show();
                          }
                     }
                 });
             }
-        }
-        else if (view.getId() == R.id.LoginButton) {
-            Intent intent = new Intent(this, loginPage.class);
-            startActivity(intent);
         }
         else if (view.getId() == R.id.getOTPBtn) {
             mobileNumber = phno.getEditText().getText().toString();
@@ -149,6 +149,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }
                 );
             }
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser mFBUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (mFBUser!= null){
+            Intent intent = new Intent(MainActivity.this, CategorySelect.class);
+            startActivity(intent);
         }
     }
 }
