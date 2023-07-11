@@ -4,86 +4,124 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="#DDDDDD">
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/comfortaa_bold"
-        android:layout_marginTop="250dp"
-        android:text="Welcome to SkillSeek"
-        android:textSize="30dp"
-        android:textColor="@color/black"
-        app:flow_horizontalAlign="center"
+
+    <RelativeLayout
+        android:layout_height="400dp"
+        android:layout_marginTop="200dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:elevation="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/round_background_category"
+        android:stateListAnimator="@null"
+        app:layout_constraintTop_toTopOf="parent" android:layout_width="match_parent">
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:fontFamily="@font/comfortaa_bold"
-        android:text="Select If you are a"
-        android:textColor="@color/black"
-        android:textSize="20dp"
-        app:flow_horizontalAlign="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="@font/comfortaa_bold"
+            android:text="Welcome to SkillSeek"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="25dp"
+            app:flow_horizontalAlign="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-        android:id="@+id/imageButtonManager"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="80dp"
-        android:backgroundTint="@color/white"
-        android:contentDescription="Hirer Icon"
-        android:padding="17dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5"
-        app:srcCompat="@drawable/manager" />
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="87dp"
+            android:fontFamily="@font/comfortaa_bold"
+            android:text="Select If you are a"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            app:flow_horizontalAlign="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
-    <ImageButton
-        android:id="@+id/imageButtonWorker"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="72dp"
-        android:backgroundTint="@color/white"
-        android:contentDescription="Worker Icon"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5"
-        app:srcCompat="@drawable/worker" />
+        <ImageButton
+            android:id="@+id/imageButtonManager"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="72dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginBottom="116dp"
+            android:backgroundTint="@color/white"
+            android:contentDescription="Hirer Icon"
+            android:padding="17dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5"
+            app:srcCompat="@drawable/manager" />
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/comfortaa_bold"
-        android:text="Hirer"
-        android:textColor="@color/black"
-        android:textSize="20dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginStart="100dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButtonManager" />
+        <ImageButton
+            android:id="@+id/imageButtonWorker"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="80dp"
+            android:layout_marginEnd="64dp"
+            android:layout_marginBottom="116dp"
+            android:backgroundTint="@color/white"
+            android:contentDescription="Worker Icon"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5"
+            app:srcCompat="@drawable/worker" />
 
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="100dp"
-        android:fontFamily="@font/comfortaa_bold"
-        android:textSize="20dp"
-        android:text="Hiree"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButtonWorker" />
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="297dp"
+            android:layout_marginEnd="87dp"
+            android:fontFamily="@font/comfortaa_bold"
+            android:text="Hirer"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageButtonManager" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="94dp"
+            android:layout_marginTop="297dp"
+            android:layout_marginEnd="100dp"
+            android:fontFamily="@font/comfortaa_bold"
+            android:text="Hiree"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageButtonWorker" />
+
+    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "780332098347",
+    "project_id": "skillseek-65242",
+    "storage_bucket": "skillseek-65242.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:780332098347:android:5acb417ce2caec4f8e5b6e",
+        "android_client_info": {
+          "package_name": "com.helping.skillseek"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "780332098347-lk27meeaf62nhuec4819rijpapgtflkc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvM1gH39epJCVpISURU0YXkin9pBpsh0E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "780332098347-lk27meeaf62nhuec4819rijpapgtflkc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
