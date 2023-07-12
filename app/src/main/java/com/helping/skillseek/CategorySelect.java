@@ -3,6 +3,8 @@ package com.helping.skillseek;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Vibrator;
 import android.os.Bundle;
 import android.view.View;
@@ -43,10 +45,36 @@ public class CategorySelect extends AppCompatActivity implements View.OnClickLis
         if (view.getId() == R.id.imageButtonManager){
             Toast.makeText(this, "You are a manager", Toast.LENGTH_SHORT).show();
             vibrator.vibrate(5);
+            SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("category","hirer");
+            editor.apply();
+            Intent intent = new Intent(this, hirer_main.class);
+            startActivity(intent);
 
         } else if (view.getId() == R.id.imageButtonWorker) {
             Toast.makeText(this, "You are a worker", Toast.LENGTH_SHORT).show();
             vibrator.vibrate(5);
+            SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("category","hiree");
+            editor.apply();
+            Intent intent = new Intent(this, Hiree_main.class);
+            startActivity(intent);
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        String fetchedCategory = sharedPreferences.getString("category","default");
+        if (fetchedCategory.equals("hirer")) {
+            Intent intent = new Intent(this, hirer_main.class);
+            startActivity(intent);
+        } else if (fetchedCategory.equals("hiree")) {
+            Intent intent = new Intent(this, Hiree_main.class);
+            startActivity(intent);
         }
     }
 }

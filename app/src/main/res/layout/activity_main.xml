@@ -217,6 +217,7 @@
             android:layout_marginTop="100dp"
             android:layout_alignParentStart="true"
             android:visibility="gone"
+            android:backgroundTint="@color/blue"
             />
 
         <Button
