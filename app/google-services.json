@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "780332098347-3gopsrt7ais3tjjcsllb19iacodh4ern.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.helping.skillseek",
+            "certificate_hash": "14eeb706bc398e2e0f792237b1836ec003d59018"
+          }
+        },
+        {
           "client_id": "780332098347-lk27meeaf62nhuec4819rijpapgtflkc.apps.googleusercontent.com",
           "client_type": 3
         }

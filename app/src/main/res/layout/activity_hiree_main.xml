@@ -30,15 +30,17 @@
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/comfortaa_bold"
-                android:textSize="25sp"
-                android:layout_alignParentTop="true"
                 android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
-                android:textAlignment="center"
-                android:layout_marginTop="10dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="19dp"
+                android:layout_marginEnd="-2dp"
+                android:fontFamily="@font/comfortaa_bold"
+                android:gravity="center"
+                android:text="Set Up Your Profile"
                 android:textColor="@color/white"
-                android:text="Set Up Your Profile" />
+                android:textSize="25sp" />
 
         </RelativeLayout>
 
@@ -125,7 +127,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
                     android:fontFamily="@font/comfortaa_bold"
-                    android:hint="Your Name" />
+                    android:hint="Your Full Name" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -144,6 +146,30 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/comfortaa_bold"
                     android:hint="Create a UserName" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/hireeDropD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/hireeUserNameLayout"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="20dp"
+                android:background="@color/white"
+                android:backgroundTint="@color/white"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="20dp">
+
+                <AutoCompleteTextView
+                    android:id="@+id/dropDownAutoComplete"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="-- Select Your Skill --"
+                    android:fontFamily="@font/comfortaa_bold"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black"
+                    android:inputType="none"/>
             </com.google.android.material.textfield.TextInputLayout>
 
 
