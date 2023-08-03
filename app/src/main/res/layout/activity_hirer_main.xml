@@ -120,6 +120,13 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
+                app:boxStrokeColor="@color/black"
+                app:hintTextColor="@color/black"
+                app:boxCornerRadiusBottomEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusTopStart="10dp"
+                android:textColorHint="@color/grey"
                 android:layout_marginTop="250dp">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -128,7 +135,7 @@
                     android:textColor="@color/black"
                     android:fontFamily="@font/comfortaa_bold"
                     android:inputType="textPersonName"
-                    android:textColorHint="@color/black"
+                    android:textCursorDrawable="@null"
                     android:hint="Your Full Name" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -141,6 +148,13 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
+                app:boxStrokeColor="@color/black"
+                app:hintTextColor="@color/black"
+                app:boxCornerRadiusBottomEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusTopStart="10dp"
+                android:textColorHint="@color/grey"
                 android:layout_marginEnd="20dp">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -149,6 +163,7 @@
                     android:fontFamily="@font/comfortaa_bold"
                     android:inputType=""
                     android:textColor="@color/black"
+                    android:textCursorDrawable="@null"
                     android:hint="Create a UserName" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -162,6 +177,13 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
+                app:boxStrokeColor="@color/black"
+                app:hintTextColor="@color/black"
+                app:boxCornerRadiusBottomEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusTopStart="10dp"
+                android:textColorHint="@color/grey"
                 android:background="@color/white">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -170,6 +192,7 @@
                     android:fontFamily="@font/comfortaa_bold"
                     android:inputType="textEmailAddress"
                     android:hint="Email"
+                    android:textCursorDrawable="@null"
                     android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -185,6 +208,13 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginStart="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:boxStrokeColor="@color/black"
+                app:hintTextColor="@color/black"
+                app:boxCornerRadiusBottomEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusTopStart="10dp"
+                android:textColorHint="@color/grey"
                 app:layout_constraintStart_toStartOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -193,6 +223,7 @@
                     android:fontFamily="@font/comfortaa_bold"
                     android:hint="Work Address"
                     android:inputType="textPostalAddress"
+                    android:textCursorDrawable="@null"
                     android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
 
