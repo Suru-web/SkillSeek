@@ -2,6 +2,7 @@ package com.helping.skillseek;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
@@ -66,6 +67,8 @@ public class hirer_main extends AppCompatActivity implements View.OnClickListene
         }
         else {
             Toast.makeText(hirer_main.this,"Data entered successfully",Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(this, homepage.class);
+            startActivity(intent);
         }
     }
 

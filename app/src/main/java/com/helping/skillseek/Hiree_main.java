@@ -2,6 +2,7 @@ package com.helping.skillseek;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -82,12 +83,16 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
                 skipToParentElse:
                 {
                     Toast.makeText(Hiree_main.this, "Data entry successful", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(this, homepage.class);
+                    startActivity(intent);
                     break skipToParentElse;
                 }
             }
         }
         else {
-            Toast.makeText(Hiree_main.this,"Data entry successfull",Toast.LENGTH_LONG).show();
+            Toast.makeText(Hiree_main.this,"Data entry successful",Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(this, homepage.class);
+            startActivity(intent);
         }
     }
 }
