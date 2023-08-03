@@ -127,6 +127,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
                     android:fontFamily="@font/comfortaa_bold"
+                    android:textColorHint="@color/black"
                     android:hint="Your Full Name" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -145,8 +146,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/comfortaa_bold"
+                    android:textColor="@color/black"
                     android:hint="Create a UserName" />
             </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/hireeDropD"
                 android:layout_width="match_parent"
@@ -155,8 +158,6 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginStart="20dp"
-                android:background="@color/white"
-                android:backgroundTint="@color/white"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="20dp">
@@ -169,8 +170,67 @@
                     android:fontFamily="@font/comfortaa_bold"
                     android:textColor="@color/black"
                     android:textColorHint="@color/black"
+                    android:backgroundTint="@color/white"
                     android:inputType="none"/>
             </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/hireeCustomSkill"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/hireeDropD"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="20dp"
+                android:background="@color/white"
+                android:visibility="gone">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/comfortaa_bold"
+                    android:hint="Enter Your Own Skill"
+                    android:textColor="@color/black"
+                    android:maxLines="1"
+                    android:textColorHint="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/hireeAge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/hireeCustomSkill"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="80dp"
+                android:layout_toStartOf="@+id/hireeSubmitBtn">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/comfortaa_bold"
+                    android:hint="Age"
+                    android:textColor="@color/black"
+                    android:inputType="number"
+                    android:textColorHint="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/hireeSubmitBtn"
+                android:layout_width="120dp"
+                android:layout_height="65dp"
+                android:layout_below="@+id/hireeCustomSkill"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginBottom="84dp"
+                android:backgroundTint="#424874"
+                android:fontFamily="@font/comfortaa_bold"
+                android:text="Submit"
+                android:textColor="@color/white" />
 
 
         </RelativeLayout>
