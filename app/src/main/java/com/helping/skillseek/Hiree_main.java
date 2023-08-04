@@ -3,6 +3,7 @@ package com.helping.skillseek;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -17,11 +18,13 @@ import com.google.android.material.textfield.TextInputLayout;
 
 public class Hiree_main extends AppCompatActivity implements View.OnClickListener {
 
-    String [] skills = {"Plumber","Carpenter","Painter","Gardener","House Cleaning","Masseuse","Cook","Select your own"};
+    String[] skills = {"Plumber", "Carpenter", "Painter", "Gardener", "House Cleaning", "Masseuse", "Cook", "Select your own"};
     AutoCompleteTextView autoCompleteTextView;
     ArrayAdapter<String> adapterSkills;
-    TextInputLayout customskill,hireedropd,hireeName,hireeUserName,hireeAge;
+    TextInputLayout customskill, hireedropd, hireeName, hireeUserName, hireeAge;
     Button submit;
+    String bool = "false";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,14 +44,14 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
         submit = findViewById(R.id.hireeSubmitBtn);
 
         autoCompleteTextView = findViewById(R.id.dropDownAutoComplete);
-        adapterSkills = new ArrayAdapter<String>(this,R.layout.hiree_skill_dropdown,skills);
+        adapterSkills = new ArrayAdapter<String>(this, R.layout.hiree_skill_dropdown, skills);
         autoCompleteTextView.setAdapter(adapterSkills);
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String item = adapterView.getItemAtPosition(i).toString();
 //                Toast.makeText(Hiree_main.this,"Item "+item, Toast.LENGTH_LONG).show();
-                if (item.equals("Select your own")){
+                if (item.equals("Select your own")) {
                     customskill.setVisibility(View.VISIBLE);
                     hireedropd.setVisibility(View.GONE);
                 }
@@ -60,37 +63,53 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
 
     @Override
     public void onClick(View view) {
-        String name,uname,age;
+        String name, uname, age;
         name = hireeName.getEditText().getText().toString();
         uname = hireeUserName.getEditText().getText().toString();
         age = hireeAge.getEditText().getText().toString();
-        if (name.isEmpty()){
-            Toast.makeText(Hiree_main.this,"Name cannot be empty",Toast.LENGTH_LONG).show();
-        }
-        else if (uname.isEmpty()){
-            Toast.makeText(Hiree_main.this,"UserName cannot be empty",Toast.LENGTH_LONG).show();
+        if (name.isEmpty()) {
+            Toast.makeText(Hiree_main.this, "Name cannot be empty", Toast.LENGTH_LONG).show();
+        } else if (uname.isEmpty()) {
+            Toast.makeText(Hiree_main.this, "UserName cannot be empty", Toast.LENGTH_LONG).show();
         } else if (age.isEmpty()) {
-            Toast.makeText(Hiree_main.this,"Age cannot be empty",Toast.LENGTH_LONG).show();
-        }
-        else if (!age.isEmpty()){
-            if (Integer.parseInt(age)<=20){
-                Toast.makeText(Hiree_main.this,"People below 20 age not allowed",Toast.LENGTH_LONG).show();
-            }
-            else if (Integer.parseInt(age)>100){
-                Toast.makeText(Hiree_main.this,"Please Select valid age",Toast.LENGTH_LONG).show();
-            }
-            else {
+            Toast.makeText(Hiree_main.this, "Age cannot be empty", Toast.LENGTH_LONG).show();
+        } else if (!age.isEmpty()) {
+            if (Integer.parseInt(age) <= 20) {
+                Toast.makeText(Hiree_main.this, "People below 20 age not allowed", Toast.LENGTH_LONG).show();
+            } else if (Integer.parseInt(age) > 100) {
+                Toast.makeText(Hiree_main.this, "Please Select valid age", Toast.LENGTH_LONG).show();
+            } else {
                 skipToParentElse:
                 {
+                    bool = "true";
+                    SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("data","true");
+                    editor.apply();
                     Toast.makeText(Hiree_main.this, "Data entry successful", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(this, homepage.class);
                     startActivity(intent);
                     break skipToParentElse;
                 }
             }
+        } else {
+            bool = "true";
+            SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("data","true");
+            editor.apply();
+            Toast.makeText(Hiree_main.this, "Data entry successful", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(this, homepage.class);
+            startActivity(intent);
         }
-        else {
-            Toast.makeText(Hiree_main.this,"Data entry successful",Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        String fetchedCategory = sharedPreferences.getString("data","default");
+        if (fetchedCategory.equals("true")){
             Intent intent = new Intent(this, homepage.class);
             startActivity(intent);
         }

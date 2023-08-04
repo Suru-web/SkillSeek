@@ -3,6 +3,7 @@ package com.helping.skillseek;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
@@ -46,6 +47,7 @@ public class hirer_main extends AppCompatActivity implements View.OnClickListene
         email = hireremail.getEditText().getText().toString();
         uname = hireruname.getEditText().getText().toString();
         address = hireraddress.getEditText().getText().toString();
+        String bool = "false";
 
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED) {
             Toast.makeText(hirer_main.this,"Location access already granted",Toast.LENGTH_LONG);
@@ -55,22 +57,38 @@ public class hirer_main extends AppCompatActivity implements View.OnClickListene
         }
 
         if (name.isEmpty()){
+            bool = "false";
             Toast.makeText(hirer_main.this,"Name cannot be empty",Toast.LENGTH_LONG).show();
         } else if (email.isEmpty()) {
+            bool = "false";
             Toast.makeText(hirer_main.this,"Email cannot be empty",Toast.LENGTH_LONG).show();
         } else if (uname.isEmpty()) {
+            bool = "false";
             Toast.makeText(hirer_main.this,"UserName cannot be empty",Toast.LENGTH_LONG).show();
         } else if (address.isEmpty()) {
+            bool = "false";
             Toast.makeText(hirer_main.this,"Address cannot be empty",Toast.LENGTH_LONG).show();
         } else if (!email.contains("@")||!email.contains(".com")) {
+            bool = "false";
             Toast.makeText(hirer_main.this,"Email Address is not valid",Toast.LENGTH_LONG).show();
         }
         else {
-            Toast.makeText(hirer_main.this,"Data entered successfully",Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(this, homepage.class);
-            startActivity(intent);
+            bool = "true";
+            if (bool.equals("true")) {
+                SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("data","true");
+                editor.apply();
+                Toast.makeText(hirer_main.this, "Data entered successfully", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this, homepage.class);
+                startActivity(intent);
+            }
+            else{
+                Toast.makeText(hirer_main.this,"Error in sharedp",Toast.LENGTH_LONG).show();
+            }
         }
     }
+
 
     public void onRequestPermissionResult(int requestCode, String[] permissions, int [] grantResults){
         if (requestCode == 1) {
@@ -79,6 +97,17 @@ public class hirer_main extends AppCompatActivity implements View.OnClickListene
             } else {
                 Toast.makeText(this, "Location permission denied.", Toast.LENGTH_SHORT).show();
             }
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        String fetchedCategory = sharedPreferences.getString("data","default");
+        if (fetchedCategory.equals("true")){
+            Intent intent = new Intent(this, homepage.class);
+            startActivity(intent);
         }
     }
 }
