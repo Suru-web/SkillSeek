@@ -2,9 +2,11 @@ package com.helping.skillseek;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -24,6 +26,7 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
     TextInputLayout customskill, hireedropd, hireeName, hireeUserName, hireeAge;
     Button submit;
     String bool = "false";
+    Vibrator vibrator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,7 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
         hireeUserName = findViewById(R.id.hireeUserNameLayout);
         hireeAge = findViewById(R.id.hireeAge);
         submit = findViewById(R.id.hireeSubmitBtn);
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         autoCompleteTextView = findViewById(R.id.dropDownAutoComplete);
         adapterSkills = new ArrayAdapter<String>(this, R.layout.hiree_skill_dropdown, skills);
@@ -49,6 +53,7 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                vibrator.vibrate(1);
                 String item = adapterView.getItemAtPosition(i).toString();
 //                Toast.makeText(Hiree_main.this,"Item "+item, Toast.LENGTH_LONG).show();
                 if (item.equals("Select your own")) {
@@ -67,6 +72,7 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
         name = hireeName.getEditText().getText().toString();
         uname = hireeUserName.getEditText().getText().toString();
         age = hireeAge.getEditText().getText().toString();
+        vibrator.vibrate(5);
         if (name.isEmpty()) {
             Toast.makeText(Hiree_main.this, "Name cannot be empty", Toast.LENGTH_LONG).show();
         } else if (uname.isEmpty()) {

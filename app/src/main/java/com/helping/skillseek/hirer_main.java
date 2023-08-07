@@ -2,10 +2,12 @@ package com.helping.skillseek;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -20,6 +22,7 @@ public class hirer_main extends AppCompatActivity implements View.OnClickListene
 
     TextInputLayout hirername,hireruname,hireremail,hireraddress;
     Button submit;
+    Vibrator vibrator;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,12 +39,14 @@ public class hirer_main extends AppCompatActivity implements View.OnClickListene
         hirername = findViewById(R.id.hirerNameLayout);
         hireruname = findViewById(R.id.hirerUserNameLayout);
         submit = findViewById(R.id.hirerSubmitBtn);
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         submit.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
+        vibrator.vibrate(5);
         String name,email,uname,address;
         name = hirername.getEditText().getText().toString();
         email = hireremail.getEditText().getText().toString();

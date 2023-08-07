@@ -105,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         else if (view.getId() == R.id.getOTPBtn) {
             mobileNumber = phno.getEditText().getText().toString();
             Password = pass.getEditText().getText().toString();
+            vibrator.vibrate(5);
             if (mobileNumber.isEmpty()){
                 Toast toast = Toast.makeText(this,"Enter the Phone number",Toast.LENGTH_SHORT);
                 toast.show();

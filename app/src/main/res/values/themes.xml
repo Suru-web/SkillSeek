@@ -5,7 +5,16 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.SkillSeek" parent="Base.Theme.SkillSeek" >
+    <style name="Theme.SkillSeek" parent="Base.Theme.SkillSeek">
         <item name="buttonStyle">@android:style/Widget.Button</item>
     </style>
+
+    <style name="Theme.SkillSeek.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.SkillSeek.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.SkillSeek.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
