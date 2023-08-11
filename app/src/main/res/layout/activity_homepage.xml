@@ -57,32 +57,14 @@
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout2" />
 
     <RelativeLayout
+        android:id="@+id/relativeLayout3"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="90dp"
         android:layout_marginTop="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout2">
 
-
-        <EditText
-            android:id="@+id/editTextText"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="70dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="20dp"
-            android:hint="Search Skill"
-            android:fontFamily="@font/comfortaa_bold"
-            android:textColor="@color/black"
-            android:textCursorDrawable="@color/black"
-            android:ems="10"
-            android:inputType="text"
-            android:textColorHint="@color/grey"
-            android:backgroundTint="@color/black"
-            android:text="" />
 
         <ImageButton
             android:id="@+id/imageButton3"
@@ -90,12 +72,76 @@
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:scaleType="centerCrop"
+            android:layout_marginEnd="10dp"
             android:background="@color/white"
-            android:padding="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/search" />
+            android:padding="23dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/loupe"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="20dp"
+            android:elevation="10dp"
+            android:stateListAnimator="@null"
+            android:layout_marginEnd="70dp"
+            android:textColorHint="@color/grey"
+            app:boxCornerRadiusBottomEnd="20dp"
+            app:boxCornerRadiusBottomStart="20dp"
+            app:boxCornerRadiusTopEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/grey">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/comfortaa_bold"
+                android:hint="Search skills"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textColorHint="@color/grey"
+                android:textCursorDrawable="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
 
 
     </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout3">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/comfortaa_bold"
+                    android:textSize="25dp"
+                    android:textColor="@color/black"
+                    android:text="@string/lorem" />
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
