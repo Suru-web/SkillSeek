@@ -17,16 +17,20 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class Hiree_main extends AppCompatActivity implements View.OnClickListener {
 
     String[] skills = {"Plumber", "Carpenter", "Painter", "Gardener", "House Cleaning", "Masseuse", "Cook", "Select your own"};
+    String item;
     AutoCompleteTextView autoCompleteTextView;
     ArrayAdapter<String> adapterSkills;
     TextInputLayout customskill, hireedropd, hireeName, hireeUserName, hireeAge;
     Button submit;
     String bool = "false";
     Vibrator vibrator;
+    DatabaseReference databasehiree;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +50,7 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
         hireeAge = findViewById(R.id.hireeAge);
         submit = findViewById(R.id.hireeSubmitBtn);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        databasehiree = FirebaseDatabase.getInstance().getReference("hiree");
 
         autoCompleteTextView = findViewById(R.id.dropDownAutoComplete);
         adapterSkills = new ArrayAdapter<String>(this, R.layout.hiree_skill_dropdown, skills);
@@ -54,11 +59,12 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 vibrator.vibrate(1);
-                String item = adapterView.getItemAtPosition(i).toString();
-//                Toast.makeText(Hiree_main.this,"Item "+item, Toast.LENGTH_LONG).show();
-                if (item.equals("Select your own")) {
+                item = adapterView.getItemAtPosition(i).toString();
+                Toast.makeText(Hiree_main.this,"Item "+item, Toast.LENGTH_LONG).show();
+                if (item.equals("Write your own")) {
                     customskill.setVisibility(View.VISIBLE);
                     hireedropd.setVisibility(View.GONE);
+                    item = customskill.getEditText().getText().toString();
                 }
             }
         });
@@ -92,6 +98,13 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("data","true");
                     editor.apply();
+
+
+                    String id = databasehiree.push().getKey();
+                    hireeDetails hiree = new hireeDetails(id,name,uname,item,age);
+                    databasehiree.child(id).setValue(hiree);
+
+
                     Toast.makeText(Hiree_main.this, "Data entry successful", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(this, homepage.class);
                     startActivity(intent);

@@ -17,12 +17,15 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class hirer_main extends AppCompatActivity implements View.OnClickListener {
 
     TextInputLayout hirername,hireruname,hireremail,hireraddress;
     Button submit;
     Vibrator vibrator;
+    DatabaseReference databasehirer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +43,7 @@ public class hirer_main extends AppCompatActivity implements View.OnClickListene
         hireruname = findViewById(R.id.hirerUserNameLayout);
         submit = findViewById(R.id.hirerSubmitBtn);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        databasehirer = FirebaseDatabase.getInstance().getReference("hirer");//Sets the path to hirer
 
         submit.setOnClickListener(this);
     }
@@ -84,6 +88,14 @@ public class hirer_main extends AppCompatActivity implements View.OnClickListene
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("data","true");
                 editor.apply();
+
+                //Adds data to firebase
+                String id = databasehirer.push().getKey();
+                hirerDetails hirer = new hirerDetails(id,name,uname,email,address);
+                databasehirer.child(id).setValue(hirer);
+
+
+
                 Toast.makeText(hirer_main.this, "Data entered successfully", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this, homepage.class);
                 startActivity(intent);
