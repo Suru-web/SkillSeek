@@ -22,14 +22,15 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class Hiree_main extends AppCompatActivity implements View.OnClickListener {
 
-    String[] skills = {"Plumber", "Carpenter", "Painter", "Gardener", "House Cleaning", "Masseuse", "Cook", "Select your own"};
-    String item;
+    String[] skills = {"Plumber", "Carpenter", "Painter", "Gardener", "House Cleaning", "Masseuse", "Cook", "Write your own"};
+    String item,custSkill;
     AutoCompleteTextView autoCompleteTextView;
     ArrayAdapter<String> adapterSkills;
     TextInputLayout customskill, hireedropd, hireeName, hireeUserName, hireeAge;
     Button submit;
     String bool = "false";
     Vibrator vibrator;
+    int a=0;
     DatabaseReference databasehiree;
 
     @Override
@@ -60,11 +61,12 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 vibrator.vibrate(1);
                 item = adapterView.getItemAtPosition(i).toString();
-                Toast.makeText(Hiree_main.this,"Item "+item, Toast.LENGTH_LONG).show();
+                custSkill = item;
+                Toast.makeText(Hiree_main.this,"Item "+item, Toast.LENGTH_SHORT).show();
                 if (item.equals("Write your own")) {
                     customskill.setVisibility(View.VISIBLE);
                     hireedropd.setVisibility(View.GONE);
-                    item = customskill.getEditText().getText().toString();
+                    a=1;
                 }
             }
         });
@@ -78,6 +80,9 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
         name = hireeName.getEditText().getText().toString();
         uname = hireeUserName.getEditText().getText().toString();
         age = hireeAge.getEditText().getText().toString();
+        if (a==1){
+            custSkill = customskill.getEditText().getText().toString();
+        }
         vibrator.vibrate(5);
         if (name.isEmpty()) {
             Toast.makeText(Hiree_main.this, "Name cannot be empty", Toast.LENGTH_LONG).show();
@@ -101,7 +106,7 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
 
 
                     String id = databasehiree.push().getKey();
-                    hireeDetails hiree = new hireeDetails(id,name,uname,item,age);
+                    hireeDetails hiree = new hireeDetails(id,name,uname,custSkill,age);
                     databasehiree.child(id).setValue(hiree);
 
 
