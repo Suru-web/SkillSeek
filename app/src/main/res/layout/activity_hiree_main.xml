@@ -136,6 +136,7 @@
                     android:fontFamily="@font/comfortaa_bold"
                     android:textColorHint="@color/black"
                     android:textCursorDrawable="@null"
+                    android:singleLine="true"
                     android:hint="Your Full Name" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -163,6 +164,7 @@
                     android:fontFamily="@font/comfortaa_bold"
                     android:textColor="@color/black"
                     android:textCursorDrawable="@null"
+                    android:singleLine="true"
                     android:hint="Create a UserName" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -224,7 +226,7 @@
                     android:fontFamily="@font/comfortaa_bold"
                     android:hint="Enter Your Own Skill"
                     android:textColor="@color/black"
-                    android:maxLines="1"
+                    android:singleLine="true"
                     android:textCursorDrawable="@null"
                     android:textColorHint="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -254,6 +256,7 @@
                     android:hint="Age"
                     android:textColor="@color/black"
                     android:inputType="number"
+                    android:singleLine="true"
                     android:textCursorDrawable="@null"
                     android:textColorHint="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>

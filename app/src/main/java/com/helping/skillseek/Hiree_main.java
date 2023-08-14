@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.view.View;
@@ -30,7 +32,7 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
     Button submit;
     String bool = "false";
     Vibrator vibrator;
-    int a=0;
+    int a=0,net;
     DatabaseReference databasehiree;
 
     @Override
@@ -52,6 +54,16 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
         submit = findViewById(R.id.hireeSubmitBtn);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         databasehiree = FirebaseDatabase.getInstance().getReference("hiree");
+
+
+        if (isInternetAvailable()) {
+            net = 1;
+        } else {
+            net = 0;
+            Intent intent = new Intent(Hiree_main.this,internetnotavailable.class);
+            startActivity(intent);
+        }
+
 
         autoCompleteTextView = findViewById(R.id.dropDownAutoComplete);
         adapterSkills = new ArrayAdapter<String>(this, R.layout.hiree_skill_dropdown, skills);
@@ -96,36 +108,53 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
             } else if (Integer.parseInt(age) > 100) {
                 Toast.makeText(Hiree_main.this, "Please Select valid age", Toast.LENGTH_LONG).show();
             } else {
-                skipToParentElse:
-                {
-                    bool = "true";
-                    SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("data","true");
-                    editor.apply();
+                if (net == 1) {
+                    skipToParentElse:
+                    {
+                        bool = "true";
+                        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("data", "true");
+                        editor.apply();
 
 
-                    String id = databasehiree.push().getKey();
-                    hireeDetails hiree = new hireeDetails(id,name,uname,custSkill,age);
-                    databasehiree.child(id).setValue(hiree);
+                        String id = databasehiree.push().getKey();
+                        hireeDetails hiree = new hireeDetails(id, name, uname, custSkill, age);
+                        databasehiree.child(id).setValue(hiree);
 
 
-                    Toast.makeText(Hiree_main.this, "Data entry successful", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(this, homepage.class);
-                    startActivity(intent);
-                    break skipToParentElse;
+                        Toast.makeText(Hiree_main.this, "Data entry successful", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(this, homepage.class);
+                        startActivity(intent);
+                        break skipToParentElse;
+                    }
                 }
             }
         } else {
             bool = "true";
-            SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("data","true");
-            editor.apply();
-            Toast.makeText(Hiree_main.this, "Data entry successful", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(this, homepage.class);
+            if (net == 1) {
+                SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("data", "true");
+                editor.apply();
+                Toast.makeText(Hiree_main.this, "Data entry successful", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this, homepage.class);
+                startActivity(intent);
+            }
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (isInternetAvailable()) {
+            net = 1;
+        } else {
+            net = 0;
+            Intent intent = new Intent(Hiree_main.this,internetnotavailable.class);
             startActivity(intent);
         }
+
     }
 
     @Override
@@ -137,5 +166,13 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
             Intent intent = new Intent(this, homepage.class);
             startActivity(intent);
         }
+    }
+    public boolean isInternetAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager != null) {
+            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+            return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+        }
+        return false;
     }
 }

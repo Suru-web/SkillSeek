@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".internetnotavailable">
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_marginTop="152dp"
+        android:scaleType="centerCrop"
+        app:flow_horizontalAlign="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/nointernet" />
+
+    <Button
+        android:id="@+id/buttonOnInternet"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/comfortaa_bold"
+        android:textSize="15dp"
+        android:textColor="@color/black"
+        app:flow_horizontalAlign="center"
+        android:elevation="10dp"
+        android:stateListAnimator="@null"
+        android:backgroundTint="#d2efff"
+        android:text="Click to turn on Internet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.view.View;
@@ -26,6 +28,7 @@ public class hirer_main extends AppCompatActivity implements View.OnClickListene
     Button submit;
     Vibrator vibrator;
     DatabaseReference databasehirer;
+    int net;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +47,14 @@ public class hirer_main extends AppCompatActivity implements View.OnClickListene
         submit = findViewById(R.id.hirerSubmitBtn);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         databasehirer = FirebaseDatabase.getInstance().getReference("hirer");//Sets the path to hirer
+
+        if (isInternetAvailable()) {
+            net = 1;
+        } else {
+            net = 0;
+            Intent intent = new Intent(hirer_main.this,internetnotavailable.class);
+            startActivity(intent);
+        }
 
         submit.setOnClickListener(this);
     }
@@ -82,27 +93,27 @@ public class hirer_main extends AppCompatActivity implements View.OnClickListene
             Toast.makeText(hirer_main.this,"Email Address is not valid",Toast.LENGTH_LONG).show();
         }
         else {
-            bool = "true";
-            if (bool.equals("true")) {
-                SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("data","true");
-                editor.apply();
+               bool = "true";
+               if (net == 1) {
+                   if (bool.equals("true")) {
+                       SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                       SharedPreferences.Editor editor = sharedPreferences.edit();
+                       editor.putString("data", "true");
+                       editor.apply();
 
-                //Adds data to firebase
-                String id = databasehirer.push().getKey();
-                hirerDetails hirer = new hirerDetails(id,name,uname,email,address);
-                databasehirer.child(id).setValue(hirer);
+                       //Adds data to firebase
+                       String id = databasehirer.push().getKey();
+                       hirerDetails hirer = new hirerDetails(id, name, uname, email, address);
+                       databasehirer.child(id).setValue(hirer);
 
 
-
-                Toast.makeText(hirer_main.this, "Data entered successfully", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(this, homepage.class);
-                startActivity(intent);
-            }
-            else{
-                Toast.makeText(hirer_main.this,"Error in sharedp",Toast.LENGTH_LONG).show();
-            }
+                       Toast.makeText(hirer_main.this, "Data entered successfully", Toast.LENGTH_LONG).show();
+                       Intent intent = new Intent(this, homepage.class);
+                       startActivity(intent);
+                   } else {
+                       Toast.makeText(hirer_main.this, "Error", Toast.LENGTH_LONG).show();
+                   }
+               }
         }
     }
 
@@ -118,6 +129,18 @@ public class hirer_main extends AppCompatActivity implements View.OnClickListene
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if (isInternetAvailable()) {
+            net = 1;
+        } else {
+            net = 0;
+            Intent intent = new Intent(hirer_main.this,internetnotavailable.class);
+            startActivity(intent);
+        }
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
@@ -126,5 +149,13 @@ public class hirer_main extends AppCompatActivity implements View.OnClickListene
             Intent intent = new Intent(this, homepage.class);
             startActivity(intent);
         }
+    }
+    public boolean isInternetAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager != null) {
+            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+            return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+        }
+        return false;
     }
 }
