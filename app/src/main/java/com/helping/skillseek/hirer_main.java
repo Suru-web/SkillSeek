@@ -103,7 +103,6 @@ public class hirer_main extends AppCompatActivity implements View.OnClickListene
     public void onClick(View view) {
         if (view.getId()==R.id.hirerProfilePictureEditBtn){
             getImage();
-            Toast.makeText(this,"upload pic",Toast.LENGTH_SHORT).show();
         }
         else if (view.getId() == R.id.hirerProfilePicture){
             showImagePopup(uri);

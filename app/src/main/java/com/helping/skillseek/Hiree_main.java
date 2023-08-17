@@ -1,26 +1,38 @@
 package com.helping.skillseek;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.PickVisualMediaRequest;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Hiree_main extends AppCompatActivity implements View.OnClickListener {
 
@@ -30,10 +42,14 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
     ArrayAdapter<String> adapterSkills;
     TextInputLayout customskill, hireedropd, hireeName, hireeUserName, hireeAge;
     Button submit;
+    ImageButton hireePutPic;
     String bool = "false",phNum;
+    CircleImageView hireeProfilePicture;
+    Uri uri;
     Vibrator vibrator;
     int a=0,net;
     DatabaseReference databasehiree;
+    private ActivityResultLauncher<PickVisualMediaRequest> pickMedia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +66,24 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
         hireedropd = findViewById(R.id.hireeDropD);
         hireeName = findViewById(R.id.hireeNameLayout);
         hireeUserName = findViewById(R.id.hireeUserNameLayout);
+        hireePutPic = findViewById(R.id.hireeProfilePictureEditBtn);
+        hireeProfilePicture = findViewById(R.id.hireeProfilePicture);
+        hireeProfilePicture.setImageResource(R.drawable.profilepicture);
         hireeAge = findViewById(R.id.hireeAge);
         submit = findViewById(R.id.hireeSubmitBtn);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         databasehiree = FirebaseDatabase.getInstance().getReference("hiree");
+
+        pickMedia =
+                registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), selectedUri -> {
+                    if (selectedUri != null) {
+                        Log.d("PhotoPicker", "Selected URI: " + selectedUri);
+                        hireeProfilePicture.setImageURI(selectedUri);
+                        uri = selectedUri;
+                    } else {
+                        Log.d("PhotoPicker", "No media selected");
+                    }
+                });
 
 
         if (isInternetAvailable()) {
@@ -84,63 +114,73 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
         });
 
         submit.setOnClickListener(this);
+        hireeProfilePicture.setOnClickListener(this);
+        hireePutPic.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
-        String name, uname, age;
-        name = hireeName.getEditText().getText().toString();
-        uname = hireeUserName.getEditText().getText().toString();
-        age = hireeAge.getEditText().getText().toString();
-        if (a==1){
-            custSkill = customskill.getEditText().getText().toString();
-        }
-        vibrator.vibrate(5);
-        if (name.isEmpty()) {
-            Toast.makeText(Hiree_main.this, "Name cannot be empty", Toast.LENGTH_LONG).show();
-        } else if (uname.isEmpty()) {
-            Toast.makeText(Hiree_main.this, "UserName cannot be empty", Toast.LENGTH_LONG).show();
-        } else if (age.isEmpty()) {
-            Toast.makeText(Hiree_main.this, "Age cannot be empty", Toast.LENGTH_LONG).show();
-        } else if (!age.isEmpty()) {
-            if (Integer.parseInt(age) <= 20) {
-                Toast.makeText(Hiree_main.this, "People below 20 age not allowed", Toast.LENGTH_LONG).show();
-            } else if (Integer.parseInt(age) > 100) {
-                Toast.makeText(Hiree_main.this, "Please Select valid age", Toast.LENGTH_LONG).show();
-            } else {
-                if (net == 1) {
-                    skipToParentElse:
-                    {
-                        bool = "true";
-                        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("data", "true");
-                        editor.apply();
+        if (view.getId()==R.id.hireeSubmitBtn){
+            String name, uname, age;
+            name = hireeName.getEditText().getText().toString();
+            uname = hireeUserName.getEditText().getText().toString();
+            age = hireeAge.getEditText().getText().toString();
+            if (a==1){
+                custSkill = customskill.getEditText().getText().toString();
+            }
+            vibrator.vibrate(5);
+            if (name.isEmpty()) {
+                Toast.makeText(Hiree_main.this, "Name cannot be empty", Toast.LENGTH_LONG).show();
+            } else if (uname.isEmpty()) {
+                Toast.makeText(Hiree_main.this, "UserName cannot be empty", Toast.LENGTH_LONG).show();
+            } else if (age.isEmpty()) {
+                Toast.makeText(Hiree_main.this, "Age cannot be empty", Toast.LENGTH_LONG).show();
+            } else if (!age.isEmpty()) {
+                if (Integer.parseInt(age) <= 20) {
+                    Toast.makeText(Hiree_main.this, "People below 20 age not allowed", Toast.LENGTH_LONG).show();
+                } else if (Integer.parseInt(age) > 100) {
+                    Toast.makeText(Hiree_main.this, "Please Select valid age", Toast.LENGTH_LONG).show();
+                } else {
+                    if (net == 1) {
+                        skipToParentElse:
+                        {
+                            bool = "true";
+                            SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("data", "true");
+                            editor.apply();
 
 
-                        String id = databasehiree.push().getKey();
-                        hireeDetails hiree = new hireeDetails(id, name, uname, custSkill, age);
-                        databasehiree.child(id).setValue(hiree);
+                            String id = databasehiree.push().getKey();
+                            hireeDetails hiree = new hireeDetails(id, name, uname, custSkill, age);
+                            databasehiree.child(id).setValue(hiree);
 
 
-                        Toast.makeText(Hiree_main.this, "Data entry successful", Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(this, homepage.class);
-                        startActivity(intent);
-                        break skipToParentElse;
+                            Toast.makeText(Hiree_main.this, "Data entry successful", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(this, homepage.class);
+                            startActivity(intent);
+                            break skipToParentElse;
+                        }
                     }
                 }
+            } else {
+                bool = "true";
+                if (net == 1) {
+                    SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("data", "true");
+                    editor.apply();
+                    Toast.makeText(Hiree_main.this, "Data entry successful", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(this, homepage.class);
+                    startActivity(intent);
+                }
             }
-        } else {
-            bool = "true";
-            if (net == 1) {
-                SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("data", "true");
-                editor.apply();
-                Toast.makeText(Hiree_main.this, "Data entry successful", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(this, homepage.class);
-                startActivity(intent);
-            }
+        }
+        else if (view.getId()==R.id.hireeProfilePictureEditBtn){
+            getImage();
+        }
+        else if (view.getId()==R.id.hireeProfilePicture){
+            showImagePopup(uri);
         }
     }
 
@@ -174,5 +214,32 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
             return activeNetworkInfo != null && activeNetworkInfo.isConnected();
         }
         return false;
+    }
+    public void getImage(){
+        pickMedia.launch(new PickVisualMediaRequest.Builder()
+                .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
+                .build());
+    }
+    private void showImagePopup(Uri uri) {
+        final Dialog dialog = new Dialog(this, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(true);
+
+
+        ImageView imageView = new ImageView(this);
+        imageView.setImageURI(uri);
+        imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.addContentView(imageView, new RelativeLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT));
+
+        dialog.show();
     }
 }
