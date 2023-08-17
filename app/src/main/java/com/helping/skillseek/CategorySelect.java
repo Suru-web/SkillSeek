@@ -46,7 +46,6 @@ public class CategorySelect extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.imageButtonManager){
-            Toast.makeText(this, "You are a manager", Toast.LENGTH_SHORT).show();
             vibrator.vibrate(5);
             SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -56,7 +55,6 @@ public class CategorySelect extends AppCompatActivity implements View.OnClickLis
             startActivity(intent);
 
         } else if (view.getId() == R.id.imageButtonWorker) {
-            Toast.makeText(this, "You are a worker", Toast.LENGTH_SHORT).show();
             vibrator.vibrate(5);
             SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
