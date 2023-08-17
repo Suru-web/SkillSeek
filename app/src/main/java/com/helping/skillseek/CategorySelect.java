@@ -17,6 +17,7 @@ public class CategorySelect extends AppCompatActivity implements View.OnClickLis
 
     ImageButton hirerBtn, workerBtn;
     Vibrator vibrator;
+    String number;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +39,8 @@ public class CategorySelect extends AppCompatActivity implements View.OnClickLis
         hirerBtn.setOnClickListener(this);
         workerBtn.setOnClickListener(this);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        Intent intent = getIntent();
+        number = intent.getStringExtra("phoneNumber");
     }
 
     @Override

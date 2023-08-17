@@ -38,4 +38,5 @@ public class hirerDetails {
     public String getAddress() {
         return address;
     }
+
 }

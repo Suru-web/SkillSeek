@@ -55,14 +55,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
-            <ImageButton
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/hirerProfilePicture"
                 android:layout_centerHorizontal="true"
                 android:layout_width="90dp"
                 android:layout_height="90dp"
                 android:contentDescription="Profile Picture"
-                android:scaleType="centerCrop"
-                android:background="@color/white"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="65dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -70,8 +68,8 @@
                 app:srcCompat="@drawable/profilepicture" />
 
             <ImageButton
-                android:contentDescription="edit BUtton"
-                android:id="@+id/hireeProfilePictureEditBtn"
+                android:contentDescription="edit Button"
+                android:id="@+id/hirerProfilePictureEditBtn"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_alignParentTop="true"

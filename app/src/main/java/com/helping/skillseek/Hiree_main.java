@@ -30,7 +30,7 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
     ArrayAdapter<String> adapterSkills;
     TextInputLayout customskill, hireedropd, hireeName, hireeUserName, hireeAge;
     Button submit;
-    String bool = "false";
+    String bool = "false",phNum;
     Vibrator vibrator;
     int a=0,net;
     DatabaseReference databasehiree;

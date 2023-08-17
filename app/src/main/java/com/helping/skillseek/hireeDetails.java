@@ -38,4 +38,5 @@ public class hireeDetails {
     public String getAge() {
         return age;
     }
+
 }
