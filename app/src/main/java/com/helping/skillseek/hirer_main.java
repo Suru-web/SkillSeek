@@ -26,7 +26,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.Manifest;
-import android.content.pm.PackageManager;
 
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
@@ -81,19 +80,16 @@ public class hirer_main extends AppCompatActivity implements View.OnClickListene
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         databasehirer = FirebaseDatabase.getInstance().getReference("hirer");//Sets the path to hirer
 
-
         //code for selecting image from gallery
-        pickMedia =
-                registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), selectedUri -> {
-                    if (selectedUri != null) {
-                        Log.d("PhotoPicker", "Selected URI: " + selectedUri);
-                        hirerProfilePicture.setImageURI(selectedUri);
-                        imageUri = selectedUri;
-                    } else {
-                        Log.d("PhotoPicker", "No media selected");
-                    }
-                });
-
+        pickMedia = registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), selectedUri -> {
+            if (selectedUri != null) {
+                Log.d("PhotoPicker", "Selected URI: " + selectedUri);
+                hirerProfilePicture.setImageURI(selectedUri);
+                imageUri = selectedUri;
+            } else {
+                Log.d("PhotoPicker", "No media selected");
+            }
+        });
 
         if (isInternetAvailable()) {
             net = 1;
@@ -110,7 +106,6 @@ public class hirer_main extends AppCompatActivity implements View.OnClickListene
 
     @Override
     public void onClick(View view) {
-        AtomicReference<String> finalImageDownloadUrl = new AtomicReference<>("");
         if (view.getId()==R.id.hirerProfilePictureEditBtn){
             getImage();
         }
@@ -132,8 +127,6 @@ public class hirer_main extends AppCompatActivity implements View.OnClickListene
             else {
                 requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
             }
-
-
             if (name.isEmpty()){
                 bool = "false";
                 Toast.makeText(hirer_main.this,"Name cannot be empty",Toast.LENGTH_SHORT).show();
@@ -163,25 +156,18 @@ public class hirer_main extends AppCompatActivity implements View.OnClickListene
                         if (imageUri!=null){
                             UploadTask uploadTask = imagereference.putFile(imageUri);
                             uploadTask.addOnSuccessListener(taskSnapshot -> {
-                                // Image uploaded successfully, you can get the download URL
                                 Task<Uri> downloadUrlTask = imagereference.getDownloadUrl();
                                 downloadUrlTask.addOnSuccessListener(uri1 -> {
                                     downloadUrl = uri1.toString();
-                                    Toast.makeText(this,"Downloaded the url",Toast.LENGTH_SHORT).show();
-                                    // Now you can save this download URL to the user's profile in the Firebase Realtime Database
+                                    imageDownloadUrl = downloadUrl;
+                                    uID = id;
+                                    hirerDetails hirer = new hirerDetails(id, name, uname, email, address,downloadUrl);   //Adds data to firebase
+                                    databasehirer.child(id).setValue(hirer);
                                 });
                             }).addOnFailureListener(exception -> {
                                 Toast.makeText(this,"Image not uploaded",Toast.LENGTH_SHORT).show();
                             });
                         }
-
-                        //Adds data to firebase
-
-                        uID = id;
-                        hirerDetails hirer = new hirerDetails(id, name, uname, email, address,downloadUrl);
-                        databasehirer.child(id).setValue(hirer);
-
-
                         Intent intent = new Intent(this, homepage.class);
                         startActivity(intent);
                     } else {
