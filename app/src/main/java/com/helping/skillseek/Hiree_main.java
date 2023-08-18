@@ -200,13 +200,14 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
                                 uID = id;
                                 hireeDetails hiree = new hireeDetails(id, name, uname, custSkill, age,downloadUrl);
                                 databasehiree.child(id).setValue(hiree);
+                                Intent intent = new Intent(this, homepage.class);
+                                intent.putExtra("uri",downloadUrl);
+                                startActivity(intent);
                             });
                         }).addOnFailureListener(exception -> {
                             Toast.makeText(this,"Image not uploaded",Toast.LENGTH_SHORT).show();
                         });
                     }
-                    Intent intent = new Intent(this, homepage.class);
-                    startActivity(intent);
                 }
             }
         }

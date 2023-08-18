@@ -12,10 +12,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.divider.MaterialDivider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class homepage extends AppCompatActivity {
+    CircleImageView profilePic;
 
     TextView skillseek;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +40,14 @@ public class homepage extends AppCompatActivity {
 
         skillseek = findViewById(R.id.textSkillSeek);
         skillseek.setHapticFeedbackEnabled(true);
+
+        profilePic = findViewById(R.id.profilepicdisplay);
+        String profilePicImage = getIntent().getStringExtra("uri");
+        Picasso.get()
+                .load(profilePicImage)
+                .placeholder(R.drawable.profilepicture)
+                .error(R.drawable.profilepicture)
+                .into(profilePic);
 
     }
 

@@ -163,13 +163,15 @@ public class hirer_main extends AppCompatActivity implements View.OnClickListene
                                     uID = id;
                                     hirerDetails hirer = new hirerDetails(id, name, uname, email, address,downloadUrl);   //Adds data to firebase
                                     databasehirer.child(id).setValue(hirer);
+
+                                    Intent intent = new Intent(this, homepage.class);
+                                    intent.putExtra("uri",downloadUrl);
+                                    startActivity(intent);
                                 });
                             }).addOnFailureListener(exception -> {
                                 Toast.makeText(this,"Image not uploaded",Toast.LENGTH_SHORT).show();
                             });
                         }
-                        Intent intent = new Intent(this, homepage.class);
-                        startActivity(intent);
                     } else {
                         Toast.makeText(hirer_main.this, "Error, Data not saved", Toast.LENGTH_SHORT).show();
                     }
