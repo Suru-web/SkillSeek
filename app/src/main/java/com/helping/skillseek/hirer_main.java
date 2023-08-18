@@ -28,11 +28,15 @@ import android.widget.Toast;
 import android.Manifest;
 import android.content.pm.PackageManager;
 
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.util.concurrent.atomic.AtomicReference;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -43,12 +47,17 @@ public class hirer_main extends AppCompatActivity implements View.OnClickListene
     ImageButton hirerPutPic;
     CircleImageView hirerProfilePicture;
     Vibrator vibrator;
+    String uID;
+    String downloadUrl;
     DatabaseReference databasehirer;
     FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
     StorageReference storageReference = firebaseStorage.getReference();
     StorageReference profilePicsRef = storageReference.child("hirer_profile_pictures");
+
     private ActivityResultLauncher<PickVisualMediaRequest> pickMedia;
-    Uri uri;
+    Uri imageUri;
+    String imageDownloadUrl;
+    StorageReference imagereference;
     int net;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +88,7 @@ public class hirer_main extends AppCompatActivity implements View.OnClickListene
                     if (selectedUri != null) {
                         Log.d("PhotoPicker", "Selected URI: " + selectedUri);
                         hirerProfilePicture.setImageURI(selectedUri);
-                        uri = selectedUri;
+                        imageUri = selectedUri;
                     } else {
                         Log.d("PhotoPicker", "No media selected");
                     }
@@ -101,11 +110,12 @@ public class hirer_main extends AppCompatActivity implements View.OnClickListene
 
     @Override
     public void onClick(View view) {
+        AtomicReference<String> finalImageDownloadUrl = new AtomicReference<>("");
         if (view.getId()==R.id.hirerProfilePictureEditBtn){
             getImage();
         }
         else if (view.getId() == R.id.hirerProfilePicture){
-            showImagePopup(uri);
+            showImagePopup(imageUri);
         }
         else if (view.getId()== R.id.hirerSubmitBtn){
             vibrator.vibrate(5);
@@ -117,7 +127,7 @@ public class hirer_main extends AppCompatActivity implements View.OnClickListene
             String bool = "false";
 
             if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(hirer_main.this,"Location access already granted",Toast.LENGTH_LONG);
+                Toast.makeText(hirer_main.this,"Location access already granted",Toast.LENGTH_SHORT);
             }
             else {
                 requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
@@ -126,40 +136,56 @@ public class hirer_main extends AppCompatActivity implements View.OnClickListene
 
             if (name.isEmpty()){
                 bool = "false";
-                Toast.makeText(hirer_main.this,"Name cannot be empty",Toast.LENGTH_LONG).show();
+                Toast.makeText(hirer_main.this,"Name cannot be empty",Toast.LENGTH_SHORT).show();
             } else if (email.isEmpty()) {
                 bool = "false";
-                Toast.makeText(hirer_main.this,"Email cannot be empty",Toast.LENGTH_LONG).show();
+                Toast.makeText(hirer_main.this,"Email cannot be empty",Toast.LENGTH_SHORT).show();
             } else if (uname.isEmpty()) {
                 bool = "false";
-                Toast.makeText(hirer_main.this,"UserName cannot be empty",Toast.LENGTH_LONG).show();
+                Toast.makeText(hirer_main.this,"UserName cannot be empty",Toast.LENGTH_SHORT).show();
             } else if (address.isEmpty()) {
                 bool = "false";
-                Toast.makeText(hirer_main.this,"Address cannot be empty",Toast.LENGTH_LONG).show();
+                Toast.makeText(hirer_main.this,"Address cannot be empty",Toast.LENGTH_SHORT).show();
             } else if (!email.contains("@")||!email.contains(".com")) {
                 bool = "false";
-                Toast.makeText(hirer_main.this,"Email Address is not valid",Toast.LENGTH_LONG).show();
+                Toast.makeText(hirer_main.this,"Email Address is not valid",Toast.LENGTH_SHORT).show();
             }
             else {
                 bool = "true";
                 if (net == 1) {
                     if (bool.equals("true")) {
+                        String id = databasehirer.push().getKey();
+                        imagereference = profilePicsRef.child(id);
                         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("data", "true");
                         editor.apply();
+                        if (imageUri!=null){
+                            UploadTask uploadTask = imagereference.putFile(imageUri);
+                            uploadTask.addOnSuccessListener(taskSnapshot -> {
+                                // Image uploaded successfully, you can get the download URL
+                                Task<Uri> downloadUrlTask = imagereference.getDownloadUrl();
+                                downloadUrlTask.addOnSuccessListener(uri1 -> {
+                                    downloadUrl = uri1.toString();
+                                    Toast.makeText(this,"Downloaded the url",Toast.LENGTH_SHORT).show();
+                                    // Now you can save this download URL to the user's profile in the Firebase Realtime Database
+                                });
+                            }).addOnFailureListener(exception -> {
+                                Toast.makeText(this,"Image not uploaded",Toast.LENGTH_SHORT).show();
+                            });
+                        }
 
                         //Adds data to firebase
-                        String id = databasehirer.push().getKey();
-                        hirerDetails hirer = new hirerDetails(id, name, uname, email, address);
+
+                        uID = id;
+                        hirerDetails hirer = new hirerDetails(id, name, uname, email, address,downloadUrl);
                         databasehirer.child(id).setValue(hirer);
 
 
-                        Toast.makeText(hirer_main.this, "Data entered successfully", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(this, homepage.class);
                         startActivity(intent);
                     } else {
-                        Toast.makeText(hirer_main.this, "Error", Toast.LENGTH_LONG).show();
+                        Toast.makeText(hirer_main.this, "Error, Data not saved", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -171,7 +197,7 @@ public class hirer_main extends AppCompatActivity implements View.OnClickListene
     public void onRequestPermissionResult(int requestCode, String[] permissions, int [] grantResults){
         if (requestCode == 1) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(hirer_main.this,"Location access granted now",Toast.LENGTH_LONG);
+                Toast.makeText(hirer_main.this,"Location access granted now",Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "Location permission denied.", Toast.LENGTH_SHORT).show();
             }

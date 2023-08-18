@@ -104,7 +104,6 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
                 vibrator.vibrate(1);
                 item = adapterView.getItemAtPosition(i).toString();
                 custSkill = item;
-                Toast.makeText(Hiree_main.this,"Item "+item, Toast.LENGTH_SHORT).show();
                 if (item.equals("Write your own")) {
                     customskill.setVisibility(View.VISIBLE);
                     hireedropd.setVisibility(View.GONE);
@@ -156,7 +155,6 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
                             databasehiree.child(id).setValue(hiree);
 
 
-                            Toast.makeText(Hiree_main.this, "Data entry successful", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(this, homepage.class);
                             startActivity(intent);
                             break skipToParentElse;
@@ -170,7 +168,6 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("data", "true");
                     editor.apply();
-                    Toast.makeText(Hiree_main.this, "Data entry successful", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(this, homepage.class);
                     startActivity(intent);
                 }
