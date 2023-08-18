@@ -6,17 +6,19 @@ public class hireeDetails {
     String username;
     String skill;
     String age;
+    String downloadUrl;
 
-    public hireeDetails(){
+    public hireeDetails(String id, String name, String uname, String[] skills, String age, String downloadUrl){
 
     }
 
-    public hireeDetails(String id,String name, String username, String skill, String age) {
+    public hireeDetails(String id,String name, String username, String skill, String age,String downloadUrl) {
         this.id = id;
         this.name = name;
         this.username = username;
         this.skill = skill;
         this.age = age;
+        this.downloadUrl = downloadUrl;
     }
 
     public String getId() {
@@ -39,4 +41,7 @@ public class hireeDetails {
         return age;
     }
 
+    public String getDownloadUrl() {
+        return downloadUrl;
+    }
 }

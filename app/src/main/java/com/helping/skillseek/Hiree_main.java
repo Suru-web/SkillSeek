@@ -28,16 +28,20 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Hiree_main extends AppCompatActivity implements View.OnClickListener {
 
     String[] skills = {"Plumber", "Carpenter", "Painter", "Gardener", "House Cleaning", "Masseuse", "Cook", "Write your own"};
-    String item,custSkill;
+    String item,custSkill,downloadUrl,uID;
     AutoCompleteTextView autoCompleteTextView;
     ArrayAdapter<String> adapterSkills;
     TextInputLayout customskill, hireedropd, hireeName, hireeUserName, hireeAge;
@@ -49,7 +53,13 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
     Vibrator vibrator;
     int a=0,net;
     DatabaseReference databasehiree;
+    FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+    StorageReference storageReference = firebaseStorage.getReference();
+    StorageReference profilePicsRef = storageReference.child("hiree_profile_pictures");
     private ActivityResultLauncher<PickVisualMediaRequest> pickMedia;
+    Uri imageUri;
+    String imageDownloadUrl;
+    StorageReference imagereference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,16 +84,15 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         databasehiree = FirebaseDatabase.getInstance().getReference("hiree");
 
-        pickMedia =
-                registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), selectedUri -> {
-                    if (selectedUri != null) {
-                        Log.d("PhotoPicker", "Selected URI: " + selectedUri);
-                        hireeProfilePicture.setImageURI(selectedUri);
-                        uri = selectedUri;
-                    } else {
-                        Log.d("PhotoPicker", "No media selected");
-                    }
-                });
+        pickMedia = registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), selectedUri -> {
+            if (selectedUri != null) {
+                Log.d("PhotoPicker", "Selected URI: " + selectedUri);
+                hireeProfilePicture.setImageURI(selectedUri);
+                imageUri = selectedUri;
+            } else {
+                Log.d("PhotoPicker", "No media selected");
+            }
+        });
 
 
         if (isInternetAvailable()) {
@@ -120,6 +129,7 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
     @Override
     public void onClick(View view) {
         if (view.getId()==R.id.hireeSubmitBtn){
+            vibrator.vibrate(5);
             String name, uname, age;
             name = hireeName.getEditText().getText().toString();
             uname = hireeUserName.getEditText().getText().toString();
@@ -140,21 +150,31 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
                 } else if (Integer.parseInt(age) > 100) {
                     Toast.makeText(Hiree_main.this, "Please Select valid age", Toast.LENGTH_LONG).show();
                 } else {
+                    bool = "true";
                     if (net == 1) {
                         skipToParentElse:
                         {
-                            bool = "true";
+                            String id = databasehiree.push().getKey();
+                            imagereference = profilePicsRef.child(id);
                             SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString("data", "true");
                             editor.apply();
-
-
-                            String id = databasehiree.push().getKey();
-                            hireeDetails hiree = new hireeDetails(id, name, uname, custSkill, age);
-                            databasehiree.child(id).setValue(hiree);
-
-
+                            if (imageUri!=null) {
+                                UploadTask uploadTask = imagereference.putFile(imageUri);
+                                uploadTask.addOnSuccessListener(taskSnapshot -> {
+                                    Task<Uri> downloadUrlTask = imagereference.getDownloadUrl();
+                                    downloadUrlTask.addOnSuccessListener(uri1 -> {
+                                        downloadUrl = uri1.toString();
+                                        imageDownloadUrl = downloadUrl;
+                                        uID = id;
+                                        hireeDetails hiree = new hireeDetails(id, name, uname, custSkill, age,downloadUrl);
+                                        databasehiree.child(id).setValue(hiree);
+                                    });
+                                }).addOnFailureListener(exception -> {
+                                    Toast.makeText(this,"Image not uploaded",Toast.LENGTH_SHORT).show();
+                                });
+                            }
                             Intent intent = new Intent(this, homepage.class);
                             startActivity(intent);
                             break skipToParentElse;
@@ -164,10 +184,27 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
             } else {
                 bool = "true";
                 if (net == 1) {
+                    String id = databasehiree.push().getKey();
+                    imagereference = profilePicsRef.child(id);
                     SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("data", "true");
                     editor.apply();
+                    if (imageUri!=null) {
+                        UploadTask uploadTask = imagereference.putFile(imageUri);
+                        uploadTask.addOnSuccessListener(taskSnapshot -> {
+                            Task<Uri> downloadUrlTask = imagereference.getDownloadUrl();
+                            downloadUrlTask.addOnSuccessListener(uri1 -> {
+                                downloadUrl = uri1.toString();
+                                imageDownloadUrl = downloadUrl;
+                                uID = id;
+                                hireeDetails hiree = new hireeDetails(id, name, uname, custSkill, age,downloadUrl);
+                                databasehiree.child(id).setValue(hiree);
+                            });
+                        }).addOnFailureListener(exception -> {
+                            Toast.makeText(this,"Image not uploaded",Toast.LENGTH_SHORT).show();
+                        });
+                    }
                     Intent intent = new Intent(this, homepage.class);
                     startActivity(intent);
                 }
