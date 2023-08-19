@@ -1,0 +1,8 @@
+android.support.media.ExifInterface
+android.support.media.ExifInterface$1
+android.support.media.ExifInterface$ByteOrderedDataInputStream
+android.support.media.ExifInterface$ByteOrderedDataOutputStream
+android.support.media.ExifInterface$ExifAttribute
+android.support.media.ExifInterface$ExifTag
+android.support.media.ExifInterface$IfdType
+android.support.media.ExifInterface$Rational

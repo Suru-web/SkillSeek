@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -43,12 +44,16 @@ public class homepage extends AppCompatActivity {
 
         profilePic = findViewById(R.id.profilepicdisplay);
         String profilePicImage = getIntent().getStringExtra("uri");
-        Picasso.get()
-                .load(profilePicImage)
-                .placeholder(R.drawable.profilepicture)
-                .error(R.drawable.profilepicture)
-                .into(profilePic);
-
+        if (profilePicImage!=null && !profilePicImage.isEmpty()) {
+            Picasso.get()
+                    .load(profilePicImage)
+                    .placeholder(R.drawable.profilepicture)
+                    .error(R.drawable.profilepicture)
+                    .into(profilePic);
+        }
+        else {
+            Toast.makeText(this,"Profile pic image not loaded",Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
