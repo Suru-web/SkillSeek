@@ -5,10 +5,12 @@ import androidx.activity.result.PickVisualMediaRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -154,6 +156,12 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
                     if (net == 1) {
                         skipToParentElse:
                         {
+                            if (checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED) {
+                                Toast.makeText(Hiree_main.this,"Location access already granted",Toast.LENGTH_SHORT);
+                            }
+                            else {
+                                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
+                            }
                             String id = databasehiree.push().getKey();
                             imagereference = profilePicsRef.child(id);
                             SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
@@ -172,6 +180,8 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
 
                                         Intent intent = new Intent(this, homepage.class);
                                         editor.putString("imageurl",downloadUrl);
+                                        editor.putString("uniqueID",uID);
+                                        editor.putString("category","Hiree");
                                         editor.apply();
                                         startActivity(intent);
                                     });
@@ -183,36 +193,45 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
                         }
                     }
                 }
-            } else {
-                bool = "true";
-                if (net == 1) {
-                    String id = databasehiree.push().getKey();
-                    imagereference = profilePicsRef.child(id);
-                    SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("data", "true");
-                    if (imageUri!=null) {
-                        UploadTask uploadTask = imagereference.putFile(imageUri);
-                        uploadTask.addOnSuccessListener(taskSnapshot -> {
-                            Task<Uri> downloadUrlTask = imagereference.getDownloadUrl();
-                            downloadUrlTask.addOnSuccessListener(uri1 -> {
-                                downloadUrl = uri1.toString();
-                                imageDownloadUrl = downloadUrl;
-                                uID = id;
-                                editor.putString("imageurl",downloadUrl);
-                                editor.apply();
-                                hireeDetails hiree = new hireeDetails(id, name, uname, custSkill, age,downloadUrl);
-                                databasehiree.child(id).setValue(hiree);
-
-                                Intent intent = new Intent(this, homepage.class);
-                                startActivity(intent);
-                            });
-                        }).addOnFailureListener(exception -> {
-                            Toast.makeText(this,"Image not uploaded",Toast.LENGTH_SHORT).show();
-                        });
-                    }
-                }
             }
+//            else {
+//                bool = "true";
+//                if (net == 1) {
+//                    if (checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED) {
+//                        Toast.makeText(Hiree_main.this,"Location access already granted",Toast.LENGTH_SHORT);
+//                    }
+//                    else {
+//                        requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
+//                    }
+//                    String id = databasehiree.push().getKey();
+//                    imagereference = profilePicsRef.child(id);
+//                    SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+//                    SharedPreferences.Editor editor = sharedPreferences.edit();
+//                    editor.putString("data", "true");
+//                    if (imageUri!=null) {
+//                        UploadTask uploadTask = imagereference.putFile(imageUri);
+//                        uploadTask.addOnSuccessListener(taskSnapshot -> {
+//                            Task<Uri> downloadUrlTask = imagereference.getDownloadUrl();
+//                            downloadUrlTask.addOnSuccessListener(uri1 -> {
+//                                downloadUrl = uri1.toString();
+//                                imageDownloadUrl = downloadUrl;
+//                                uID = id;
+//                                editor.putString("imageurl",downloadUrl);
+//                                editor.putString("uniqueID",uID);
+//                                editor.putString("category","hiree");
+//                                editor.apply();
+//                                hireeDetails hiree = new hireeDetails(id, name, uname, custSkill, age,downloadUrl);
+//                                databasehiree.child(id).setValue(hiree);
+//
+//                                Intent intent = new Intent(this, homepage.class);
+//                                startActivity(intent);
+//                            });
+//                        }).addOnFailureListener(exception -> {
+//                            Toast.makeText(this,"Image not uploaded",Toast.LENGTH_SHORT).show();
+//                        });
+//                    }
+//                }
+//            }
         }
         else if (view.getId()==R.id.hireeProfilePictureEditBtn){
             getImage();
@@ -243,6 +262,7 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
         if (fetchedCategory.equals("true")){
             Intent intent = new Intent(this, homepage.class);
             startActivity(intent);
+            finish();
         }
     }
     public boolean isInternetAvailable() {
@@ -279,5 +299,14 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
                 ViewGroup.LayoutParams.MATCH_PARENT));
 
         dialog.show();
+    }
+    public void onRequestPermissionResult(int requestCode, String[] permissions, int [] grantResults){
+        if (requestCode == 1) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(Hiree_main.this,"Location access granted now",Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Location permission denied.", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

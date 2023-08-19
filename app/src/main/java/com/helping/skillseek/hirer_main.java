@@ -161,6 +161,8 @@ public class hirer_main extends AppCompatActivity implements View.OnClickListene
                                     imageDownloadUrl = downloadUrl;
                                     uID = id;
                                     editor.putString("imageurl",downloadUrl);
+                                    editor.putString("uniqueID",uID);
+                                    editor.putString("category","Hirer");
                                     editor.apply();
                                     hirerDetails hirer = new hirerDetails(id, name, uname, email, address,downloadUrl);   //Adds data to firebase
                                     databasehirer.child(id).setValue(hirer);
@@ -213,6 +215,7 @@ public class hirer_main extends AppCompatActivity implements View.OnClickListene
         if (fetchedCategory.equals("true")){
             Intent intent = new Intent(this, homepage.class);
             startActivity(intent);
+            finish();
         }
     }
     public boolean isInternetAvailable() {

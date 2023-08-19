@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -19,10 +20,11 @@ import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class homepage extends AppCompatActivity {
+public class homepage extends AppCompatActivity implements View.OnClickListener {
     CircleImageView profilePic;
 
     TextView skillseek;
+    Vibrator vibrator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +42,14 @@ public class homepage extends AppCompatActivity {
         window.getDecorView().setSystemUiVisibility(flags);
 
         skillseek = findViewById(R.id.textSkillSeek);
-        skillseek.setHapticFeedbackEnabled(true);
+        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
         profilePic = findViewById(R.id.profilepicdisplay);
+
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         String profilePicImage = sharedPreferences.getString("imageurl","default");
+        String id = sharedPreferences.getString("uniqueID","default");
+        Toast.makeText(this,id,Toast.LENGTH_LONG).show();
         if (profilePicImage!=null && !profilePicImage.isEmpty()) {
             Picasso.get()
                     .load(profilePicImage)
@@ -55,8 +60,17 @@ public class homepage extends AppCompatActivity {
         else {
             Toast.makeText(this,"Profile pic image not loaded",Toast.LENGTH_SHORT).show();
         }
+
+        profilePic.setOnClickListener(this);
     }
 
+
+    @Override
+    public void onClick(View v) {
+        vibrator.vibrate(1);
+        Intent intent = new Intent(this, view_profile.class);
+        startActivity(intent);
+    }
 
     @Override
     public void onBackPressed() {
