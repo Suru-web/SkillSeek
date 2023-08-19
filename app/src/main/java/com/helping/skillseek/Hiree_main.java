@@ -159,7 +159,6 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
                             SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString("data", "true");
-                            editor.apply();
                             if (imageUri!=null) {
                                 UploadTask uploadTask = imagereference.putFile(imageUri);
                                 uploadTask.addOnSuccessListener(taskSnapshot -> {
@@ -172,7 +171,8 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
                                         databasehiree.child(id).setValue(hiree);
 
                                         Intent intent = new Intent(this, homepage.class);
-                                        intent.putExtra("uri",downloadUrl);
+                                        editor.putString("imageurl",downloadUrl);
+                                        editor.apply();
                                         startActivity(intent);
                                     });
                                 }).addOnFailureListener(exception -> {
@@ -191,7 +191,6 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
                     SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("data", "true");
-                    editor.apply();
                     if (imageUri!=null) {
                         UploadTask uploadTask = imagereference.putFile(imageUri);
                         uploadTask.addOnSuccessListener(taskSnapshot -> {
@@ -200,11 +199,12 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
                                 downloadUrl = uri1.toString();
                                 imageDownloadUrl = downloadUrl;
                                 uID = id;
+                                editor.putString("imageurl",downloadUrl);
+                                editor.apply();
                                 hireeDetails hiree = new hireeDetails(id, name, uname, custSkill, age,downloadUrl);
                                 databasehiree.child(id).setValue(hiree);
 
                                 Intent intent = new Intent(this, homepage.class);
-                                intent.putExtra("uri",downloadUrl);
                                 startActivity(intent);
                             });
                         }).addOnFailureListener(exception -> {

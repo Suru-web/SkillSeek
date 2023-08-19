@@ -43,7 +43,8 @@ public class homepage extends AppCompatActivity {
         skillseek.setHapticFeedbackEnabled(true);
 
         profilePic = findViewById(R.id.profilepicdisplay);
-        String profilePicImage = getIntent().getStringExtra("uri");
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        String profilePicImage = sharedPreferences.getString("imageurl","default");
         if (profilePicImage!=null && !profilePicImage.isEmpty()) {
             Picasso.get()
                     .load(profilePicImage)
@@ -55,6 +56,7 @@ public class homepage extends AppCompatActivity {
             Toast.makeText(this,"Profile pic image not loaded",Toast.LENGTH_SHORT).show();
         }
     }
+
 
     @Override
     public void onBackPressed() {

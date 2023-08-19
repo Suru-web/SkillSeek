@@ -152,7 +152,6 @@ public class hirer_main extends AppCompatActivity implements View.OnClickListene
                         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("data", "true");
-                        editor.apply();
                         if (imageUri!=null){
                             UploadTask uploadTask = imagereference.putFile(imageUri);
                             uploadTask.addOnSuccessListener(taskSnapshot -> {
@@ -161,6 +160,8 @@ public class hirer_main extends AppCompatActivity implements View.OnClickListene
                                     downloadUrl = uri1.toString();
                                     imageDownloadUrl = downloadUrl;
                                     uID = id;
+                                    editor.putString("imageurl",downloadUrl);
+                                    editor.apply();
                                     hirerDetails hirer = new hirerDetails(id, name, uname, email, address,downloadUrl);   //Adds data to firebase
                                     databasehirer.child(id).setValue(hirer);
 
