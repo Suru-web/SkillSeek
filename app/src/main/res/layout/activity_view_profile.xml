@@ -10,10 +10,10 @@
     <RelativeLayout
         android:id="@+id/relativeLayout4"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="390dp"
         android:elevation="15dp"
         android:stateListAnimator="@null"
-        android:background="@drawable/rounded_layout"
+        android:background="@drawable/bottom_rounded_layout"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -25,7 +25,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="45dp"
+            android:layout_marginTop="25dp"
             android:background="@color/white"
             android:padding="12dp"
             android:scaleType="centerCrop"
@@ -37,7 +37,7 @@
             android:layout_height="50dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="45dp"
+            android:layout_marginTop="25dp"
             android:layout_marginEnd="10dp"
             android:background="@color/white"
             android:padding="12dp"
@@ -49,25 +49,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
             android:layout_marginStart="25dp"
-            android:layout_marginBottom="60dp"
+            android:layout_marginTop="70dp"
             android:fontFamily="@font/comfortaa_bold"
             android:text="My Profile"
             android:textColor="@color/black"
             android:textSize="25dp" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="280dp"
-        android:elevation="15dp"
-        android:stateListAnimator="@null"
-        android:background="@drawable/rounded_layout"
-        android:layout_marginTop="-50dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout4">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ppic"
@@ -75,7 +63,7 @@
             android:layout_height="130dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="150dp"
             android:elevation="25dp"
             android:src="@drawable/circle_picture"
             android:stateListAnimator="@null" />
@@ -106,19 +94,154 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:elevation="20dp"
+        android:stateListAnimator="@null"
+        android:background="@drawable/allside_round_layout"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout4">
+
+        <TextView
+            android:id="@+id/phonenum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginStart="20dp"
+            android:fontFamily="@font/comfortaa"
+            android:text="Phone Number :-"
+            android:textColor="@color/black"
+            android:textIsSelectable="true"
+            android:textSize="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_alignParentStart="true"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <TextView
             android:id="@+id/phonenumDisp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/usernameDisp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="0dp"
+            android:layout_toEndOf="@+id/phonenum"
             android:fontFamily="@font/comfortaa"
-            android:text="Phone Number"
+            android:text="Number"
             android:textColor="@color/black"
             android:textIsSelectable="true"
+            android:textSize="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
     </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:elevation="20dp"
+        android:stateListAnimator="@null"
+        android:background="@drawable/allside_round_layout"
+        android:layout_marginTop="120dp"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout4">
+
+        <TextView
+            android:id="@+id/email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginStart="20dp"
+            android:fontFamily="@font/comfortaa"
+            android:text="Email Address :-"
+            android:textColor="@color/black"
+            android:textIsSelectable="true"
+            android:textSize="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_alignParentStart="true"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/emailDisp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="0dp"
+            android:layout_toEndOf="@+id/email"
+            android:fontFamily="@font/comfortaa"
+            android:text="Email"
+            android:textColor="@color/black"
+            android:textIsSelectable="true"
+            android:textSize="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:elevation="20dp"
+        android:stateListAnimator="@null"
+        android:background="@drawable/allside_round_layout"
+        android:layout_marginTop="220dp"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout4">
+
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginStart="20dp"
+            android:fontFamily="@font/comfortaa"
+            android:text="City :-"
+            android:textColor="@color/black"
+            android:textIsSelectable="true"
+            android:textSize="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_alignParentStart="true"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/addressDisp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="0dp"
+            android:layout_toEndOf="@+id/address"
+            android:fontFamily="@font/comfortaa"
+            android:text="City"
+            android:textColor="@color/black"
+            android:textIsSelectable="true"
+            android:textSize="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/uID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/comfortaa"
+        android:text="Unique ID"
+        android:textSize="12dp"
+        android:textColor="@color/grey"
+        app:flow_horizontalAlign="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

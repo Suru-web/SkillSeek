@@ -222,7 +222,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/comfortaa_bold"
-                    android:hint="Work Address"
+                    android:hint="Work City"
                     android:inputType="textPostalAddress"
                     android:textCursorDrawable="@null"
                     android:singleLine="true"

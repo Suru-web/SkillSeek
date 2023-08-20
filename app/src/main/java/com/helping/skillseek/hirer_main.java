@@ -142,8 +142,10 @@ public class hirer_main extends AppCompatActivity implements View.OnClickListene
             } else if (!email.contains("@")||!email.contains(".com")) {
                 bool = "false";
                 Toast.makeText(hirer_main.this,"Email Address is not valid",Toast.LENGTH_SHORT).show();
-            }
-            else {
+            } else if (address.equals("Bengaluru")||address.equals("bengaluru")) {
+                bool = "false";
+                Toast.makeText(hirer_main.this,"We can only work in Bengaluru right now",Toast.LENGTH_SHORT).show();
+            } else {
                 bool = "true";
                 if (net == 1) {
                     if (bool.equals("true")) {

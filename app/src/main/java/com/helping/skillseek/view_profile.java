@@ -29,7 +29,7 @@ public class view_profile extends AppCompatActivity implements View.OnClickListe
     ImageButton backButton;
     Vibrator vibrator;
     CircleImageView profpic;
-    TextView nameDisplay, usernameDisplay,phoneDisplay;
+    TextView nameDisplay, usernameDisplay,phoneDisplay,emailDispay,addressDisplay,idDisplay;
     private DatabaseReference databaseReference;
 
     @Override
@@ -57,6 +57,9 @@ public class view_profile extends AppCompatActivity implements View.OnClickListe
         nameDisplay = findViewById(R.id.nameDisp);
         usernameDisplay = findViewById(R.id.usernameDisp);
         phoneDisplay = findViewById(R.id.phonenumDisp);
+        emailDispay = findViewById(R.id.emailDisp);
+        addressDisplay = findViewById(R.id.addressDisp);
+        idDisplay = findViewById(R.id.uID);
 
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         String profilePicImage = sharedPreferences.getString("imageurl","default");
@@ -92,9 +95,15 @@ public class view_profile extends AppCompatActivity implements View.OnClickListe
                 if (snapshot.exists()) {
                     String name = snapshot.child("name").getValue(String.class);
                     String uname = snapshot.child("username").getValue(String.class);
+                    String email = snapshot.child("email").getValue(String.class);
+                    String address = snapshot.child("address").getValue(String.class);
+                    String uniqueID = snapshot.child("id").getValue(String.class);
 
                     nameDisplay.setText(name);
                     usernameDisplay.setText(uname);
+                    emailDispay.setText(email);
+                    addressDisplay.setText(address);
+                    idDisplay.setText("Unique ID : "+uniqueID);
                 }
             }
 
