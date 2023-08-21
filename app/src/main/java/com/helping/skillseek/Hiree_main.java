@@ -50,6 +50,7 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
     Button submit;
     ImageButton hireePutPic;
     String bool = "false",phNum;
+    String skill;
     CircleImageView hireeProfilePicture;
     Uri uri;
     Vibrator vibrator;
@@ -114,7 +115,8 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 vibrator.vibrate(1);
                 item = adapterView.getItemAtPosition(i).toString();
-                custSkill = item;
+                custSkill = item.toLowerCase();
+                skill = custSkill;
                 if (item.equals("Write your own")) {
                     customskill.setVisibility(View.VISIBLE);
                     hireedropd.setVisibility(View.GONE);
@@ -138,6 +140,7 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
             age = hireeAge.getEditText().getText().toString();
             if (a==1){
                 custSkill = customskill.getEditText().getText().toString();
+                skill = custSkill.toLowerCase();
             }
             vibrator.vibrate(5);
             if (name.isEmpty()) {
@@ -175,7 +178,7 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
                                         downloadUrl = uri1.toString();
                                         imageDownloadUrl = downloadUrl;
                                         uID = id;
-                                        hireeDetails hiree = new hireeDetails(id, name, uname, custSkill, age,downloadUrl);
+                                        hireeDetails hiree = new hireeDetails(id, name, uname, skill, age,downloadUrl);
                                         databasehiree.child(id).setValue(hiree);
 
                                         Intent intent = new Intent(this, homepage.class);

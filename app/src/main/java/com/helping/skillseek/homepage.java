@@ -6,16 +6,24 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.annotation.NonNull;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.divider.MaterialDivider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -25,6 +33,9 @@ public class homepage extends AppCompatActivity implements View.OnClickListener 
 
     TextView skillseek;
     Vibrator vibrator;
+    EditText inputSkill;
+    ImageButton skillSearchBtn;
+    private DatabaseReference hireeRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +56,12 @@ public class homepage extends AppCompatActivity implements View.OnClickListener 
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
         profilePic = findViewById(R.id.profilepicdisplay);
+        inputSkill = findViewById(R.id.searchSkill);
+        skillSearchBtn = findViewById(R.id.searchButton);
 
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         String profilePicImage = sharedPreferences.getString("imageurl","default");
         String id = sharedPreferences.getString("uniqueID","default");
-        Toast.makeText(this,id,Toast.LENGTH_LONG).show();
         if (profilePicImage!=null && !profilePicImage.isEmpty()) {
             Picasso.get()
                     .load(profilePicImage)
@@ -61,15 +73,70 @@ public class homepage extends AppCompatActivity implements View.OnClickListener 
             Toast.makeText(this,"Profile pic image not loaded",Toast.LENGTH_SHORT).show();
         }
 
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        hireeRef = database.getReference("hiree");
+
+
         profilePic.setOnClickListener(this);
+        skillSearchBtn.setOnClickListener(this);
+        inputSkill.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if (i== EditorInfo.IME_ACTION_SEARCH){
+                    skillSearchBtn.performClick();
+                    return true;
+                }
+                return false;
+            }
+        });
+
     }
 
 
     @Override
     public void onClick(View v) {
-        vibrator.vibrate(1);
-        Intent intent = new Intent(this, view_profile.class);
-        startActivity(intent);
+        if (v.getId()==R.id.profilepicdisplay) {
+            vibrator.vibrate(1);
+            Intent intent = new Intent(this, view_profile.class);
+            startActivity(intent);
+        }
+        else if (v.getId()==R.id.searchButton){
+            String gotSkill = inputSkill.getText().toString().trim().toLowerCase();
+            Log.d("skill",gotSkill);
+            if (!gotSkill.isEmpty()) {
+                performSkillQuery(gotSkill);
+            } else {
+                Toast.makeText(homepage.this, "Please enter a skill to search", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+    //This code gets the skills and shows in textview
+    private void performSkillQuery(String gotSkill) {
+        hireeRef.orderByChild("skill").equalTo(gotSkill).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // Clear any previous data or update UI as needed
+                // For example, you can display the results in a TextView
+                TextView resultTextView = findViewById(R.id.textView8);
+                StringBuilder resultBuilder = new StringBuilder();
+
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    hireeDetailsForFB hiree = dataSnapshot.getValue(hireeDetailsForFB.class);
+                    String name = hiree.getName();
+                    String skill = hiree.getSkill();
+
+                    resultBuilder.append("Name: ").append(name).append("\n");
+                    resultBuilder.append("Skill: ").append(skill).append("\n\n");
+                }
+
+                resultTextView.setText(resultBuilder.toString());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("DatabaseError", "Error reading from database: " + error.getMessage());
+            }
+        });
     }
 
     @Override
