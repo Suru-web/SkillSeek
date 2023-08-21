@@ -60,10 +60,13 @@
     <RelativeLayout
         android:id="@+id/relativeLayout3"
         android:layout_width="match_parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_height="70dp"
         android:layout_marginTop="2dp"
-        android:elevation="20dp"
+        android:elevation="8dp"
         android:stateListAnimator="@null"
+        android:background="@drawable/google_like_search_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout2">
@@ -71,47 +74,34 @@
 
         <ImageButton
             android:id="@+id/imageButton3"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_alignParentTop="true"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="-70dp"
-            android:layout_marginEnd="10dp"
-            android:layout_toEndOf="@+id/homepageSearchSkill"
-            android:background="@color/white"
-            android:padding="23dp"
+            android:layout_marginEnd="20dp"
+            android:background="#f2f2f2f2"
+            android:contentDescription="Search button"
+            android:padding="14dp"
             android:scaleType="centerCrop"
             android:src="@drawable/loupe"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/homepageSearchSkill"
-            android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/searchSkill"
+            android:layout_width="263dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="20dp"
-            android:elevation="10dp"
-            android:stateListAnimator="@null"
-            android:layout_marginEnd="70dp"
-            android:textColorHint="@color/grey"
-            app:boxCornerRadiusBottomEnd="20dp"
-            app:boxCornerRadiusBottomStart="20dp"
-            app:boxCornerRadiusTopEnd="20dp"
-            app:boxCornerRadiusTopStart="20dp"
-            app:boxStrokeColor="@color/black"
-            app:hintTextColor="@color/grey">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/comfortaa_bold"
-                android:hint="Search skills"
-                android:singleLine="true"
-                android:textColor="@color/black"
-                android:textColorHint="@color/grey"
-                android:textCursorDrawable="@color/black" />
-        </com.google.android.material.textfield.TextInputLayout>
+            android:layout_centerVertical="true"
+            android:layout_marginStart="30dp"
+            android:background="@null"
+            android:ems="10"
+            android:fontFamily="@font/comfortaa"
+            android:hint="Search Skills"
+            android:inputType="text"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:textCursorDrawable="@null" />
 
 
     </RelativeLayout>
@@ -119,6 +109,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout3">
 
