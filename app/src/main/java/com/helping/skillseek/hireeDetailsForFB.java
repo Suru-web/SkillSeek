@@ -4,15 +4,17 @@ public class hireeDetailsForFB {
     private String id;
     private String name;
     private String skill;
+    private String imageURL;
 
     public hireeDetailsForFB() {
         // Required default constructor for Firebase
     }
 
-    public hireeDetailsForFB(String id, String name, String skill) {
+    public hireeDetailsForFB(String id, String name, String skill,String imageURL) {
         this.id = id;
         this.name = name;
         this.skill = skill;
+        this.imageURL =imageURL;
     }
 
     public String getId() {
@@ -27,6 +29,10 @@ public class hireeDetailsForFB {
         return name;
     }
 
+    public String getImageURL() {
+        return imageURL;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -37,5 +43,9 @@ public class hireeDetailsForFB {
 
     public void setSkill(String skill) {
         this.skill = skill;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 }

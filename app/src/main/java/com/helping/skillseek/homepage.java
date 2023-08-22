@@ -1,6 +1,8 @@
 package com.helping.skillseek;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -26,6 +28,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class homepage extends AppCompatActivity implements View.OnClickListener {
@@ -35,7 +39,12 @@ public class homepage extends AppCompatActivity implements View.OnClickListener 
     Vibrator vibrator;
     EditText inputSkill;
     ImageButton skillSearchBtn;
-    private DatabaseReference hireeRef;
+    RecyclerView recyclerView;
+    DatabaseReference hireeRef;
+    hireeAdapter adapter;
+    String gotSkill;
+    ArrayList<hireeDetailsForFB> list;
+    int z=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,12 +61,27 @@ public class homepage extends AppCompatActivity implements View.OnClickListener 
         flags |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
         window.getDecorView().setSystemUiVisibility(flags);
 
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        hireeRef = database.getReference("hiree");
+
+
         skillseek = findViewById(R.id.textSkillSeek);
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
         profilePic = findViewById(R.id.profilepicdisplay);
         inputSkill = findViewById(R.id.searchSkill);
         skillSearchBtn = findViewById(R.id.searchButton);
+        recyclerView = findViewById(R.id.hireeListDisplay);
+
+
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        list = new ArrayList<>();
+        adapter = new hireeAdapter(this,list);
+        recyclerView.setAdapter(adapter);
+
 
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         String profilePicImage = sharedPreferences.getString("imageurl","default");
@@ -73,9 +97,6 @@ public class homepage extends AppCompatActivity implements View.OnClickListener 
             Toast.makeText(this,"Profile pic image not loaded",Toast.LENGTH_SHORT).show();
         }
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        hireeRef = database.getReference("hiree");
-
 
         profilePic.setOnClickListener(this);
         skillSearchBtn.setOnClickListener(this);
@@ -89,8 +110,11 @@ public class homepage extends AppCompatActivity implements View.OnClickListener 
                 return false;
             }
         });
+        z=0;
+        performSkillQuery(gotSkill);
 
     }
+
 
 
     @Override
@@ -101,9 +125,10 @@ public class homepage extends AppCompatActivity implements View.OnClickListener 
             startActivity(intent);
         }
         else if (v.getId()==R.id.searchButton){
-            String gotSkill = inputSkill.getText().toString().trim().toLowerCase();
+            gotSkill = inputSkill.getText().toString().trim().toLowerCase();
             Log.d("skill",gotSkill);
             if (!gotSkill.isEmpty()) {
+                z=1;
                 performSkillQuery(gotSkill);
             } else {
                 Toast.makeText(homepage.this, "Please enter a skill to search", Toast.LENGTH_SHORT).show();
@@ -113,25 +138,24 @@ public class homepage extends AppCompatActivity implements View.OnClickListener 
     //This code gets the skills and shows in textview
     private void performSkillQuery(String partialSkill) {
         hireeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                // Clear any previous data or update UI as needed
-                // For example, you can display the results in a TextView
-                TextView resultTextView = findViewById(R.id.textView8);
-                StringBuilder resultBuilder = new StringBuilder();
+                list.clear();
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     hireeDetailsForFB hiree = dataSnapshot.getValue(hireeDetailsForFB.class);
-                    String name = hiree.getName();
-                    String skill = hiree.getSkill();
-
-                    if (skill.contains(partialSkill)) {
-                        resultBuilder.append("Name: ").append(name).append("\n");
-                        resultBuilder.append("Skill: ").append(skill).append("\n\n");
+                    if (z == 1) {
+                        String skill = hiree.getSkill().toLowerCase();
+                        if (skill.contains(partialSkill)) {
+                            list.add(hiree);
+                        }
+                    }
+                    else {
+                        list.add(hiree);
                     }
                 }
-
-                resultTextView.setText(resultBuilder.toString());
+                adapter.notifyDataSetChanged();
             }
 
             @Override

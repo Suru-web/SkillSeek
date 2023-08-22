@@ -7,42 +7,50 @@
     android:background="@color/white"
     tools:context=".view_profile">
 
+    <ImageButton
+        android:id="@+id/goback"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:background="@color/white"
+        android:padding="12dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/backbutton"
+        app:layout_constraintBottom_toTopOf="@+id/relativeLayout4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/menuBtn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="10dp"
+        android:background="@color/white"
+        android:padding="12dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@+id/relativeLayout4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/menudots" />
+
     <RelativeLayout
         android:id="@+id/relativeLayout4"
         android:layout_width="match_parent"
-        android:layout_height="390dp"
-        android:elevation="15dp"
+        android:layout_height="330dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/allside_round_layout"
+        android:elevation="8dp"
         android:stateListAnimator="@null"
-        android:background="@drawable/bottom_rounded_layout"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageButton
-            android:id="@+id/goback"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="25dp"
-            android:background="@color/white"
-            android:padding="12dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/backbutton" />
-
-        <ImageButton
-            android:id="@+id/menuBtn"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="10dp"
-            android:background="@color/white"
-            android:padding="12dp"
-            android:scaleType="centerCrop"
-            app:srcCompat="@drawable/menudots" />
 
         <TextView
             android:id="@+id/textView11"
@@ -51,9 +59,10 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginStart="25dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/comfortaa_bold"
             android:text="My Profile"
+            android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="25dp" />
 
@@ -63,7 +72,7 @@
             android:layout_height="130dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="100dp"
             android:elevation="25dp"
             android:src="@drawable/circle_picture"
             android:stateListAnimator="@null" />
@@ -77,6 +86,7 @@
             android:layout_marginTop="10dp"
             android:fontFamily="@font/comfortaa_bold"
             android:text="Name"
+            android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20dp" />
 
@@ -101,7 +111,9 @@
         android:layout_height="80dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:elevation="20dp"
+        android:elevation="8dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:stateListAnimator="@null"
         android:background="@drawable/allside_round_layout"
         android:layout_marginTop="20dp"
@@ -146,7 +158,9 @@
         android:layout_height="80dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:elevation="20dp"
+        android:elevation="8dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:stateListAnimator="@null"
         android:background="@drawable/allside_round_layout"
         android:layout_marginTop="120dp"
@@ -190,7 +204,9 @@
         android:layout_height="80dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:elevation="20dp"
+        android:elevation="8dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:stateListAnimator="@null"
         android:background="@drawable/allside_round_layout"
         android:layout_marginTop="220dp"
