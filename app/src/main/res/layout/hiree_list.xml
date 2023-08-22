@@ -9,9 +9,11 @@
     android:background="@color/white"
     android:layout_marginLeft="20dp"
     android:layout_marginTop="20dp"
+    android:layout_marginBottom="10dp"
     android:layout_marginRight="20dp">
 
     <LinearLayout
+        android:id="@+id/cardviewClickable"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -43,16 +45,17 @@
                     android:id="@+id/nameofhiree"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/comfortaa_bold"
+                    android:fontFamily="@font/work_sans"
+                    android:text="Name"
                     android:textColor="@color/black"
                     android:textSize="18dp"
-                    android:text="Name" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/skillofhiree"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/comfortaa"
+                    android:fontFamily="@font/work_sans"
                     android:textSize="13dp"
                     android:textColor="@color/black"
                     android:text="Skill"/>
@@ -61,7 +64,6 @@
 
 
         </LinearLayout>
-
 
     </LinearLayout>
 

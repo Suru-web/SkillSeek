@@ -51,6 +51,7 @@ public class homepage extends AppCompatActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
 
+
         Window window = this.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -126,7 +127,6 @@ public class homepage extends AppCompatActivity implements View.OnClickListener 
         }
         else if (v.getId()==R.id.searchButton){
             gotSkill = inputSkill.getText().toString().trim().toLowerCase();
-            Log.d("skill",gotSkill);
             if (!gotSkill.isEmpty()) {
                 z=1;
                 performSkillQuery(gotSkill);
@@ -153,6 +153,7 @@ public class homepage extends AppCompatActivity implements View.OnClickListener 
                     }
                     else {
                         list.add(hiree);
+                        System.out.println(hiree.getName());
                     }
                 }
                 adapter.notifyDataSetChanged();

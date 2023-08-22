@@ -21,6 +21,9 @@
         android:theme="@style/Theme.SkillSeek"
         tools:targetApi="31">
         <activity
+            android:name=".hireeInfoShow"
+            android:exported="false" />
+        <activity
             android:name=".view_profile"
             android:exported="false" />
         <activity android:name=".internetnotavailable" />

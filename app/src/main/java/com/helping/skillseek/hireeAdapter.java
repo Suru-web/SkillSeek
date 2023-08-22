@@ -1,9 +1,12 @@
 package com.helping.skillseek;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,7 +21,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class hireeAdapter extends RecyclerView.Adapter<hireeAdapter.MyViewHolder> {
 
     Context context;
-    ArrayList<hireeDetailsForFB> list;
+    static ArrayList<hireeDetailsForFB> list;
 
     public hireeAdapter(Context context, ArrayList<hireeDetailsForFB> list) {
         this.context = context;
@@ -29,7 +32,7 @@ public class hireeAdapter extends RecyclerView.Adapter<hireeAdapter.MyViewHolder
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.hiree_list,parent,false);
-        return new MyViewHolder(v);
+        return new MyViewHolder(v,context);
     }
 
     @Override
@@ -37,7 +40,7 @@ public class hireeAdapter extends RecyclerView.Adapter<hireeAdapter.MyViewHolder
 
         hireeDetailsForFB user = list.get(position);
         Picasso.get()
-                .load(user.getImageURL())
+                .load(user.getdownloadUrl())
                 .placeholder(R.drawable.profilepicture)
                 .error(R.drawable.profilepicture)
                 .into(holder.profileImage);
@@ -55,13 +58,29 @@ public class hireeAdapter extends RecyclerView.Adapter<hireeAdapter.MyViewHolder
 
         CircleImageView profileImage;
         TextView name,skill;
+        LinearLayout cardView;
 
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView, final Context context) {
             super(itemView);
 
             profileImage = itemView.findViewById(R.id.profilepictureofhiree);
             name = itemView.findViewById(R.id.nameofhiree);
             skill = itemView.findViewById(R.id.skillofhiree);
+            cardView = itemView.findViewById(R.id.cardviewClickable);
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        hireeDetailsForFB item = list.get(position);
+                        String id = item.getId();
+                        System.out.println(id);
+                        Intent intent = new Intent(context, hireeInfoShow.class);
+                        intent.putExtra("hireeListId",id);
+                        context.startActivity(intent);
+                    }
+                }
+            });
         }
     }
 
