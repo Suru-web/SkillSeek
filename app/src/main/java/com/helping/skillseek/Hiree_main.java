@@ -32,6 +32,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -63,6 +65,7 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
     Uri imageUri;
     String imageDownloadUrl;
     StorageReference imagereference;
+    String phoneNum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +77,12 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.setStatusBarColor(this.getResources().getColor(R.color.bluePurp));
         window.setNavigationBarColor(this.getResources().getColor(R.color.white));
+
+
+//        FirebaseAuth auth = FirebaseAuth.getInstance();
+//        FirebaseUser user = auth.getCurrentUser();
+//        String phoneNum = user.getPhoneNumber();
+
 
         customskill = findViewById(R.id.hireeCustomSkill);
         hireedropd = findViewById(R.id.hireeDropD);
@@ -178,7 +187,7 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
                                         downloadUrl = uri1.toString();
                                         imageDownloadUrl = downloadUrl;
                                         uID = id;
-                                        hireeDetails hiree = new hireeDetails(id, name, uname, skill, age,downloadUrl);
+                                        hireeDetails hiree = new hireeDetails(id, name, uname, skill, age,downloadUrl,"6633448855");
                                         databasehiree.child(id).setValue(hiree);
 
                                         Intent intent = new Intent(this, homepage.class);
@@ -197,44 +206,6 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
                     }
                 }
             }
-//            else {
-//                bool = "true";
-//                if (net == 1) {
-//                    if (checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED) {
-//                        Toast.makeText(Hiree_main.this,"Location access already granted",Toast.LENGTH_SHORT);
-//                    }
-//                    else {
-//                        requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
-//                    }
-//                    String id = databasehiree.push().getKey();
-//                    imagereference = profilePicsRef.child(id);
-//                    SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-//                    SharedPreferences.Editor editor = sharedPreferences.edit();
-//                    editor.putString("data", "true");
-//                    if (imageUri!=null) {
-//                        UploadTask uploadTask = imagereference.putFile(imageUri);
-//                        uploadTask.addOnSuccessListener(taskSnapshot -> {
-//                            Task<Uri> downloadUrlTask = imagereference.getDownloadUrl();
-//                            downloadUrlTask.addOnSuccessListener(uri1 -> {
-//                                downloadUrl = uri1.toString();
-//                                imageDownloadUrl = downloadUrl;
-//                                uID = id;
-//                                editor.putString("imageurl",downloadUrl);
-//                                editor.putString("uniqueID",uID);
-//                                editor.putString("category","hiree");
-//                                editor.apply();
-//                                hireeDetails hiree = new hireeDetails(id, name, uname, custSkill, age,downloadUrl);
-//                                databasehiree.child(id).setValue(hiree);
-//
-//                                Intent intent = new Intent(this, homepage.class);
-//                                startActivity(intent);
-//                            });
-//                        }).addOnFailureListener(exception -> {
-//                            Toast.makeText(this,"Image not uploaded",Toast.LENGTH_SHORT).show();
-//                        });
-//                    }
-//                }
-//            }
         }
         else if (view.getId()==R.id.hireeProfilePictureEditBtn){
             getImage();

@@ -111,8 +111,8 @@ public class homepage extends AppCompatActivity implements View.OnClickListener 
         }
     }
     //This code gets the skills and shows in textview
-    private void performSkillQuery(String gotSkill) {
-        hireeRef.orderByChild("skill").equalTo(gotSkill).addListenerForSingleValueEvent(new ValueEventListener() {
+    private void performSkillQuery(String partialSkill) {
+        hireeRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 // Clear any previous data or update UI as needed
@@ -125,8 +125,10 @@ public class homepage extends AppCompatActivity implements View.OnClickListener 
                     String name = hiree.getName();
                     String skill = hiree.getSkill();
 
-                    resultBuilder.append("Name: ").append(name).append("\n");
-                    resultBuilder.append("Skill: ").append(skill).append("\n\n");
+                    if (skill.contains(partialSkill)) {
+                        resultBuilder.append("Name: ").append(name).append("\n");
+                        resultBuilder.append("Skill: ").append(skill).append("\n\n");
+                    }
                 }
 
                 resultTextView.setText(resultBuilder.toString());
