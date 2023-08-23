@@ -4,11 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardElevation="8dp"
-    app:cardCornerRadius="16dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardElevation="0dp"
     android:background="@color/white"
     android:layout_marginLeft="20dp"
-    android:layout_marginTop="20dp"
+    android:layout_marginTop="10dp"
     android:layout_marginBottom="10dp"
     android:layout_marginRight="20dp">
 
