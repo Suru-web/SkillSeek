@@ -56,7 +56,7 @@
         android:layout_width="match_parent"
         android:layout_height="280dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="35dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/allside_round_layout"
         android:elevation="8dp"
@@ -86,14 +86,14 @@
             android:textSize="23dp" />
 
         <TextView
-            android:id="@+id/usernameVP"
+            android:id="@+id/skillVP"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/nameVP"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="2dp"
             android:fontFamily="@font/work_sans"
-            android:text="UserName"
+            android:text="Skill"
             android:textColor="@color/black"
             android:textSize="18dp" />
 
@@ -166,6 +166,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/phoneVp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/work_sans"
@@ -207,6 +208,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/usernameVp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/work_sans"
@@ -220,7 +222,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/work_sans"
-                    android:text="Phone"
+                    android:text="Username"
                     android:textColor="@color/black"
                     android:textSize="16dp" />
 
@@ -248,10 +250,11 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/ratingVP"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/work_sans"
-                    android:text="1234567899"
+                    android:text="4.5"
                     android:textColor="@color/black"
                     android:textSize="18dp"
                     android:textStyle="bold" />
@@ -261,7 +264,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/work_sans"
-                    android:text="Phone"
+                    android:text="Ratings"
                     android:textColor="@color/black"
                     android:textSize="16dp" />
 
@@ -289,10 +292,11 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/locationVP"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/work_sans"
-                    android:text="1234567899"
+                    android:text="Bengaluru"
                     android:textColor="@color/black"
                     android:textSize="18dp"
                     android:textStyle="bold" />
@@ -302,7 +306,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/work_sans"
-                    android:text="Phone"
+                    android:text="Place"
                     android:textColor="@color/black"
                     android:textSize="16dp" />
 
