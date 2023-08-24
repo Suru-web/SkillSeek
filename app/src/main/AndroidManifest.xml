@@ -9,8 +9,9 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
-    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission
+        android:name="android.permission.QUERY_ALL_PACKAGES"
         tools:ignore="QueryAllPackagesPermission" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -27,6 +28,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SkillSeek"
         tools:targetApi="31">
+        <activity
+            android:name=".edit_profile"
+            android:exported="false" />
         <activity
             android:name=".hireeInfoShow"
             android:exported="false" />
@@ -46,18 +50,19 @@
         <activity
             android:name=".CategorySelect"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".loginPage"
             android:exported="true" /> <!-- Set this as launcher activity -->
         <activity
             android:name=".MainActivity"
-            android:exported="true" />
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <meta-data
             android:name="preloaded_fonts"

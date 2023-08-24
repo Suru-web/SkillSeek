@@ -11,6 +11,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -33,7 +34,8 @@ public class hireeInfoShow extends AppCompatActivity implements View.OnClickList
     TextView name,skill,phone,username,rating,place;
 
     DatabaseReference databaseReference;
-    ImageButton call,whatsapp,message;
+    ImageButton call,whatsapp,message,backbtn;
+    Vibrator vibrator;
     private static final int CALL_PERMISSION_REQUEST = 100;
 
     @Override
@@ -55,7 +57,7 @@ public class hireeInfoShow extends AppCompatActivity implements View.OnClickList
         Intent intent = getIntent();
         String id =  intent.getStringExtra("hireeListId");
 
-
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         name = findViewById(R.id.nameVP);
         skill = findViewById(R.id.skillVP);
         phone = findViewById(R.id.phoneVp);
@@ -66,6 +68,7 @@ public class hireeInfoShow extends AppCompatActivity implements View.OnClickList
         call = findViewById(R.id.callBtnVP);
         whatsapp = findViewById(R.id.whatsappBtnVP);
         message = findViewById(R.id.messageBtnVP);
+        backbtn = findViewById(R.id.backbtnVP);
 
         databaseReference = FirebaseDatabase.getInstance().getReference("hiree").child(id);
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -97,12 +100,14 @@ public class hireeInfoShow extends AppCompatActivity implements View.OnClickList
         call.setOnClickListener(this);
         whatsapp.setOnClickListener(this);
         message.setOnClickListener(this);
+        backbtn.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         String phoneNumber = phone.getText().toString().trim();
         if (view.getId() == R.id.callBtnVP) {
+            vibrator.vibrate(2);
             if (ContextCompat.checkSelfPermission(hireeInfoShow.this, android.Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
                 // Permission granted, initiate the call
                 makeCall(phoneNumber);
@@ -115,6 +120,7 @@ public class hireeInfoShow extends AppCompatActivity implements View.OnClickList
 
 
         else if (view.getId() == R.id.whatsappBtnVP) {
+            vibrator.vibrate(2);
             if (checkInstallation(hireeInfoShow.this, "com.whatsapp")) {
                 // on below line displaying a toast message if maps is installed.
                 Intent whatsappIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:" + phoneNumber));
@@ -128,12 +134,20 @@ public class hireeInfoShow extends AppCompatActivity implements View.OnClickList
 
 
         else if (view.getId()==R.id.messageBtnVP) {
+            vibrator.vibrate(2);
             Intent intent = new Intent(Intent.ACTION_VIEW,Uri.fromParts("sms",phoneNumber,null));
             startActivity(intent);
         }
+
+
+        else if (view.getId()==R.id.backbtnVP){
+            vibrator.vibrate(2);
+            finish();
+        }
+
     }
 
-
+    //This is to check if the package is installed
     public static boolean checkInstallation(Context context, String packageName) {
         // on below line creating a variable for package manager.
         PackageManager pm = context.getPackageManager();

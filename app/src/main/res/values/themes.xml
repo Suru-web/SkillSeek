@@ -1,8 +1,13 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.SkillSeek" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:fontFamily">@font/work_sans</item>
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
+    <style name="popupOverflowMenu" parent="@style/Widget.MaterialComponents.PopupMenu.Overflow">
+        <item name="android:popupBackground">@drawable/allside_round_layout</item>
     </style>
 
     <style name="Theme.SkillSeek" parent="Base.Theme.SkillSeek">

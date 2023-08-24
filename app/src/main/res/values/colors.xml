@@ -6,6 +6,7 @@
     <color name="blue">#0000FF</color>
     <color name="grey">#808080</color>
     <color name="whiteDDDDD">#DDDDDD</color>
-    <color name="bluePurp">#424874</color>
+    <color name="bluePurp">#6750a4</color>
     <color name="lightgrey">#EEEEEE</color>
+    <color name="red">#ff3333</color>
 </resources>

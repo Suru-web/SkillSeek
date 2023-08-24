@@ -22,7 +22,7 @@
             android:layout_height="80dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentStart="true"
-            android:background="#424874"
+            android:background="#6750a4"
             android:layout_alignParentTop="true"
             tools:ignore="UselessParent">
 
@@ -36,11 +36,12 @@
                 android:layout_marginStart="2dp"
                 android:layout_marginTop="19dp"
                 android:layout_marginEnd="-2dp"
-                android:fontFamily="@font/comfortaa_bold"
+                android:fontFamily="@font/lilita_one"
                 android:gravity="center"
                 android:text="Set Up Your Profile"
                 android:textColor="@color/white"
-                android:textSize="25sp" />
+                android:alpha="0.8"
+                android:textSize="35dp" />
 
         </RelativeLayout>
 
@@ -239,7 +240,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="50dp"
                 android:layout_marginTop="30dp"
-                android:layout_marginEnd="80dp"
+                android:layout_marginEnd="50dp"
                 app:boxStrokeColor="@color/black"
                 app:hintTextColor="@color/black"
                 app:boxCornerRadiusBottomEnd="10dp"
@@ -264,13 +265,13 @@
             <Button
                 android:id="@+id/hireeSubmitBtn"
                 android:layout_width="120dp"
-                android:layout_height="65dp"
+                android:layout_height="60dp"
                 android:layout_below="@+id/hireeCustomSkill"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="35dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginBottom="84dp"
-                android:backgroundTint="#424874"
+                android:background="@drawable/button_background"
                 android:fontFamily="@font/comfortaa_bold"
                 android:text="Submit"
                 android:textColor="@color/white" />
