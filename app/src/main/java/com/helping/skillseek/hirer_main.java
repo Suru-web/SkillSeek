@@ -29,6 +29,7 @@ import android.Manifest;
 
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -55,9 +56,10 @@ public class hirer_main extends AppCompatActivity implements View.OnClickListene
 
     private ActivityResultLauncher<PickVisualMediaRequest> pickMedia;
     Uri imageUri;
-    String imageDownloadUrl;
+    String imageDownloadUrl,phoneNumber;
     StorageReference imagereference;
     int net;
+    Boolean isValid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +68,7 @@ public class hirer_main extends AppCompatActivity implements View.OnClickListene
         Window window = this.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.setStatusBarColor(this.getResources().getColor(R.color.bluePurp));
+        window.setStatusBarColor(this.getResources().getColor(R.color.defPurp));
         window.setNavigationBarColor(this.getResources().getColor(R.color.white));
 
         hireraddress = findViewById(R.id.hirerAddress);
@@ -78,7 +80,12 @@ public class hirer_main extends AppCompatActivity implements View.OnClickListene
         hirerProfilePicture.setImageResource(R.drawable.profilepicture);
         submit = findViewById(R.id.hirerSubmitBtn);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
+
+
         databasehirer = FirebaseDatabase.getInstance().getReference("hirer");//Sets the path to hirer
+        uID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        phoneNumber = FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber();
 
         //code for selecting image from gallery
         pickMedia = registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), selectedUri -> {
@@ -113,44 +120,34 @@ public class hirer_main extends AppCompatActivity implements View.OnClickListene
             showImagePopup(imageUri);
         }
         else if (view.getId()== R.id.hirerSubmitBtn){
-            vibrator.vibrate(5);
+            vibrator.vibrate(2);
             String name,email,uname,address;
             name = hirername.getEditText().getText().toString();
             email = hireremail.getEditText().getText().toString();
             uname = hireruname.getEditText().getText().toString();
-            address = hireraddress.getEditText().getText().toString();
-            String bool = "false";
-
-            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED) {
+            address = hireraddress.getEditText().getText().toString().trim();
+            isValid = false;
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(hirer_main.this,"Location access already granted",Toast.LENGTH_SHORT);
             }
             else {
                 requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
             }
             if (name.isEmpty()){
-                bool = "false";
-                Toast.makeText(hirer_main.this,"Name cannot be empty",Toast.LENGTH_SHORT).show();
+                hirername.setHelperText("Name cannot be empty");
+            }else if (uname.isEmpty()) {
+                hireruname.setHelperText("Username cannot be empty");
             } else if (email.isEmpty()) {
-                bool = "false";
-                Toast.makeText(hirer_main.this,"Email cannot be empty",Toast.LENGTH_SHORT).show();
-            } else if (uname.isEmpty()) {
-                bool = "false";
-                Toast.makeText(hirer_main.this,"UserName cannot be empty",Toast.LENGTH_SHORT).show();
-            } else if (address.isEmpty()) {
-                bool = "false";
-                Toast.makeText(hirer_main.this,"Address cannot be empty",Toast.LENGTH_SHORT).show();
+                hireremail.setHelperText("Email cannot be empty");
             } else if (!email.contains("@")||!email.contains(".com")) {
-                bool = "false";
-                Toast.makeText(hirer_main.this,"Email Address is not valid",Toast.LENGTH_SHORT).show();
-            } else if (address.equals("Bengaluru")||address.equals("bengaluru")) {
-                bool = "false";
-                Toast.makeText(hirer_main.this,"We can only work in Bengaluru right now",Toast.LENGTH_SHORT).show();
+                hireremail.setHelperText("Email address is not valid");
+            }  else if (address.isEmpty()) {
+                hireraddress.setHelperText("Address cannot be empty");
             } else {
-                bool = "true";
+                isValid = true;
                 if (net == 1) {
-                    if (bool.equals("true")) {
-                        String id = databasehirer.push().getKey();
-                        imagereference = profilePicsRef.child(id);
+                    if (isValid == true) {
+                        imagereference = profilePicsRef.child(uID);
                         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("data", "true");
@@ -161,13 +158,12 @@ public class hirer_main extends AppCompatActivity implements View.OnClickListene
                                 downloadUrlTask.addOnSuccessListener(uri1 -> {
                                     downloadUrl = uri1.toString();
                                     imageDownloadUrl = downloadUrl;
-                                    uID = id;
                                     editor.putString("imageurl",downloadUrl);
                                     editor.putString("uniqueID",uID);
                                     editor.putString("category","Hirer");
                                     editor.apply();
-                                    hirerDetails hirer = new hirerDetails(id, name, uname, email, address,downloadUrl);   //Adds data to firebase
-                                    databasehirer.child(id).setValue(hirer);
+                                    hirerDetails hirer = new hirerDetails(uID, name, uname, email, address,downloadUrl,phoneNumber);   //Adds data to firebase
+                                    databasehirer.child(uID).setValue(hirer);
 
                                     Intent intent = new Intent(this, homepage.class);
                                     intent.putExtra("uri",downloadUrl);
@@ -176,6 +172,9 @@ public class hirer_main extends AppCompatActivity implements View.OnClickListene
                             }).addOnFailureListener(exception -> {
                                 Toast.makeText(this,"Image not uploaded",Toast.LENGTH_SHORT).show();
                             });
+                        }
+                        else {
+                            Toast.makeText(hirer_main.this,"Profile pic cannot be empty",Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         Toast.makeText(hirer_main.this, "Error, Data not saved", Toast.LENGTH_SHORT).show();

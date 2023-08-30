@@ -21,11 +21,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.divider.MaterialDivider;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -40,10 +42,13 @@ public class homepage extends AppCompatActivity implements View.OnClickListener 
     EditText inputSkill;
     ImageButton skillSearchBtn;
     RecyclerView recyclerView;
-    DatabaseReference hireeRef;
+    DatabaseReference hireeRef,hirerRef;
     hireeAdapter adapter;
-    String gotSkill;
+    String gotSkill,uidFirebaseAuth;
     ArrayList<hireeDetailsForFB> list;
+    FirebaseAuth auth;
+    String imageURL;
+
     int z=0;
 
     @Override
@@ -61,10 +66,6 @@ public class homepage extends AppCompatActivity implements View.OnClickListener 
         int flags = window.getDecorView().getSystemUiVisibility();
         flags |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
         window.getDecorView().setSystemUiVisibility(flags);
-
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        hireeRef = database.getReference("hiree");
 
 
         skillseek = findViewById(R.id.textSkillSeek);
@@ -87,16 +88,66 @@ public class homepage extends AppCompatActivity implements View.OnClickListener 
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         String profilePicImage = sharedPreferences.getString("imageurl","default");
         String id = sharedPreferences.getString("uniqueID","default");
-        if (profilePicImage!=null && !profilePicImage.isEmpty()) {
-            Picasso.get()
-                    .load(profilePicImage)
-                    .placeholder(R.drawable.profilepicture)
-                    .error(R.drawable.profilepicture)
-                    .into(profilePic);
+        String category = sharedPreferences.getString("category","default");
+
+        auth = FirebaseAuth.getInstance();
+        if (auth.getCurrentUser()!=null) {
+            String authID = auth.getCurrentUser().getUid();
+            Log.d("Unique ID",authID+"hvkhkhvkjvhkgvkghvkgvjghvkhgckghckhgckghckghckhgckhcg");
+            hirerRef = FirebaseDatabase.getInstance().getReference("hirer");
+            hireeRef = FirebaseDatabase.getInstance().getReference("hiree");
+
+            hirerRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.child(authID).exists()) {
+                        Log.d("Snapshot data", String.valueOf(snapshot.child(authID)));
+                        imageURL = snapshot.child(authID).child("downloadUrl").getValue(String.class);
+                        if (imageURL!=null && !imageURL.isEmpty()) {
+                            Picasso.get()
+                                    .load(imageURL)
+                                    .placeholder(R.drawable.profilepicture)
+                                    .error(R.drawable.profilepicture)
+                                    .into(profilePic);
+                        }
+                        else {
+                            Toast.makeText(homepage.this,"Profile pic image not loaded",Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Log.d("Datasnapshot ","It does not exist");
+                        hireeRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.child(authID).exists()) {
+                                    imageURL = snapshot.child(authID).child("downloadUrl").getValue(String.class);
+                                    if (imageURL!=null && !imageURL.isEmpty()) {
+                                        Picasso.get()
+                                                .load(imageURL)
+                                                .placeholder(R.drawable.profilepicture)
+                                                .error(R.drawable.profilepicture)
+                                                .into(profilePic);
+                                    }
+                                    else {
+                                        Toast.makeText(homepage.this,"Profile pic image not loaded",Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@androidx.annotation.NonNull DatabaseError error) {
+
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onCancelled(@androidx.annotation.NonNull DatabaseError error) {
+
+                }
+            });
         }
-        else {
-            Toast.makeText(this,"Profile pic image not loaded",Toast.LENGTH_SHORT).show();
-        }
+
 
 
         profilePic.setOnClickListener(this);

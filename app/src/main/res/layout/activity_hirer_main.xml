@@ -40,7 +40,7 @@
                 android:gravity="center"
                 android:text="Set Up Your Profile"
                 android:textColor="@color/white"
-                android:textSize="25sp" />
+                android:textSize="30dp" />
 
         </RelativeLayout>
 
@@ -110,139 +110,175 @@
                 android:paddingLeft="20dp"
                 android:text="Enter the Following Details" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/hirerNameLayout"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                app:boxStrokeColor="@color/black"
-                app:hintTextColor="@color/black"
-                app:boxCornerRadiusBottomEnd="10dp"
-                app:boxCornerRadiusBottomStart="10dp"
-                app:boxCornerRadiusTopEnd="10dp"
-                app:boxCornerRadiusTopStart="10dp"
-                android:textColorHint="@color/grey"
-                android:layout_marginTop="250dp">
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_alignTop="@+id/textView10"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="0dp">
 
-                <com.google.android.material.textfield.TextInputEditText
+
+                <ScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/comfortaa_bold"
-                    android:inputType="textPersonName"
-                    android:singleLine="true"
-                    android:textCursorDrawable="@null"
-                    android:hint="Your Full Name" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentBottom="true">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/hirerUserNameLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/hirerNameLayout"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                app:boxStrokeColor="@color/black"
-                app:hintTextColor="@color/black"
-                app:boxCornerRadiusBottomEnd="10dp"
-                app:boxCornerRadiusBottomStart="10dp"
-                app:boxCornerRadiusTopEnd="10dp"
-                app:boxCornerRadiusTopStart="10dp"
-                android:textColorHint="@color/grey"
-                android:layout_marginEnd="20dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical" >
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/comfortaa_bold"
-                    android:inputType=""
-                    android:textColor="@color/black"
-                    android:singleLine="true"
-                    android:textCursorDrawable="@null"
-                    android:hint="Create a UserName" />
-            </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/hirerNameLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="20dp"
+                            app:boxStrokeColor="@color/black"
+                            app:hintTextColor="@color/black"
+                            app:boxCornerRadiusBottomEnd="10dp"
+                            app:boxCornerRadiusBottomStart="10dp"
+                            app:boxCornerRadiusTopEnd="10dp"
+                            app:boxCornerRadiusTopStart="10dp"
+                            app:helperTextTextColor="@color/red"
+                            app:helperTextEnabled="true"
+                            android:textColorHint="@color/grey"
+                            android:layout_marginTop="20dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/hirerEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/hirerUserNameLayout"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
-                app:boxStrokeColor="@color/black"
-                app:hintTextColor="@color/black"
-                app:boxCornerRadiusBottomEnd="10dp"
-                app:boxCornerRadiusBottomStart="10dp"
-                app:boxCornerRadiusTopEnd="10dp"
-                app:boxCornerRadiusTopStart="10dp"
-                android:textColorHint="@color/grey"
-                android:background="@color/white">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black"
+                                android:fontFamily="@font/comfortaa_bold"
+                                android:inputType="textPersonName"
+                                android:singleLine="true"
+                                android:textCursorDrawable="@null"
+                                android:hint="Your Full Name" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/comfortaa_bold"
-                    android:inputType="textEmailAddress"
-                    android:hint="Email"
-                    android:textCursorDrawable="@null"
-                    android:singleLine="true"
-                    android:textColor="@color/black" />
-            </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/hirerUserNameLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/hirerNameLayout"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="20dp"
+                            app:boxStrokeColor="@color/black"
+                            app:hintTextColor="@color/black"
+                            app:boxCornerRadiusBottomEnd="10dp"
+                            app:boxCornerRadiusBottomStart="10dp"
+                            app:boxCornerRadiusTopEnd="10dp"
+                            app:boxCornerRadiusTopStart="10dp"
+                            app:helperTextTextColor="@color/red"
+                            app:helperTextEnabled="true"
+                            android:textColorHint="@color/grey"
+                            android:layout_marginEnd="20dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/hirerAddress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/hirerEmail"
-                android:layout_marginTop="20dp"
-                android:background="@color/white"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginEnd="20dp"
-                android:layout_marginStart="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:boxStrokeColor="@color/black"
-                app:hintTextColor="@color/black"
-                app:boxCornerRadiusBottomEnd="10dp"
-                app:boxCornerRadiusBottomStart="10dp"
-                app:boxCornerRadiusTopEnd="10dp"
-                app:boxCornerRadiusTopStart="10dp"
-                android:textColorHint="@color/grey"
-                app:layout_constraintStart_toStartOf="parent">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/comfortaa_bold"
+                                android:inputType=""
+                                android:textColor="@color/black"
+                                android:singleLine="true"
+                                android:textCursorDrawable="@null"
+                                android:hint="Create a UserName" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/comfortaa_bold"
-                    android:hint="Work City"
-                    android:inputType="textPostalAddress"
-                    android:textCursorDrawable="@null"
-                    android:singleLine="true"
-                    android:textColor="@color/black" />
-            </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/hirerEmail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/hirerUserNameLayout"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="20dp"
+                            app:boxStrokeColor="@color/black"
+                            app:hintTextColor="@color/black"
+                            app:boxCornerRadiusBottomEnd="10dp"
+                            app:boxCornerRadiusBottomStart="10dp"
+                            app:boxCornerRadiusTopEnd="10dp"
+                            app:helperTextTextColor="@color/red"
+                            app:helperTextEnabled="true"
+                            app:boxCornerRadiusTopStart="10dp"
+                            android:textColorHint="@color/grey"
+                            android:background="@color/white">
 
-            <Button
-                android:id="@+id/hirerSubmitBtn"
-                android:layout_width="200dp"
-                android:layout_height="60dp"
-                android:layout_below="@+id/hirerAddress"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:textColor="@color/white"
-                android:fontFamily="@font/comfortaa_bold"
-                android:text="Submit"
-                android:textSize="20dp"
-                android:backgroundTint="#424874"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/comfortaa_bold"
+                                android:inputType="textEmailAddress"
+                                android:hint="Email"
+                                android:textCursorDrawable="@null"
+                                android:singleLine="true"
+                                android:textColor="@color/black" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/hirerAddress"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/hirerEmail"
+                            android:layout_marginTop="20dp"
+                            android:background="@color/white"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginStart="20dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:boxStrokeColor="@color/black"
+                            app:hintTextColor="@color/black"
+                            app:boxCornerRadiusBottomEnd="10dp"
+                            app:boxCornerRadiusBottomStart="10dp"
+                            app:boxCornerRadiusTopEnd="10dp"
+                            app:boxCornerRadiusTopStart="10dp"
+                            app:helperTextTextColor="@color/red"
+                            app:helperTextEnabled="true"
+                            android:textColorHint="@color/grey"
+                            app:layout_constraintStart_toStartOf="parent">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/comfortaa_bold"
+                                android:hint="Work City"
+                                android:inputType="textPostalAddress"
+                                android:textCursorDrawable="@null"
+                                android:singleLine="true"
+                                android:textColor="@color/black" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <Button
+                            android:id="@+id/hirerSubmitBtn"
+                            android:layout_width="200dp"
+                            android:layout_height="60dp"
+                            android:layout_below="@+id/hirerAddress"
+                            android:layout_marginTop="20dp"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/comfortaa_bold"
+                            android:text="Submit"
+                            android:textSize="20dp"
+                            android:backgroundTint="#424874"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+                    </LinearLayout>
+
+
+                </ScrollView>
+            </RelativeLayout>
 
 
         </RelativeLayout>

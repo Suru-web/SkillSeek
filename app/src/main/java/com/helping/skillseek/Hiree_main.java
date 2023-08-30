@@ -57,6 +57,7 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
     Uri uri;
     Vibrator vibrator;
     int a=0,net;
+    String authUID;
     DatabaseReference databasehiree;
     FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
     StorageReference storageReference = firebaseStorage.getReference();
@@ -75,13 +76,14 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
         Window window = this.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.setStatusBarColor(this.getResources().getColor(R.color.bluePurp));
+        window.setStatusBarColor(this.getResources().getColor(R.color.defPurp));
         window.setNavigationBarColor(this.getResources().getColor(R.color.white));
 
 
-//        FirebaseAuth auth = FirebaseAuth.getInstance();
-//        FirebaseUser user = auth.getCurrentUser();
-//        String phoneNum = user.getPhoneNumber();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+        phoneNum = user.getPhoneNumber();
+        authUID = auth.getUid();
 
 
         customskill = findViewById(R.id.hireeCustomSkill);
@@ -153,15 +155,20 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
             }
             vibrator.vibrate(5);
             if (name.isEmpty()) {
+                hireeName.setHelperText("Name cannot be empty");
                 Toast.makeText(Hiree_main.this, "Name cannot be empty", Toast.LENGTH_LONG).show();
             } else if (uname.isEmpty()) {
+                hireeUserName.setHelperText("UserName cannot be empty");
                 Toast.makeText(Hiree_main.this, "UserName cannot be empty", Toast.LENGTH_LONG).show();
             } else if (age.isEmpty()) {
+                hireeAge.setHelperText("Age cannot be empty");
                 Toast.makeText(Hiree_main.this, "Age cannot be empty", Toast.LENGTH_LONG).show();
             } else if (!age.isEmpty()) {
-                if (Integer.parseInt(age) <= 20) {
+                if (Integer.parseInt(age) < 20) {
+                    hireeAge.setHelperText("People below age 20 are not allowed");
                     Toast.makeText(Hiree_main.this, "People below 20 age not allowed", Toast.LENGTH_LONG).show();
                 } else if (Integer.parseInt(age) > 100) {
+                    hireeAge.setHelperText("Input valid Age");
                     Toast.makeText(Hiree_main.this, "Please Select valid age", Toast.LENGTH_LONG).show();
                 } else {
                     bool = "true";
@@ -174,8 +181,7 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
                             else {
                                 requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
                             }
-                            String id = databasehiree.push().getKey();
-                            imagereference = profilePicsRef.child(id);
+                            imagereference = profilePicsRef.child(authUID);
                             SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString("data", "true");
@@ -186,13 +192,13 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
                                     downloadUrlTask.addOnSuccessListener(uri1 -> {
                                         downloadUrl = uri1.toString();
                                         imageDownloadUrl = downloadUrl;
-                                        uID = id;
-                                        hireeDetails hiree = new hireeDetails(id, name, uname, skill, age,downloadUrl,"6633448855");
-                                        databasehiree.child(id).setValue(hiree);
+//                                        uID = id;
+                                        hireeDetails hiree = new hireeDetails(authUID, name, uname, skill, age,downloadUrl,phoneNum);
+                                        databasehiree.child(authUID).setValue(hiree);
 
                                         Intent intent = new Intent(this, homepage.class);
                                         editor.putString("imageurl",downloadUrl);
-                                        editor.putString("uniqueID",uID);
+                                        editor.putString("uniqueID",authUID);
                                         editor.putString("category","Hiree");
                                         editor.apply();
                                         startActivity(intent);
@@ -254,7 +260,7 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
     }
     private void showImagePopup(Uri uri) {
         final Dialog dialog = new Dialog(this, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(true);
 
 

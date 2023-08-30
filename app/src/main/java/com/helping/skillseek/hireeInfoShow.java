@@ -79,6 +79,7 @@ public class hireeInfoShow extends AppCompatActivity implements View.OnClickList
                     String url = snapshot.child("downloadUrl").getValue(String.class);
                     String kaam = snapshot.child("skill").getValue(String.class);
                     String uname = snapshot.child("username").getValue(String.class);
+                    String number = snapshot.child("phoneNumber").getValue(String.class);
 
                     name.setText(naam);
                     Picasso.get()
@@ -88,6 +89,7 @@ public class hireeInfoShow extends AppCompatActivity implements View.OnClickList
                             .into(profilepic);
                     skill.setText(kaam);
                     username.setText(uname);
+                    phone.setText(number);
                 }
             }
 

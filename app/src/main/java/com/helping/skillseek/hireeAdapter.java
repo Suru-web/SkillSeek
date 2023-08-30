@@ -74,7 +74,6 @@ public class hireeAdapter extends RecyclerView.Adapter<hireeAdapter.MyViewHolder
                     if (position != RecyclerView.NO_POSITION) {
                         hireeDetailsForFB item = list.get(position);
                         String id = item.getId();
-                        System.out.println(id);
                         Intent intent = new Intent(context, hireeInfoShow.class);
                         intent.putExtra("hireeListId",id);
                         context.startActivity(intent);

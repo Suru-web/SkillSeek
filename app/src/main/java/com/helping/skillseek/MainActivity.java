@@ -28,6 +28,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.ktx.Firebase;
 
 import java.time.Duration;
@@ -39,11 +44,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextInputLayout phno, pass;
     TextView lgBtn;
     String mobileNumber;
+    int check;
     String Password;
     ProgressBar pgb;
     LinearLayout lockimgLl, passLL;
     String otpVerify;
     Vibrator vibrator;
+    DatabaseReference hirerRef,hireeRef;
+
+    FirebaseAuth firebaseAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         window.getDecorView().setSystemUiVisibility(flags);
 
 
+
         contBtn = findViewById(R.id.continueButton);
         getotpbtn = findViewById(R.id.getOTPBtn);
         phno = findViewById(R.id.phNumberInput);
@@ -72,6 +82,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         contBtn.setOnClickListener(this);
         getotpbtn.setOnClickListener(this);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
+        hirerRef = FirebaseDatabase.getInstance().getReference("hirer");
+        hireeRef = FirebaseDatabase.getInstance().getReference("hiree");
     }
 
     @Override
@@ -91,8 +104,58 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                              Toast toast = Toast.makeText(MainActivity.this,"Otp Successfully Verified", Toast.LENGTH_SHORT);
                              toast.show();
                              contBtn.setVisibility(View.VISIBLE);
-                             Intent intent = new Intent(MainActivity.this, CategorySelect.class);
-                             startActivity(intent);
+
+
+                             hirerRef.orderByChild("phoneNumber").equalTo(mobileNumber).addListenerForSingleValueEvent(new ValueEventListener() {
+                                 @Override
+                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                     if (snapshot.exists()){
+                                         Toast.makeText(MainActivity.this,"Account already exists",Toast.LENGTH_SHORT).show();
+                                         check = 1;
+                                         Intent intent = new Intent(MainActivity.this, homepage.class);
+                                         startActivity(intent);
+
+                                     }
+                                     else {
+                                         check = 0;
+                                     }
+                                 }
+
+                                 @Override
+                                 public void onCancelled(@NonNull DatabaseError error) {
+
+                                 }
+                             });
+
+                             hireeRef.orderByChild("phoneNumber").equalTo(mobileNumber).addListenerForSingleValueEvent(new ValueEventListener() {
+                                 @Override
+                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                     if (snapshot.exists()){
+                                         Toast.makeText(MainActivity.this,"Account already exists",Toast.LENGTH_SHORT).show();
+                                         check = 1;
+                                         Intent intent = new Intent(MainActivity.this, homepage.class);
+                                         startActivity(intent);
+                                     }
+                                     else {
+                                         check = 0;
+                                     }
+                                 }
+
+                                 @Override
+                                 public void onCancelled(@NonNull DatabaseError error) {
+
+                                 }
+                             });
+
+                             if (check == 1){
+                                 Intent intent = new Intent(MainActivity.this, homepage.class);
+                                 startActivity(intent);
+                             } else if (check == 0) {
+                                 Intent intent = new Intent(MainActivity.this, CategorySelect.class);
+                                 startActivity(intent);
+                             }
+
+
                          }
                          else {
                              Toast toast = Toast.makeText(MainActivity.this,"Otp verification failed", Toast.LENGTH_SHORT);

@@ -6,19 +6,25 @@ public class hirerDetails {
     String username;
     String email;
     String address;
-    String imageDownloadUrl;
+    String downloadUrl;
+    String phoneNumber;
 
     public hirerDetails() {
 
     }
 
-    public hirerDetails(String id, String name, String username, String email, String address,String imageDownloadUrl) {
+    public hirerDetails(String id, String name, String username, String email, String address,String downloadUrl,String phoneNumber) {
         this.id = id;
         this.name = name;
         this.username = username;
         this.email = email;
         this.address = address;
-        this.imageDownloadUrl = imageDownloadUrl;
+        this.downloadUrl = downloadUrl;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
     public String getId() {
@@ -41,7 +47,7 @@ public class hirerDetails {
         return address;
     }
 
-    public String getImageDownloadUrl() {
-        return imageDownloadUrl;
+    public String getdownloadUrl() {
+        return downloadUrl;
     }
 }

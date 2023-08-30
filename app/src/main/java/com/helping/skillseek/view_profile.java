@@ -53,9 +53,9 @@ public class view_profile extends AppCompatActivity implements View.OnClickListe
         flags |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
         window.getDecorView().setSystemUiVisibility(flags);
 
-//        FirebaseAuth auth = FirebaseAuth.getInstance();
-//        FirebaseUser user = auth.getCurrentUser();
-//        String phoneNumber = user.getPhoneNumber();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+        String phoneNumber = user.getPhoneNumber();
 
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         backButton = findViewById(R.id.goback);
@@ -73,36 +73,27 @@ public class view_profile extends AppCompatActivity implements View.OnClickListe
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         String profilePicImage = sharedPreferences.getString("imageurl","default");
         String id = sharedPreferences.getString("uniqueID","defualt");
-        String yourCategory = sharedPreferences.getString("category"," ");
+        String yourCategory = sharedPreferences.getString("category"," ");                  //instead of checking if hirer/hiree fetch from database
+
+        String uid = user.getUid();
+        Log.d("UID : ",uid);
 
 
-        if (profilePicImage!=null && !profilePicImage.isEmpty()) {
-            Picasso.get()
-                    .load(profilePicImage)
-                    .placeholder(R.drawable.profilepicture)
-                    .error(R.drawable.profilepicture)
-                    .into(profpic);
+        if(!phoneNumber.isEmpty()) {
+            phoneDisplay.setText(phoneNumber);
         }
         else {
-            Toast.makeText(this,"Profile Pic not found",Toast.LENGTH_SHORT).show();
+            phoneDisplay.setText("Phone Number");
         }
-//        if(!phoneNumber.isEmpty()) {
-//            phoneDisplay.setText(phoneNumber);
-//        }
-//        else {
-//            phoneDisplay.setText("Phone Number");
-//        }
 
 
 
         if (yourCategory.equals("Hirer")||yourCategory.equals("hirer")) {
-            Log.d("Testing",yourCategory);
-            databaseReference = FirebaseDatabase.getInstance().getReference("hirer").child(id);
+            databaseReference = FirebaseDatabase.getInstance().getReference("hirer").child(uid);
             check = 1;
         }
         else if (yourCategory.equals("hiree")||yourCategory.equals("Hiree")){
-            Log.d("Testing",yourCategory);
-            databaseReference = FirebaseDatabase.getInstance().getReference("hiree").child(id);
+            databaseReference = FirebaseDatabase.getInstance().getReference("hiree").child(uid);
             check = 0;
         }
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -112,6 +103,9 @@ public class view_profile extends AppCompatActivity implements View.OnClickListe
                     String name = snapshot.child("name").getValue(String.class);
                     String uname = snapshot.child("username").getValue(String.class);
                     String email = snapshot.child("email").getValue(String.class);
+                    if (email.length() > 10) {  // Check if the email length is greater than 23 characters
+                        email = email.substring(0, 7) + "..." + email.substring(email.length() - 3);
+                    }
                     String address = snapshot.child("address").getValue(String.class);
                     String uniqueID = snapshot.child("id").getValue(String.class);
                     loadImage = snapshot.child("downloadUrl").getValue(String.class);
@@ -120,7 +114,17 @@ public class view_profile extends AppCompatActivity implements View.OnClickListe
                     usernameDisplay.setText(uname);
                     emailDispay.setText(email);
                     addressDisplay.setText(address);
-                    idDisplay.setText("Unique ID : "+uniqueID);
+                    idDisplay.setText("Unique ID : "+uid);
+                    if (loadImage!=null && !loadImage.isEmpty()) {
+                        Picasso.get()
+                                .load(loadImage)
+                                .placeholder(R.drawable.profilepicture)
+                                .error(R.drawable.profilepicture)
+                                .into(profpic);
+                    }
+                    else {
+                        Toast.makeText(view_profile.this,"Profile Pic not found",Toast.LENGTH_SHORT).show();
+                    }
                 }
                 else if (snapshot.exists()&&check==0) {
                     String name = snapshot.child("name").getValue(String.class);
@@ -137,6 +141,16 @@ public class view_profile extends AppCompatActivity implements View.OnClickListe
                     idDisplay.setText("Unique ID : "+uniqueID);
                     emailM.setText("Skill :- ");
                     addressM.setText("Age :-");
+                    if (loadImage!=null && !loadImage.isEmpty()) {
+                        Picasso.get()
+                                .load(loadImage)
+                                .placeholder(R.drawable.profilepicture)
+                                .error(R.drawable.profilepicture)
+                                .into(profpic);
+                    }
+                    else {
+                        Toast.makeText(view_profile.this,"Profile Pic not found",Toast.LENGTH_SHORT).show();
+                    }
                 }
 
             }
@@ -146,6 +160,7 @@ public class view_profile extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(view_profile.this,"Facing some error in fetching the data",Toast.LENGTH_SHORT).show();
             }
         });
+
 
         backButton.setOnClickListener(this);
         menubtn.setOnClickListener(this);
