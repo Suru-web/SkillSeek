@@ -20,6 +20,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,6 +37,8 @@ public class hireeInfoShow extends AppCompatActivity implements View.OnClickList
     DatabaseReference databaseReference;
     ImageButton call,whatsapp,message,backbtn;
     Vibrator vibrator;
+    LottieAnimationView likeButton;
+    boolean liked = false;
     private static final int CALL_PERMISSION_REQUEST = 100;
 
     @Override
@@ -69,6 +72,7 @@ public class hireeInfoShow extends AppCompatActivity implements View.OnClickList
         whatsapp = findViewById(R.id.whatsappBtnVP);
         message = findViewById(R.id.messageBtnVP);
         backbtn = findViewById(R.id.backbtnVP);
+        likeButton = findViewById(R.id.likeButtonVP);
 
         databaseReference = FirebaseDatabase.getInstance().getReference("hiree").child(id);
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -103,6 +107,21 @@ public class hireeInfoShow extends AppCompatActivity implements View.OnClickList
         whatsapp.setOnClickListener(this);
         message.setOnClickListener(this);
         backbtn.setOnClickListener(this);
+        likeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (liked){
+                    likeButton.setMinAndMaxProgress(0.5f,1.0f);
+                    likeButton.playAnimation();
+                    liked = false;
+                }
+                else {
+                    likeButton.setMinAndMaxProgress(0.0f,0.5f);
+                    likeButton.playAnimation();
+                    liked = true;
+                }
+            }
+        });
     }
 
     @Override

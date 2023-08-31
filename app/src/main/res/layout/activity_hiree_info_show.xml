@@ -22,19 +22,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/backbutton" />
 
-    <ImageButton
-        android:id="@+id/rateStarbtnVP"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:padding="13dp"
-        android:layout_marginRight="20dp"
-        android:alpha="0.8"
-        android:backgroundTint="@color/white"
-        android:scaleType="centerCrop"
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:id="@+id/likeButtonVP"
+        android:layout_marginTop="0dp"
+        android:layout_marginRight="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/star" />
+        android:padding="0dp"
+        app:lottie_rawRes="@raw/likeheart"/>
 
     <TextView
         android:id="@+id/textView8"
