@@ -191,8 +191,6 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
                                     Task<Uri> downloadUrlTask = imagereference.getDownloadUrl();
                                     downloadUrlTask.addOnSuccessListener(uri1 -> {
                                         downloadUrl = uri1.toString();
-                                        imageDownloadUrl = downloadUrl;
-//                                        uID = id;
                                         hireeDetails hiree = new hireeDetails(authUID, name, uname, skill, age,downloadUrl,phoneNum);
                                         databasehiree.child(authUID).setValue(hiree);
 

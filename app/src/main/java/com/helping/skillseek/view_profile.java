@@ -78,7 +78,7 @@ public class view_profile extends AppCompatActivity implements View.OnClickListe
         String id = sharedPreferences.getString("uniqueID","defualt");
         yourCategory = sharedPreferences.getString("category"," ");                  //instead of checking if hirer/hiree fetch from database
 
-        String uid = user.getUid();
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         Log.d("UID : ",uid);
 
 
@@ -192,6 +192,7 @@ public class view_profile extends AppCompatActivity implements View.OnClickListe
                         Intent intent = new Intent(view_profile.this,MainActivity.class);
                         startActivity(intent);
                         Toast.makeText(view_profile.this,"LogOut successfull",Toast.LENGTH_SHORT).show();
+                        finish();
                         return true;
                     } else if (item.getItemId()==R.id.savedBtn) {
                         Toast.makeText(view_profile.this,"Saved content",Toast.LENGTH_SHORT).show();

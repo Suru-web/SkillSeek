@@ -77,6 +77,10 @@ public class CategorySelect extends AppCompatActivity implements View.OnClickLis
                         String nodeKey = childSnapshot.getKey();
                         if (nodeKey.equals(uid)) {
                             Toast.makeText(CategorySelect.this,"User Exists",Toast.LENGTH_SHORT).show();
+                            SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("category", "hirer");
+                            editor.apply();
                             Intent intent = new Intent(CategorySelect.this, homepage.class);
                             startActivity(intent);
                             exists = true;
@@ -97,6 +101,10 @@ public class CategorySelect extends AppCompatActivity implements View.OnClickLis
                         String nodeKey = childSnapshot.getKey();
                         if (nodeKey.equals(uid)) {
                             Toast.makeText(CategorySelect.this,"User Exists",Toast.LENGTH_SHORT).show();
+                            SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("category", "hiree");
+                            editor.apply();
                             Intent intent = new Intent(CategorySelect.this, homepage.class);
                             startActivity(intent);
                             exists = true;
@@ -119,7 +127,7 @@ public class CategorySelect extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.imageButtonManager) {
-            vibrator.vibrate(5);
+            vibrator.vibrate(2);
             SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("category", "hirer");
@@ -128,7 +136,7 @@ public class CategorySelect extends AppCompatActivity implements View.OnClickLis
             startActivity(intent);
 
         } else if (view.getId() == R.id.imageButtonWorker) {
-            vibrator.vibrate(5);
+            vibrator.vibrate(2);
             SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("category", "hiree");
@@ -159,6 +167,10 @@ public class CategorySelect extends AppCompatActivity implements View.OnClickLis
                     for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
                         String nodeKey = childSnapshot.getKey();
                         if (nodeKey.equals(uid)) {
+                            SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("category", "hirer");
+                            editor.apply();
                             Intent intent = new Intent(CategorySelect.this, homepage.class);
                             startActivity(intent);
                             return;
@@ -178,6 +190,10 @@ public class CategorySelect extends AppCompatActivity implements View.OnClickLis
                     for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
                         String nodeKey = childSnapshot.getKey();
                         if (nodeKey.equals(uid)) {
+                            SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("category", "hiree");
+                            editor.apply();
                             Intent intent = new Intent(CategorySelect.this, homepage.class);
                             startActivity(intent);
                             return;

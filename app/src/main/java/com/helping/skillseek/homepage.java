@@ -89,11 +89,11 @@ public class homepage extends AppCompatActivity implements View.OnClickListener 
         String profilePicImage = sharedPreferences.getString("imageurl","default");
         String id = sharedPreferences.getString("uniqueID","default");
         String category = sharedPreferences.getString("category","default");
+        Log.d("Category",category);
 
         auth = FirebaseAuth.getInstance();
         if (auth.getCurrentUser()!=null) {
             String authID = auth.getCurrentUser().getUid();
-            Log.d("Unique ID",authID+"hvkhkhvkjvhkgvkghvkgvjghvkhgckghckhgckghckghckhgckhcg");
             hirerRef = FirebaseDatabase.getInstance().getReference("hirer");
             hireeRef = FirebaseDatabase.getInstance().getReference("hiree");
 

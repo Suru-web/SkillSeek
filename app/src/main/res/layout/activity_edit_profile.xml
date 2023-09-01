@@ -14,6 +14,8 @@
         android:layout_marginTop="30dp"
         android:fontFamily="@font/lilita_one"
         android:text="Edit Profile"
+        android:layout_marginLeft="100dp"
+        android:paddingRight="100dp"
         android:textAlignment="center"
         android:textSize="30dp"
         android:textColor="@color/black"
@@ -25,8 +27,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="20dp"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="-40dp"
         app:layout_constraintTop_toBottomOf="@+id/textView12"
         tools:layout_editor_absoluteX="1dp">
 
@@ -91,10 +95,10 @@
                     android:backgroundTint="@color/black"
                     android:fontFamily="@font/comfortaa_bold"
                     android:textCursorDrawable="@null"
-                    android:text="Name"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
                 <TextView
+                    android:id="@+id/tvName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Name"
@@ -129,13 +133,13 @@
                     android:background="@null"
                     android:backgroundTint="@color/black"
                     android:textCursorDrawable="@null"
-                    android:text="Username"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
                 <TextView
+                    android:id="@+id/tvuname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Name"
+                    android:text="Username"
                     android:textColor="@color/grey"
                     android:fontFamily="@font/comfortaa_bold"
                     android:textAlignment="center"/>
@@ -167,13 +171,13 @@
                     android:background="@null"
                     android:backgroundTint="@color/black"
                     android:textCursorDrawable="@null"
-                    android:text="Skill"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
                 <TextView
+                    android:id="@+id/tvSkill"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Name"
+                    android:text="Skill"
                     android:textColor="@color/grey"
                     android:fontFamily="@font/comfortaa_bold"
                     android:textAlignment="center"/>
@@ -198,20 +202,20 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="30dp"
                     android:ems="10"
-                    android:inputType="number"
+                    android:inputType="text"
                     android:paddingBottom="15dp"
                     android:fontFamily="@font/comfortaa_bold"
                     android:background="@null"
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textCursorDrawable="@null"
-                    android:text="Age"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
                 <TextView
+                    android:id="@+id/tvAge"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Name"
+                    android:text="Age"
                     android:textColor="@color/grey"
                     android:fontFamily="@font/comfortaa_bold"
                     android:textAlignment="center"/>
@@ -221,12 +225,12 @@
         </RelativeLayout>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/submitEP"
             android:layout_width="wrap_content"
             android:layout_height="51dp"
             android:layout_below="@+id/rl1"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="52dp"
+            android:layout_marginTop="20dp"
             android:textColor="@color/white"
             android:backgroundTint="@color/black"
             android:fontFamily="@font/comfortaa_bold"
@@ -234,6 +238,19 @@
 
 
     </RelativeLayout>
+
+    <ImageButton
+        android:id="@+id/backBtnEP"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:scaleType="centerCrop"
+        android:backgroundTint="@color/white"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/backbutton"
+        tools:layout_editor_absoluteX="7dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
