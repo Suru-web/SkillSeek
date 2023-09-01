@@ -29,6 +29,9 @@
         android:theme="@style/Theme.SkillSeek"
         tools:targetApi="31">
         <activity
+            android:name=".saved_list"
+            android:exported="false" />
+        <activity
             android:name=".edit_profile"
             android:exported="false" />
         <activity
@@ -49,10 +52,7 @@
             android:exported="false" />
         <activity
             android:name=".CategorySelect"
-            android:exported="true"></activity>
-        <activity
-            android:name=".loginPage"
-            android:exported="true" /> <!-- Set this as launcher activity -->
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

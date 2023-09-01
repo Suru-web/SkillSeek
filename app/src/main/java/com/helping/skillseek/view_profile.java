@@ -196,6 +196,8 @@ public class view_profile extends AppCompatActivity implements View.OnClickListe
                         return true;
                     } else if (item.getItemId()==R.id.savedBtn) {
                         Toast.makeText(view_profile.this,"Saved content",Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(view_profile.this, saved_list.class);
+                        startActivity(intent);
                         return true;
                     }
                     return false;

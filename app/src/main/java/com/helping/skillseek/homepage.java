@@ -101,7 +101,6 @@ public class homepage extends AppCompatActivity implements View.OnClickListener 
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.child(authID).exists()) {
-                        Log.d("Snapshot data", String.valueOf(snapshot.child(authID)));
                         imageURL = snapshot.child(authID).child("downloadUrl").getValue(String.class);
                         if (imageURL!=null && !imageURL.isEmpty()) {
                             Picasso.get()
@@ -204,7 +203,6 @@ public class homepage extends AppCompatActivity implements View.OnClickListener 
                     }
                     else {
                         list.add(hiree);
-                        System.out.println(hiree.getName());
                     }
                 }
                 adapter.notifyDataSetChanged();

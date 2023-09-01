@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,7 +40,10 @@ public class hireeInfoShow extends AppCompatActivity implements View.OnClickList
     Vibrator vibrator;
     LottieAnimationView likeButton;
     boolean liked = false;
+    DatabaseReference saveLiked;
+    FirebaseAuth auth;
     private static final int CALL_PERMISSION_REQUEST = 100;
+    String adminID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +63,25 @@ public class hireeInfoShow extends AppCompatActivity implements View.OnClickList
 
         Intent intent = getIntent();
         String id =  intent.getStringExtra("hireeListId");
+
+        auth = FirebaseAuth.getInstance();
+        adminID = auth.getCurrentUser().getUid();
+        saveLiked = FirebaseDatabase.getInstance().getReference("LIKED").child(adminID).child(id);
+        saveLiked.child("liked").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    likeButton.setMinAndMaxProgress(0.5f,0.5f);
+                    likeButton.playAnimation();
+                    liked = true;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         name = findViewById(R.id.nameVP);
@@ -110,12 +133,17 @@ public class hireeInfoShow extends AppCompatActivity implements View.OnClickList
         likeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (liked){
-                    likeButton.setMinAndMaxProgress(0.5f,1.0f);
+                if (liked==true){
+                    if (!id.isEmpty()){
+                        saveLiked.removeValue();
+                    }
+                    likeButton.setMinAndMaxProgress(0.5f,1.0f);             //this means the disliked
                     likeButton.playAnimation();
                     liked = false;
                 }
                 else {
+                    savedAccount savedAccount = new savedAccount(liked,id);           //this means liked
+                    saveLiked.setValue(savedAccount);
                     likeButton.setMinAndMaxProgress(0.0f,0.5f);
                     likeButton.playAnimation();
                     liked = true;
@@ -151,16 +179,11 @@ public class hireeInfoShow extends AppCompatActivity implements View.OnClickList
                 Toast.makeText(hireeInfoShow.this, "Whatsapp is not installed", Toast.LENGTH_SHORT).show();
             }
         }
-
-
-
         else if (view.getId()==R.id.messageBtnVP) {
             vibrator.vibrate(2);
             Intent intent = new Intent(Intent.ACTION_VIEW,Uri.fromParts("sms",phoneNumber,null));
             startActivity(intent);
         }
-
-
         else if (view.getId()==R.id.backbtnVP){
             vibrator.vibrate(2);
             finish();

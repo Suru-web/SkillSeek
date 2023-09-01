@@ -27,9 +27,11 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
-            android:fontFamily="@font/comfortaa_bold"
+            android:fontFamily="@font/lilita_one"
             android:hapticFeedbackEnabled="true"
             android:text="SkillSeek"
+            android:letterSpacing="0.05"
+            android:alpha="0.9"
             android:textColor="@color/black"
             android:textSize="22dp" />
 
