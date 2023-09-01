@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.os.Vibrator;
 import android.os.Bundle;
 import android.util.Log;
@@ -113,6 +114,7 @@ public class CategorySelect extends AppCompatActivity implements View.OnClickLis
         }
 
     }
+
 
     @Override
     public void onClick(View view) {

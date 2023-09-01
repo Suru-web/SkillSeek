@@ -8,4 +8,7 @@
     <item android:title="Log out"
         android:id="@+id/logoutBtn"
         />
+    <item android:title="Saved"
+        android:id="@+id/savedBtn"
+        />
 </menu>

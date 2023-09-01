@@ -37,6 +37,8 @@ public class view_profile extends AppCompatActivity implements View.OnClickListe
     private DatabaseReference databaseReference;
     int check;
     String loadImage;
+    FirebaseAuth auth;
+    String yourCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +55,10 @@ public class view_profile extends AppCompatActivity implements View.OnClickListe
         flags |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
         window.getDecorView().setSystemUiVisibility(flags);
 
-        FirebaseAuth auth = FirebaseAuth.getInstance();
+        auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
         String phoneNumber = user.getPhoneNumber();
+
 
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         backButton = findViewById(R.id.goback);
@@ -73,7 +76,7 @@ public class view_profile extends AppCompatActivity implements View.OnClickListe
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         String profilePicImage = sharedPreferences.getString("imageurl","default");
         String id = sharedPreferences.getString("uniqueID","defualt");
-        String yourCategory = sharedPreferences.getString("category"," ");                  //instead of checking if hirer/hiree fetch from database
+        yourCategory = sharedPreferences.getString("category"," ");                  //instead of checking if hirer/hiree fetch from database
 
         String uid = user.getUid();
         Log.d("UID : ",uid);
@@ -85,9 +88,6 @@ public class view_profile extends AppCompatActivity implements View.OnClickListe
         else {
             phoneDisplay.setText("Phone Number");
         }
-
-
-
         if (yourCategory.equals("Hirer")||yourCategory.equals("hirer")) {
             databaseReference = FirebaseDatabase.getInstance().getReference("hirer").child(uid);
             check = 1;
@@ -138,7 +138,7 @@ public class view_profile extends AppCompatActivity implements View.OnClickListe
                     usernameDisplay.setText(uname);
                     emailDispay.setText(skill);
                     addressDisplay.setText(age);
-                    idDisplay.setText("Unique ID : "+uniqueID);
+                    idDisplay.setText("Unique ID : "+uid);
                     emailM.setText("Skill :- ");
                     addressM.setText("Age :-");
                     if (loadImage!=null && !loadImage.isEmpty()) {
@@ -174,6 +174,7 @@ public class view_profile extends AppCompatActivity implements View.OnClickListe
         }
         else if (v.getId()==R.id.menuBtn){
             vibrator.vibrate(2);
+
             PopupMenu popupMenu = new PopupMenu(view_profile.this,v);
             popupMenu.getMenuInflater().inflate(R.menu.porfile_dropdown,popupMenu.getMenu());
             popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -181,12 +182,19 @@ public class view_profile extends AppCompatActivity implements View.OnClickListe
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
                     if (item.getItemId()==R.id.editProfileBtn){
-//                        Intent intent = new Intent(view_profile.this, edit_profile.class);
-//                        startActivity(intent);
+                        Intent intent = new Intent(view_profile.this, edit_profile.class);
+                        intent.putExtra("editProfileGetCategory",yourCategory);
+                        startActivity(intent);
                         Toast.makeText(view_profile.this,"Edit button pressed",Toast.LENGTH_SHORT).show();
                         return true;
                     } else if (item.getItemId()==R.id.logoutBtn) {
+                        auth.signOut();
+                        Intent intent = new Intent(view_profile.this,MainActivity.class);
+                        startActivity(intent);
                         Toast.makeText(view_profile.this,"LogOut successfull",Toast.LENGTH_SHORT).show();
+                        return true;
+                    } else if (item.getItemId()==R.id.savedBtn) {
+                        Toast.makeText(view_profile.this,"Saved content",Toast.LENGTH_SHORT).show();
                         return true;
                     }
                     return false;

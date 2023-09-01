@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".edit_profile">
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/lilita_one"
+        android:text="Edit Profile"
+        android:textAlignment="center"
+        android:textSize="30dp"
+        android:textColor="@color/black"
+        android:alpha="0.8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="50dp"
+        app:layout_constraintTop_toBottomOf="@+id/textView12"
+        tools:layout_editor_absoluteX="1dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/pfpInEP"
+            android:elevation="8dp"
+            android:stateListAnimator="@null"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/profilepicture"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="-30dp"
+            android:layout_marginTop="89dp"
+            android:elevation="9dp"
+            android:stateListAnimator="@null"
+            android:layout_toEndOf="@+id/pfpInEP"
+            android:id="@+id/pfpeditInEP"
+            android:src="@drawable/editpen" />
+
+        <RelativeLayout
+            android:id="@+id/rl1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/allside_round_layout"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:elevation="8dp"
+            android:stateListAnimator="@null"
+            android:layout_below="@+id/pfpInEP">
+
+            <LinearLayout
+                android:id="@+id/ll1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:elevation="8dp"
+                android:stateListAnimator="@null"
+                android:gravity="center">
+
+                <EditText
+                    android:id="@+id/nameEditInEP"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/pfpInEP"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="40dp"
+                    android:ems="10"
+                    android:inputType="text"
+                    android:paddingBottom="10dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:background="@null"
+                    android:backgroundTint="@color/black"
+                    android:fontFamily="@font/comfortaa_bold"
+                    android:textCursorDrawable="@null"
+                    android:text="Name"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Name"
+                    android:textColor="@color/grey"
+                    android:fontFamily="@font/comfortaa_bold"
+                    android:textAlignment="center"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:elevation="8dp"
+                android:stateListAnimator="@null"
+                android:layout_below="@+id/ll1"
+                android:gravity="center">
+
+                <EditText
+                    android:id="@+id/usernameEditInEP"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ll1"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
+                    android:ems="10"
+                    android:inputType="text"
+                    android:paddingBottom="15dp"
+                    android:fontFamily="@font/comfortaa_bold"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:background="@null"
+                    android:backgroundTint="@color/black"
+                    android:textCursorDrawable="@null"
+                    android:text="Username"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Name"
+                    android:textColor="@color/grey"
+                    android:fontFamily="@font/comfortaa_bold"
+                    android:textAlignment="center"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:elevation="8dp"
+                android:stateListAnimator="@null"
+                android:layout_below="@+id/ll2"
+                android:gravity="center">
+
+                <EditText
+                    android:id="@+id/skillEditInEP"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/usernameEditInEP"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
+                    android:ems="10"
+                    android:inputType="text"
+                    android:paddingBottom="15dp"
+                    android:fontFamily="@font/comfortaa_bold"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:background="@null"
+                    android:backgroundTint="@color/black"
+                    android:textCursorDrawable="@null"
+                    android:text="Skill"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Name"
+                    android:textColor="@color/grey"
+                    android:fontFamily="@font/comfortaa_bold"
+                    android:textAlignment="center"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:elevation="8dp"
+                android:stateListAnimator="@null"
+                android:layout_marginBottom="40dp"
+                android:layout_below="@+id/ll3"
+                android:gravity="center">
+
+                <EditText
+                    android:id="@+id/ageEditInEP"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/skillEditInEP"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
+                    android:ems="10"
+                    android:inputType="number"
+                    android:paddingBottom="15dp"
+                    android:fontFamily="@font/comfortaa_bold"
+                    android:background="@null"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@null"
+                    android:text="Age"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Name"
+                    android:textColor="@color/grey"
+                    android:fontFamily="@font/comfortaa_bold"
+                    android:textAlignment="center"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="51dp"
+            android:layout_below="@+id/rl1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="52dp"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/black"
+            android:fontFamily="@font/comfortaa_bold"
+            android:text="Submit" />
+
+
+    </RelativeLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

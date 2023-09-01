@@ -104,57 +104,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                              Toast toast = Toast.makeText(MainActivity.this,"Otp Successfully Verified", Toast.LENGTH_SHORT);
                              toast.show();
                              contBtn.setVisibility(View.VISIBLE);
-
-
-                             hirerRef.orderByChild("phoneNumber").equalTo(mobileNumber).addListenerForSingleValueEvent(new ValueEventListener() {
-                                 @Override
-                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                     if (snapshot.exists()){
-                                         Toast.makeText(MainActivity.this,"Account already exists",Toast.LENGTH_SHORT).show();
-                                         check = 1;
-                                         Intent intent = new Intent(MainActivity.this, homepage.class);
-                                         startActivity(intent);
-
-                                     }
-                                     else {
-                                         check = 0;
-                                     }
-                                 }
-
-                                 @Override
-                                 public void onCancelled(@NonNull DatabaseError error) {
-
-                                 }
-                             });
-
-                             hireeRef.orderByChild("phoneNumber").equalTo(mobileNumber).addListenerForSingleValueEvent(new ValueEventListener() {
-                                 @Override
-                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                     if (snapshot.exists()){
-                                         Toast.makeText(MainActivity.this,"Account already exists",Toast.LENGTH_SHORT).show();
-                                         check = 1;
-                                         Intent intent = new Intent(MainActivity.this, homepage.class);
-                                         startActivity(intent);
-                                     }
-                                     else {
-                                         check = 0;
-                                     }
-                                 }
-
-                                 @Override
-                                 public void onCancelled(@NonNull DatabaseError error) {
-
-                                 }
-                             });
-
-                             if (check == 1){
-                                 Intent intent = new Intent(MainActivity.this, homepage.class);
-                                 startActivity(intent);
-                             } else if (check == 0) {
-                                 Intent intent = new Intent(MainActivity.this, CategorySelect.class);
-                                 startActivity(intent);
-                             }
-
+                             Intent intent = new Intent(MainActivity.this,CategorySelect.class);
+                             startActivity(intent);
 
                          }
                          else {
