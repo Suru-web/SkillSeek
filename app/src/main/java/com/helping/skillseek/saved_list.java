@@ -77,6 +77,7 @@ public class saved_list extends AppCompatActivity implements View.OnClickListene
                 mainRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        list.clear();
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                             hireeDetailsForFB hiree = dataSnapshot.getValue(hireeDetailsForFB.class);
                             for (int i = 0; i<stringID.size();i++){

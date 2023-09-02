@@ -68,6 +68,7 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
     Uri imageUri;
     String imageDownloadUrl;
     StorageReference imagereference;
+    DatabaseReference countRef;
     String phoneNum;
 
     @Override
@@ -196,6 +197,10 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
                                         downloadUrl = uri1.toString();
                                         hireeDetails hiree = new hireeDetails(authUID, name, uname, skill, age,downloadUrl,phoneNum);
                                         databasehiree.child(authUID).setValue(hiree);
+
+                                        addCount addCount = new addCount("0");
+                                        countRef = FirebaseDatabase.getInstance().getReference("COUNT").child(authUID);
+                                        countRef.setValue(addCount);
 
                                         Intent intent = new Intent(this, homepage.class);
                                         editor.putString("imageurl",downloadUrl);

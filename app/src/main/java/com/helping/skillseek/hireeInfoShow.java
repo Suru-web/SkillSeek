@@ -46,6 +46,10 @@ public class hireeInfoShow extends AppCompatActivity implements View.OnClickList
     private static final int CALL_PERMISSION_REQUEST = 100;
     String adminID;
     String yourCategory;
+    String countCount;
+    DatabaseReference countAddHiree;
+    LottieAnimationView eye;
+    TextView countTEXT;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,16 +68,57 @@ public class hireeInfoShow extends AppCompatActivity implements View.OnClickList
         window.getDecorView().setSystemUiVisibility(flags);
 
 
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        name = findViewById(R.id.nameVP);
+        skill = findViewById(R.id.skillVP);
+        phone = findViewById(R.id.phoneVp);
+        username = findViewById(R.id.usernameVp);
+        rating = findViewById(R.id.ratingVP);
+        place = findViewById(R.id.locationVP);
+        profilepic = findViewById(R.id.profilepicVP);
+        call = findViewById(R.id.callBtnVP);
+        whatsapp = findViewById(R.id.whatsappBtnVP);
+        message = findViewById(R.id.messageBtnVP);
+        backbtn = findViewById(R.id.backbtnVP);
+        countTEXT = findViewById(R.id.countTV);
+        eye = findViewById(R.id.eyesLook);
+
+
         Intent intent = getIntent();
         String id =  intent.getStringExtra("hireeListId");
+
+        countAddHiree = FirebaseDatabase.getInstance().getReference("COUNT").child(id);
+        countAddHiree.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    countCount = snapshot.child("count").getValue(String.class);
+                    System.out.println(countCount);
+                    int c = Integer.parseInt(countCount);
+                    c = c+1;
+                    String newCount = String.valueOf(c);
+                    addCount add = new addCount(newCount);
+                    countAddHiree.setValue(add);
+                    eye.setRepeatCount(10);
+                    eye.setSpeed(0.5f);
+                    eye.playAnimation();
+                    countTEXT.setText(newCount);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
         auth = FirebaseAuth.getInstance();
         adminID = auth.getCurrentUser().getUid();
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         yourCategory = sharedPreferences.getString("category"," ");
-        System.out.println(yourCategory);
 
-        if (yourCategory.equals("hirer")) {
+        if (yourCategory.equals("Hirer")||yourCategory.equals("hirer")) {
             saveLiked = FirebaseDatabase.getInstance().getReference("LIKED").child(adminID).child(id);
             saveLiked.child("liked").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -94,18 +139,6 @@ public class hireeInfoShow extends AppCompatActivity implements View.OnClickList
             likeButton.setVisibility(View.GONE);
         }
 
-        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        name = findViewById(R.id.nameVP);
-        skill = findViewById(R.id.skillVP);
-        phone = findViewById(R.id.phoneVp);
-        username = findViewById(R.id.usernameVp);
-        rating = findViewById(R.id.ratingVP);
-        place = findViewById(R.id.locationVP);
-        profilepic = findViewById(R.id.profilepicVP);
-        call = findViewById(R.id.callBtnVP);
-        whatsapp = findViewById(R.id.whatsappBtnVP);
-        message = findViewById(R.id.messageBtnVP);
-        backbtn = findViewById(R.id.backbtnVP);
 
         databaseReference = FirebaseDatabase.getInstance().getReference("hiree").child(id);
         databaseReference.addValueEventListener(new ValueEventListener() {

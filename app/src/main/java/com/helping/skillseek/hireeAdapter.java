@@ -75,6 +75,7 @@ public class hireeAdapter extends RecyclerView.Adapter<hireeAdapter.MyViewHolder
                         hireeDetailsForFB item = list.get(position);
                         String id = item.getId();
                         Intent intent = new Intent(context, hireeInfoShow.class);
+                        intent.putExtra("countOfVisit", true);
                         intent.putExtra("hireeListId",id);
                         context.startActivity(intent);
                     }

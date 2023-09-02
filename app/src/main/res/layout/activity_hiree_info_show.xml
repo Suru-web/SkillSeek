@@ -133,6 +133,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/rl2"
         android:layout_marginRight="00dp"
         android:layout_marginLeft="00dp"
         android:layout_width="match_parent"
@@ -310,7 +311,39 @@
             </LinearLayout>
         </RelativeLayout>
 
+
+
     </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="50dp"
+        tools:layout_editor_absoluteY="672dp">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:lottie_rawRes="@raw/eyelook"
+            android:alpha="0.6"
+            android:layout_marginRight="10dp"
+            android:id="@+id/eyesLook"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/countTV"
+            android:text="0"
+            android:fontFamily="@font/work_sans"
+            android:textColor="@color/black"
+            android:alpha="0.6"
+            android:textSize="12dp"/>
+
+
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
