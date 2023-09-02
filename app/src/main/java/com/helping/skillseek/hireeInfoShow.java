@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +30,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
+import java.text.DecimalFormat;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -48,8 +51,10 @@ public class hireeInfoShow extends AppCompatActivity implements View.OnClickList
     String yourCategory;
     String countCount;
     DatabaseReference countAddHiree;
+    RatingBar rateUser;
     LottieAnimationView eye;
-    TextView countTEXT;
+    TextView countTEXT,rateBtn,ratingDisplay,raterCnt;
+    DatabaseReference ratingRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +87,10 @@ public class hireeInfoShow extends AppCompatActivity implements View.OnClickList
         backbtn = findViewById(R.id.backbtnVP);
         countTEXT = findViewById(R.id.countTV);
         eye = findViewById(R.id.eyesLook);
-
+        rateUser = findViewById(R.id.rateBar);
+        rateBtn = findViewById(R.id.rateBtnTV);
+        ratingDisplay = findViewById(R.id.ratingVP);
+        raterCnt = findViewById(R.id.raterCount);
 
         Intent intent = getIntent();
         String id =  intent.getStringExtra("hireeListId");
@@ -193,6 +201,62 @@ public class hireeInfoShow extends AppCompatActivity implements View.OnClickList
                     likeButton.playAnimation();
                     liked = true;
                 }
+            }
+        });
+        ratingRef = FirebaseDatabase.getInstance().getReference("rating").child(id);
+        System.out.println(id);
+        ratingRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    Float avgRate = snapshot.child("rate").getValue(Float.class);
+                    Float cnt = snapshot.child("raterCount").getValue(Float.class);
+                    DecimalFormat decimalFormat = new DecimalFormat("#.#");
+                    DecimalFormat decimalFormatcnt = new DecimalFormat("#");
+                    String avgr = decimalFormat.format(avgRate);
+                    String newCnt = decimalFormatcnt.format(cnt);
+                    ratingDisplay.setText(avgr);
+                    raterCnt.setText("Total rating : "+newCnt);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        rateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println(id);
+                rateUser.setVisibility(View.VISIBLE);
+                rateUser.setRating(2.5f);
+                rateUser.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+                    @Override
+                    public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                        Toast.makeText(hireeInfoShow.this,"Rating"+rating,Toast.LENGTH_SHORT).show();
+                        ratingRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.exists()){
+                                    Float avgRate = snapshot.child("rate").getValue(Float.class);
+                                    Float totalCount = snapshot.child("raterCount").getValue(Float.class);
+                                    Float newAvgRate = ((avgRate*totalCount)+rating)/(totalCount+1);
+                                    totalCount = totalCount + 1;
+                                    rateObject rate = new rateObject(newAvgRate,totalCount);
+                                    ratingRef.setValue(rate);
+                                    String avgr = newAvgRate.toString();
+                                    ratingDisplay.setText(avgr);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                    }
+                });
             }
         });
     }

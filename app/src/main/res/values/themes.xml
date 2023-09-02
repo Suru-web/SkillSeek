@@ -18,6 +18,10 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/lightGrey</item>
+        <item name="colorControlActivated">@color/goldRate</item>
+    </style>
 
     <style name="Theme.SkillSeek.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

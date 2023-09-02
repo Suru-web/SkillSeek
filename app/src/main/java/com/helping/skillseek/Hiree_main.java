@@ -68,7 +68,7 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
     Uri imageUri;
     String imageDownloadUrl;
     StorageReference imagereference;
-    DatabaseReference countRef;
+    DatabaseReference countRef,rateRef;
     String phoneNum;
 
     @Override
@@ -201,6 +201,9 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
                                         addCount addCount = new addCount("0");
                                         countRef = FirebaseDatabase.getInstance().getReference("COUNT").child(authUID);
                                         countRef.setValue(addCount);
+                                        rateObject rate = new rateObject(0,0);
+                                        rateRef = FirebaseDatabase.getInstance().getReference("rating").child(authUID);
+                                        rateRef.setValue(rate);
 
                                         Intent intent = new Intent(this, homepage.class);
                                         editor.putString("imageurl",downloadUrl);

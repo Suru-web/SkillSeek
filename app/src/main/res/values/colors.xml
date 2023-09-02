@@ -10,4 +10,6 @@
     <color name="defPurp">#424874</color>
     <color name="lightgrey">#EEEEEE</color>
     <color name="red">#ff3333</color>
+    <color name="goldRate">#ffc107</color>
+    <color name="lightGrey">#d0cfd1</color>
 </resources>
