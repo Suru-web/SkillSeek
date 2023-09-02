@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -44,6 +45,7 @@ public class hireeInfoShow extends AppCompatActivity implements View.OnClickList
     FirebaseAuth auth;
     private static final int CALL_PERMISSION_REQUEST = 100;
     String adminID;
+    String yourCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,7 @@ public class hireeInfoShow extends AppCompatActivity implements View.OnClickList
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.setStatusBarColor(this.getResources().getColor(R.color.white));
         window.setNavigationBarColor(this.getResources().getColor(R.color.white));
+        likeButton = findViewById(R.id.likeButtonVP);
 
         int flags = window.getDecorView().getSystemUiVisibility();
         flags |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
@@ -66,22 +69,30 @@ public class hireeInfoShow extends AppCompatActivity implements View.OnClickList
 
         auth = FirebaseAuth.getInstance();
         adminID = auth.getCurrentUser().getUid();
-        saveLiked = FirebaseDatabase.getInstance().getReference("LIKED").child(adminID).child(id);
-        saveLiked.child("liked").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()){
-                    likeButton.setMinAndMaxProgress(0.5f,0.5f);
-                    likeButton.playAnimation();
-                    liked = true;
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        yourCategory = sharedPreferences.getString("category"," ");
+        System.out.println(yourCategory);
+
+        if (yourCategory.equals("hirer")) {
+            saveLiked = FirebaseDatabase.getInstance().getReference("LIKED").child(adminID).child(id);
+            saveLiked.child("liked").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        likeButton.setMinAndMaxProgress(0.5f, 0.5f);
+                        likeButton.playAnimation();
+                        liked = true;
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                }
+            });
+        }
+        else {
+            likeButton.setVisibility(View.GONE);
+        }
 
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         name = findViewById(R.id.nameVP);
@@ -95,7 +106,6 @@ public class hireeInfoShow extends AppCompatActivity implements View.OnClickList
         whatsapp = findViewById(R.id.whatsappBtnVP);
         message = findViewById(R.id.messageBtnVP);
         backbtn = findViewById(R.id.backbtnVP);
-        likeButton = findViewById(R.id.likeButtonVP);
 
         databaseReference = FirebaseDatabase.getInstance().getReference("hiree").child(id);
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -134,6 +144,7 @@ public class hireeInfoShow extends AppCompatActivity implements View.OnClickList
             @Override
             public void onClick(View v) {
                 if (liked==true){
+                    vibrator.vibrate(2);
                     if (!id.isEmpty()){
                         saveLiked.removeValue();
                     }
@@ -142,6 +153,7 @@ public class hireeInfoShow extends AppCompatActivity implements View.OnClickList
                     liked = false;
                 }
                 else {
+                    vibrator.vibrate(2);
                     savedAccount savedAccount = new savedAccount(liked,id);           //this means liked
                     saveLiked.setValue(savedAccount);
                     likeButton.setMinAndMaxProgress(0.0f,0.5f);

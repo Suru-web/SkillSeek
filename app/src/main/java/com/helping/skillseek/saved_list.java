@@ -29,7 +29,7 @@ public class saved_list extends AppCompatActivity implements View.OnClickListene
     ArrayList<hireeDetailsForFB> list;
     ArrayList<savedAccount> sList;
     DatabaseReference mainRef,savedREF;
-    hireeAdapter adapter;
+    savedAdapter adapter;
     FirebaseAuth auth;
     String userID;
 
@@ -53,7 +53,7 @@ public class saved_list extends AppCompatActivity implements View.OnClickListene
 
         list = new ArrayList<>();
         sList = new ArrayList<>();
-        adapter = new hireeAdapter(this,list);
+        adapter = new savedAdapter(this,list);
         auth = FirebaseAuth.getInstance();
         userID = auth.getCurrentUser().getUid();
         savedREF = FirebaseDatabase.getInstance().getReference("LIKED").child(userID);

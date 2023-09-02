@@ -172,53 +172,66 @@ public class view_profile extends AppCompatActivity implements View.OnClickListe
             vibrator.vibrate(2);
             finish();
         }
-        else if (v.getId()==R.id.menuBtn){
+        else if (v.getId()==R.id.menuBtn) {
             vibrator.vibrate(2);
 
-            PopupMenu popupMenu = new PopupMenu(view_profile.this,v);
-            popupMenu.getMenuInflater().inflate(R.menu.porfile_dropdown,popupMenu.getMenu());
-            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                @SuppressLint("NonConstantResourceId")
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    if (item.getItemId()==R.id.editProfileBtn){
-                        Intent intent = new Intent(view_profile.this, edit_profile.class);
-                        intent.putExtra("editProfileGetCategory",yourCategory);
-                        startActivity(intent);
-                        Toast.makeText(view_profile.this,"Edit button pressed",Toast.LENGTH_SHORT).show();
-                        return true;
-                    } else if (item.getItemId()==R.id.logoutBtn) {
-                        auth.signOut();
-                        Intent intent = new Intent(view_profile.this,MainActivity.class);
-                        startActivity(intent);
-                        Toast.makeText(view_profile.this,"LogOut successfull",Toast.LENGTH_SHORT).show();
-                        finish();
-                        return true;
-                    } else if (item.getItemId()==R.id.savedBtn) {
-                        Toast.makeText(view_profile.this,"Saved content",Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(view_profile.this, saved_list.class);
-                        startActivity(intent);
-                        return true;
+            if (check == 1) {
+
+                PopupMenu popupMenu = new PopupMenu(view_profile.this, v);
+                popupMenu.getMenuInflater().inflate(R.menu.porfile_dropdown, popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @SuppressLint("NonConstantResourceId")
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        if (item.getItemId() == R.id.editProfileBtn) {
+                            Intent intent = new Intent(view_profile.this, edit_profile.class);
+                            intent.putExtra("editProfileGetCategory", yourCategory);
+                            startActivity(intent);
+                            Toast.makeText(view_profile.this, "Edit button pressed", Toast.LENGTH_SHORT).show();
+                            return true;
+                        } else if (item.getItemId() == R.id.logoutBtn) {
+                            auth.signOut();
+                            Intent intent = new Intent(view_profile.this, MainActivity.class);
+                            startActivity(intent);
+                            Toast.makeText(view_profile.this, "LogOut successfull", Toast.LENGTH_SHORT).show();
+                            finish();
+                            return true;
+                        } else if (item.getItemId() == R.id.savedBtn) {
+                            Toast.makeText(view_profile.this, "Saved content", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(view_profile.this, saved_list.class);
+                            startActivity(intent);
+                            return true;
+                        }
+                        return false;
                     }
-                    return false;
-                }
-            });
-            popupMenu.show();
+                });
+                popupMenu.show();
+            } else if (check == 0) {
+                PopupMenu popupMenu = new PopupMenu(view_profile.this, v);
+                popupMenu.getMenuInflater().inflate(R.menu.if_hiree_profile_dropdown, popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @SuppressLint("NonConstantResourceId")
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        if (item.getItemId() == R.id.editProfileBtn) {
+                            Intent intent = new Intent(view_profile.this, edit_profile.class);
+                            intent.putExtra("editProfileGetCategory", yourCategory);
+                            startActivity(intent);
+                            Toast.makeText(view_profile.this, "Edit button pressed", Toast.LENGTH_SHORT).show();
+                            return true;
+                        } else if (item.getItemId() == R.id.logoutBtn) {
+                            auth.signOut();
+                            Intent intent = new Intent(view_profile.this, MainActivity.class);
+                            startActivity(intent);
+                            Toast.makeText(view_profile.this, "LogOut successfull", Toast.LENGTH_SHORT).show();
+                            finish();
+                            return true;
+                        }
+                        return false;
+                    }
+                });
+                popupMenu.show();
+            }
         }
     }
-
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        if (loadImage!=null && !loadImage.isEmpty()) {
-//            Picasso.get()
-//                    .load(loadImage)
-//                    .placeholder(R.drawable.profilepicture)
-//                    .error(R.drawable.profilepicture)
-//                    .into(profpic);
-//        }
-//        else {
-//            Toast.makeText(this,"Profile Pic not found",Toast.LENGTH_SHORT).show();
-//        }
-//    }
 }
