@@ -97,7 +97,6 @@ public class edit_profile extends AppCompatActivity implements View.OnClickListe
         id = auth.getCurrentUser().getUid();
         Intent intent = getIntent();
         categ = intent.getStringExtra("editProfileGetCategory");
-        Log.d("Category in EP",categ);
 
 
         pickMedia = registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), selectedUri -> {

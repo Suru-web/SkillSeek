@@ -74,8 +74,6 @@ public class view_profile extends AppCompatActivity implements View.OnClickListe
         menubtn = findViewById(R.id.menuBtn);
 
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-        String profilePicImage = sharedPreferences.getString("imageurl","default");
-        String id = sharedPreferences.getString("uniqueID","defualt");
         yourCategory = sharedPreferences.getString("category"," ");                  //instead of checking if hirer/hiree fetch from database
 
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -107,7 +105,6 @@ public class view_profile extends AppCompatActivity implements View.OnClickListe
                         email = email.substring(0, 7) + "..." + email.substring(email.length() - 3);
                     }
                     String address = snapshot.child("address").getValue(String.class);
-                    String uniqueID = snapshot.child("id").getValue(String.class);
                     loadImage = snapshot.child("downloadUrl").getValue(String.class);
 
                     nameDisplay.setText(name);
@@ -131,7 +128,6 @@ public class view_profile extends AppCompatActivity implements View.OnClickListe
                     String uname = snapshot.child("username").getValue(String.class);
                     String skill = snapshot.child("skill").getValue(String.class);
                     String age = snapshot.child("age").getValue(String.class);
-                    String uniqueID = snapshot.child("id").getValue(String.class);
                     loadImage = snapshot.child("downloadUrl").getValue(String.class);
 
                     nameDisplay.setText(name);
@@ -174,7 +170,6 @@ public class view_profile extends AppCompatActivity implements View.OnClickListe
         }
         else if (v.getId()==R.id.menuBtn) {
             vibrator.vibrate(2);
-
             if (check == 1) {
 
                 PopupMenu popupMenu = new PopupMenu(view_profile.this, v);
@@ -187,17 +182,14 @@ public class view_profile extends AppCompatActivity implements View.OnClickListe
                             Intent intent = new Intent(view_profile.this, edit_profile.class);
                             intent.putExtra("editProfileGetCategory", yourCategory);
                             startActivity(intent);
-                            Toast.makeText(view_profile.this, "Edit button pressed", Toast.LENGTH_SHORT).show();
                             return true;
                         } else if (item.getItemId() == R.id.logoutBtn) {
                             auth.signOut();
                             Intent intent = new Intent(view_profile.this, MainActivity.class);
                             startActivity(intent);
-                            Toast.makeText(view_profile.this, "LogOut successfull", Toast.LENGTH_SHORT).show();
                             finish();
                             return true;
                         } else if (item.getItemId() == R.id.savedBtn) {
-                            Toast.makeText(view_profile.this, "Saved content", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(view_profile.this, saved_list.class);
                             startActivity(intent);
                             return true;
@@ -217,13 +209,11 @@ public class view_profile extends AppCompatActivity implements View.OnClickListe
                             Intent intent = new Intent(view_profile.this, edit_profile.class);
                             intent.putExtra("editProfileGetCategory", yourCategory);
                             startActivity(intent);
-                            Toast.makeText(view_profile.this, "Edit button pressed", Toast.LENGTH_SHORT).show();
                             return true;
                         } else if (item.getItemId() == R.id.logoutBtn) {
                             auth.signOut();
                             Intent intent = new Intent(view_profile.this, MainActivity.class);
                             startActivity(intent);
-                            Toast.makeText(view_profile.this, "LogOut successfull", Toast.LENGTH_SHORT).show();
                             finish();
                             return true;
                         }

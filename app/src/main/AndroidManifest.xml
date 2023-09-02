@@ -29,6 +29,9 @@
         android:theme="@style/Theme.SkillSeek"
         tools:targetApi="31">
         <activity
+            android:name=".loadingScreen"
+            android:exported="true" />
+        <activity
             android:name=".saved_list"
             android:exported="false" />
         <activity

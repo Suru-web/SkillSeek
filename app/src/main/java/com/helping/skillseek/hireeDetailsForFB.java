@@ -48,4 +48,5 @@ public class hireeDetailsForFB {
     public void setdownloadUrl(String downloadUrl) {
         this.downloadUrl = downloadUrl;
     }
+
 }

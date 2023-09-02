@@ -44,7 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="330dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="80dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/allside_round_layout"
         android:elevation="8dp"

@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                              Toast toast = Toast.makeText(MainActivity.this,"Otp Successfully Verified", Toast.LENGTH_SHORT);
                              toast.show();
                              contBtn.setVisibility(View.VISIBLE);
-                             Intent intent = new Intent(MainActivity.this,CategorySelect.class);
+                             Intent intent = new Intent(MainActivity.this, loadingScreen.class);
                              startActivity(intent);
 
                          }
@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onStart();
         FirebaseUser mFBUser = FirebaseAuth.getInstance().getCurrentUser();
         if (mFBUser!= null){
-            Intent intent = new Intent(MainActivity.this, CategorySelect.class);
+            Intent intent = new Intent(MainActivity.this, loadingScreen.class);
             startActivity(intent);
         }
     }

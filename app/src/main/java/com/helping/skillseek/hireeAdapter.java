@@ -2,6 +2,7 @@ package com.helping.skillseek;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,6 +72,7 @@ public class hireeAdapter extends RecyclerView.Adapter<hireeAdapter.MyViewHolder
                 @Override
                 public void onClick(View view) {
                     int position = getAdapterPosition();
+
                     if (position != RecyclerView.NO_POSITION) {
                         hireeDetailsForFB item = list.get(position);
                         String id = item.getId();
