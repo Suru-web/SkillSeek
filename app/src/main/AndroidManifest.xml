@@ -46,10 +46,10 @@
             android:exported="false" />
         <activity
             android:name=".Hiree_main"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".hirer_main"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".CategorySelect"
             android:exported="true" />

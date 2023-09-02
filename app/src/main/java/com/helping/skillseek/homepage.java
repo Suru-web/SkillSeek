@@ -113,7 +113,6 @@ public class homepage extends AppCompatActivity implements View.OnClickListener 
                             Toast.makeText(homepage.this,"Profile pic image not loaded",Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Log.d("Datasnapshot ","It does not exist");
                         hireeRef.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {

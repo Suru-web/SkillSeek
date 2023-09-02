@@ -282,6 +282,21 @@
                 android:text="Submit"
                 android:textColor="@color/white" />
 
+            <TextView
+                android:id="@+id/pfperrorshowtv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/hireeProfilePicture"
+                android:layout_marginTop="10dp"
+                android:text="Upload profile picture to continue"
+                android:textSize="16dp"
+                android:textColor="@color/red"
+                android:visibility="gone"
+                android:fontFamily="@font/comfortaa_bold"
+                android:layout_centerHorizontal="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
 
         </RelativeLayout>
 

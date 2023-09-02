@@ -24,6 +24,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.Manifest;
 
@@ -47,6 +48,7 @@ public class hirer_main extends AppCompatActivity implements View.OnClickListene
     ImageButton hirerPutPic;
     CircleImageView hirerProfilePicture;
     Vibrator vibrator;
+    TextView pfperror;
     String uID;
     String downloadUrl;
     DatabaseReference databasehirer;
@@ -80,6 +82,7 @@ public class hirer_main extends AppCompatActivity implements View.OnClickListene
         hirerProfilePicture.setImageResource(R.drawable.profilepicture);
         submit = findViewById(R.id.hirerSubmitBtn);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        pfperror = findViewById(R.id.pfperrorHirer);
 
 
 
@@ -174,7 +177,7 @@ public class hirer_main extends AppCompatActivity implements View.OnClickListene
                             });
                         }
                         else {
-                            Toast.makeText(hirer_main.this,"Profile pic cannot be empty",Toast.LENGTH_SHORT).show();
+                            pfperror.setVisibility(View.VISIBLE);
                         }
                     } else {
                         Toast.makeText(hirer_main.this, "Error, Data not saved", Toast.LENGTH_SHORT).show();

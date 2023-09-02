@@ -216,21 +216,23 @@ public class edit_profile extends AppCompatActivity implements View.OnClickListe
                             hashMap.put("phoneNumber", auth.getCurrentUser().getPhoneNumber());
                             hashMap.put("id", auth.getCurrentUser().getUid());
                             hashMap.put("downloadUrl", imageURL);
-                            Log.d("Image URL", imageURL);databaseReference.setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                }
-
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@androidx.annotation.NonNull Exception e) {
-                                    e.printStackTrace();
-                                }
-                            });
+                            Log.d("Image URL", imageURL);
+                            databaseReference.setValue(hashMap);
                         });
                     }).addOnFailureListener(exception -> {
                         Toast.makeText(this, "Image not uploaded", Toast.LENGTH_SHORT).show();
                     });
+                }
+                else {
+                    HashMap<String, Object> hashMap = new HashMap<>();
+                    hashMap.put("name", Name);
+                    hashMap.put("username", userName);
+                    hashMap.put("age", Age);
+                    hashMap.put("skill", SKILL);
+                    hashMap.put("phoneNumber", auth.getCurrentUser().getPhoneNumber());
+                    hashMap.put("id", auth.getCurrentUser().getUid());
+                    hashMap.put("downloadUrl", loadImage);
+                    databaseReference.setValue(hashMap);
                 }
             } else if (check == 1) {
                 imagereference = profilePicsRef.child(auth.getCurrentUser().getUid());
@@ -249,22 +251,23 @@ public class edit_profile extends AppCompatActivity implements View.OnClickListe
                             hashMap.put("id",auth.getCurrentUser().getUid());
                             hashMap.put("downloadUrl",imageURL);
                             Log.d("Image URL",imageURL);
-                            databaseReference.setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(edit_profile.this, "Updated profile", Toast.LENGTH_SHORT).show();
-                                }
-
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@androidx.annotation.NonNull Exception e) {
-                                    e.printStackTrace();
-                                }
-                            });
+                            databaseReference.setValue(hashMap);
                         });
                     }).addOnFailureListener(exception -> {
                         Toast.makeText(this,"Image not uploaded",Toast.LENGTH_SHORT).show();
                     });
+                }
+                else {
+                    HashMap<String, Object> hashMap = new HashMap<>();
+                    hashMap.put("name", Name);
+                    hashMap.put("username", userName);
+                    hashMap.put("address", Age);
+                    hashMap.put("email", SKILL);
+                    hashMap.put("phoneNumber",auth.getCurrentUser().getPhoneNumber());
+                    hashMap.put("id",auth.getCurrentUser().getUid());
+                    hashMap.put("downloadUrl",loadImage);
+                    Log.d("Image URL",loadImage);
+                    databaseReference.setValue(hashMap);
                 }
 
             }finish();

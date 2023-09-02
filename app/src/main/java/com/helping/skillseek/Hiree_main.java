@@ -28,6 +28,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.Task;
@@ -59,6 +60,7 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
     int a=0,net;
     String authUID;
     DatabaseReference databasehiree;
+    TextView pfperror;
     FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
     StorageReference storageReference = firebaseStorage.getReference();
     StorageReference profilePicsRef = storageReference.child("hiree_profile_pictures");
@@ -93,6 +95,7 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
         hireePutPic = findViewById(R.id.hireeProfilePictureEditBtn);
         hireeProfilePicture = findViewById(R.id.hireeProfilePicture);
         hireeProfilePicture.setImageResource(R.drawable.profilepicture);
+        pfperror = findViewById(R.id.pfperrorshowtv);
         hireeAge = findViewById(R.id.hireeAge);
         submit = findViewById(R.id.hireeSubmitBtn);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
@@ -204,6 +207,9 @@ public class Hiree_main extends AppCompatActivity implements View.OnClickListene
                                 }).addOnFailureListener(exception -> {
                                     Toast.makeText(this,"Image not uploaded",Toast.LENGTH_SHORT).show();
                                 });
+                            }
+                            else {
+                                pfperror.setVisibility(View.VISIBLE);
                             }
                             break skipToParentElse;
                         }
