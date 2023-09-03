@@ -8,16 +8,15 @@ import androidx.core.content.ContextCompat;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,7 +36,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class hireeInfoShow extends AppCompatActivity implements View.OnClickListener {
     CircleImageView profilepic;
-    TextView name,skill,phone,username,rating,place;
+    TextView name,skill,phone,username,place;
 
     DatabaseReference databaseReference;
     ImageButton call,whatsapp,message,backbtn;
@@ -53,8 +52,10 @@ public class hireeInfoShow extends AppCompatActivity implements View.OnClickList
     DatabaseReference countAddHiree;
     RatingBar rateUser;
     LottieAnimationView eye;
-    TextView countTEXT,rateBtn,ratingDisplay,raterCnt;
+    TextView countTEXT,rateBtn,ratingDisplay,raterCnt,ratingDone;
     DatabaseReference ratingRef;
+    boolean ratedAlready;
+    LinearLayout linearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +79,6 @@ public class hireeInfoShow extends AppCompatActivity implements View.OnClickList
         skill = findViewById(R.id.skillVP);
         phone = findViewById(R.id.phoneVp);
         username = findViewById(R.id.usernameVp);
-        rating = findViewById(R.id.ratingVP);
         place = findViewById(R.id.locationVP);
         profilepic = findViewById(R.id.profilepicVP);
         call = findViewById(R.id.callBtnVP);
@@ -91,9 +91,14 @@ public class hireeInfoShow extends AppCompatActivity implements View.OnClickList
         rateBtn = findViewById(R.id.rateBtnTV);
         ratingDisplay = findViewById(R.id.ratingVP);
         raterCnt = findViewById(R.id.raterCount);
+        ratingDone = findViewById(R.id.alreadyRatedTV);
+        linearLayout = findViewById(R.id.llrate);
 
         Intent intent = getIntent();
         String id =  intent.getStringExtra("hireeListId");
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        yourCategory = sharedPreferences.getString("category"," ");
+
 
         countAddHiree = FirebaseDatabase.getInstance().getReference("COUNT").child(id);
         countAddHiree.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -123,8 +128,6 @@ public class hireeInfoShow extends AppCompatActivity implements View.OnClickList
 
         auth = FirebaseAuth.getInstance();
         adminID = auth.getCurrentUser().getUid();
-        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-        yourCategory = sharedPreferences.getString("category"," ");
 
         if (yourCategory.equals("Hirer")||yourCategory.equals("hirer")) {
             saveLiked = FirebaseDatabase.getInstance().getReference("LIKED").child(adminID).child(id);
@@ -145,6 +148,7 @@ public class hireeInfoShow extends AppCompatActivity implements View.OnClickList
         }
         else {
             likeButton.setVisibility(View.GONE);
+            linearLayout.setVisibility(View.GONE);
         }
 
 
@@ -225,38 +229,46 @@ public class hireeInfoShow extends AppCompatActivity implements View.OnClickList
 
             }
         });
+
         rateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 System.out.println(id);
                 rateUser.setVisibility(View.VISIBLE);
-                rateUser.setRating(2.5f);
-                rateUser.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-                    @Override
-                    public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                        Toast.makeText(hireeInfoShow.this,"Rating"+rating,Toast.LENGTH_SHORT).show();
-                        ratingRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if (snapshot.exists()){
-                                    Float avgRate = snapshot.child("rate").getValue(Float.class);
-                                    Float totalCount = snapshot.child("raterCount").getValue(Float.class);
-                                    Float newAvgRate = ((avgRate*totalCount)+rating)/(totalCount+1);
-                                    totalCount = totalCount + 1;
-                                    rateObject rate = new rateObject(newAvgRate,totalCount);
-                                    ratingRef.setValue(rate);
-                                    String avgr = newAvgRate.toString();
-                                    ratingDisplay.setText(avgr);
+                if (!ratedAlready) {
+                    rateUser.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+                        @Override
+                        public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                            Toast.makeText(hireeInfoShow.this, "Your rating of " + rating+" has added", Toast.LENGTH_LONG).show();
+                            ratingRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    if (snapshot.exists()) {
+                                        Float avgRate = snapshot.child("rate").getValue(Float.class);
+                                        Float totalCount = snapshot.child("raterCount").getValue(Float.class);
+                                        Float newAvgRate = ((avgRate * totalCount) + rating) / (totalCount + 1);
+                                        totalCount = totalCount + 1;
+                                        rateObject rate = new rateObject(newAvgRate, totalCount);
+                                        ratingRef.setValue(rate);
+                                        String avgr = newAvgRate.toString();
+                                        ratingDisplay.setText(avgr);
+                                    }
                                 }
-                            }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
 
-                            }
-                        });
-                    }
-                });
+                                }
+                            });
+                            rateUser.setVisibility(View.GONE);
+                        }
+                    });
+                    ratedAlready = true;
+                }
+                else {
+                    rateUser.setVisibility(View.GONE);
+                    ratingDone.setVisibility(View.VISIBLE);
+                }
             }
         });
     }
