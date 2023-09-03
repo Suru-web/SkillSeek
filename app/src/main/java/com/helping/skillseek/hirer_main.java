@@ -211,17 +211,6 @@ public class hirer_main extends AppCompatActivity implements View.OnClickListene
         }
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-        String fetchedCategory = sharedPreferences.getString("data","default");
-        if (fetchedCategory.equals("true")){
-            Intent intent = new Intent(this, homepage.class);
-            startActivity(intent);
-            finish();
-        }
-    }
     public boolean isInternetAvailable() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivityManager != null) {
