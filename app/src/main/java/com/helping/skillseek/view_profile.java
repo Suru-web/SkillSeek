@@ -1,10 +1,19 @@
 package com.helping.skillseek;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.RectF;
+import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
@@ -14,6 +23,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +49,8 @@ public class view_profile extends AppCompatActivity implements View.OnClickListe
     String loadImage;
     FirebaseAuth auth;
     String yourCategory;
+    ImageView profilePic;
+    CardView cardView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +84,7 @@ public class view_profile extends AppCompatActivity implements View.OnClickListe
         emailM = findViewById(R.id.email);
         addressM = findViewById(R.id.address);
         menubtn = findViewById(R.id.menuBtn);
+
 
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         yourCategory = sharedPreferences.getString("category"," ");                  //instead of checking if hirer/hiree fetch from database
@@ -160,6 +173,7 @@ public class view_profile extends AppCompatActivity implements View.OnClickListe
 
         backButton.setOnClickListener(this);
         menubtn.setOnClickListener(this);
+        profpic.setOnClickListener(this);
     }
 
     @Override
@@ -222,6 +236,10 @@ public class view_profile extends AppCompatActivity implements View.OnClickListe
                 });
                 popupMenu.show();
             }
+        } else if (v.getId()==R.id.ppic) {
+            vibrator.vibrate(2);
+            new profile_picture_zoom_view(profilePic,loadImage,this);
         }
     }
+
 }

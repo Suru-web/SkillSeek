@@ -1,11 +1,14 @@
 package com.helping.skillseek;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
@@ -14,6 +17,8 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -162,6 +167,7 @@ public class homepage extends AppCompatActivity implements View.OnClickListener 
         });
         z=0;
         performSkillQuery(gotSkill);
+        skillseek.setOnClickListener(this);
 
     }
 
@@ -182,8 +188,24 @@ public class homepage extends AppCompatActivity implements View.OnClickListener 
             } else {
                 Toast.makeText(homepage.this, "Please enter a skill to search", Toast.LENGTH_SHORT).show();
             }
+        } else if (v.getId()==R.id.textSkillSeek) {
+            vibrator.vibrate(2);
+            showAppInfoDialoug(v);
+            Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink_anim);
+            v.startAnimation(animation);
         }
     }
+
+    private void showAppInfoDialoug( View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View customView = getLayoutInflater().inflate(R.layout.app_info_popup, null);
+        builder.setView(customView);
+        AlertDialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.anim.circular_open;
+        dialog.show();
+    }
+
     //This code gets the skills and shows in textview
     private void performSkillQuery(String partialSkill) {
         hireeRef.addListenerForSingleValueEvent(new ValueEventListener() {

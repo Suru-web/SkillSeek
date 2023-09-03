@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dialog_card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="20dp"
+    app:cardBackgroundColor="@color/white"
+    android:layout_gravity="center"
+    android:layout_marginRight="30dp"
+    android:layout_marginLeft="30dp">
+
+    <LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical">
+
+        <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SkillSeek"
+        android:padding="16dp"
+        android:gravity="center"
+        android:textSize="24dp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/lilita_one"
+        android:textStyle="bold"/>
+
+        <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="14dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:fontFamily="@font/comfortaa_bold"
+        android:text="@string/app_info1"/>
+        <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="14dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:fontFamily="@font/comfortaa_bold"
+        android:text="@string/app_info2"/>
+        <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="14dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:fontFamily="@font/comfortaa_bold"
+        android:text="@string/app_info3"/>
+        <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="14dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="16dp"
+        android:fontFamily="@font/comfortaa_bold"
+        android:text="@string/app_info4"/>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

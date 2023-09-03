@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.provider.ContactsContract;
 import android.view.View;
 import android.view.Window;
@@ -32,6 +33,7 @@ public class saved_list extends AppCompatActivity implements View.OnClickListene
     savedAdapter adapter;
     FirebaseAuth auth;
     String userID;
+    Vibrator vibrator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,7 @@ public class saved_list extends AppCompatActivity implements View.OnClickListene
 
         recyclerView = findViewById(R.id.savedListDisplay);
         backBTN = findViewById(R.id.backBtnSaved);
+        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
         list = new ArrayList<>();
         sList = new ArrayList<>();
@@ -107,6 +110,7 @@ public class saved_list extends AppCompatActivity implements View.OnClickListene
     @Override
     public void onClick(View v) {
         if (v.getId()==R.id.backBtnSaved){
+            vibrator.vibrate(2);
             finish();
         }
     }

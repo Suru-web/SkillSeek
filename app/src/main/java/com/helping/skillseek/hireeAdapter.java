@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -23,6 +24,8 @@ public class hireeAdapter extends RecyclerView.Adapter<hireeAdapter.MyViewHolder
 
     Context context;
     static ArrayList<hireeDetailsForFB> list;
+    String url;
+    ImageView imageView;
 
     public hireeAdapter(Context context, ArrayList<hireeDetailsForFB> list) {
         this.context = context;
@@ -40,6 +43,7 @@ public class hireeAdapter extends RecyclerView.Adapter<hireeAdapter.MyViewHolder
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         hireeDetailsForFB user = list.get(position);
+        url = user.getdownloadUrl();
         Picasso.get()
                 .load(user.getdownloadUrl())
                 .placeholder(R.drawable.profilepicture)

@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -56,6 +57,8 @@ public class hireeInfoShow extends AppCompatActivity implements View.OnClickList
     DatabaseReference ratingRef;
     boolean ratedAlready;
     LinearLayout linearLayout;
+    ImageView profilePic;
+    String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,7 +161,7 @@ public class hireeInfoShow extends AppCompatActivity implements View.OnClickList
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()){
                     String naam = snapshot.child("name").getValue(String.class);
-                    String url = snapshot.child("downloadUrl").getValue(String.class);
+                    url = snapshot.child("downloadUrl").getValue(String.class);
                     String kaam = snapshot.child("skill").getValue(String.class);
                     String uname = snapshot.child("username").getValue(String.class);
                     String number = snapshot.child("phoneNumber").getValue(String.class);
@@ -185,6 +188,16 @@ public class hireeInfoShow extends AppCompatActivity implements View.OnClickList
         whatsapp.setOnClickListener(this);
         message.setOnClickListener(this);
         backbtn.setOnClickListener(this);
+
+        profilepic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vibrator.vibrate(2);
+                new profile_picture_zoom_view(profilePic,url,hireeInfoShow.this);
+            }
+        });
+
+
         likeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
