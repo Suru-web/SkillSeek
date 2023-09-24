@@ -40,6 +40,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.helping.skillseek.Objects.addCount;
+import com.helping.skillseek.Objects.hireeDetails;
+import com.helping.skillseek.Objects.rateObject;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 

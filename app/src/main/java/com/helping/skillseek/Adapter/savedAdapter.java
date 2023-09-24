@@ -1,33 +1,31 @@
-package com.helping.skillseek;
+package com.helping.skillseek.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Vibrator;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.helping.skillseek.Objects.hireeDetailsForFB;
+import com.helping.skillseek.R;
+import com.helping.skillseek.hireeInfoShow;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class hireeAdapter extends RecyclerView.Adapter<hireeAdapter.MyViewHolder> {
+public class savedAdapter extends RecyclerView.Adapter<savedAdapter.MyViewHolder> {
 
     Context context;
     static ArrayList<hireeDetailsForFB> list;
-    String url;
-    ImageView imageView;
 
-    public hireeAdapter(Context context, ArrayList<hireeDetailsForFB> list) {
+    public savedAdapter(Context context, ArrayList<hireeDetailsForFB> list) {
         this.context = context;
         this.list = list;
     }
@@ -43,7 +41,6 @@ public class hireeAdapter extends RecyclerView.Adapter<hireeAdapter.MyViewHolder
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         hireeDetailsForFB user = list.get(position);
-        url = user.getdownloadUrl();
         Picasso.get()
                 .load(user.getdownloadUrl())
                 .placeholder(R.drawable.profilepicture)
@@ -76,12 +73,10 @@ public class hireeAdapter extends RecyclerView.Adapter<hireeAdapter.MyViewHolder
                 @Override
                 public void onClick(View view) {
                     int position = getAdapterPosition();
-
                     if (position != RecyclerView.NO_POSITION) {
                         hireeDetailsForFB item = list.get(position);
                         String id = item.getId();
                         Intent intent = new Intent(context, hireeInfoShow.class);
-                        intent.putExtra("countOfVisit", true);
                         intent.putExtra("hireeListId",id);
                         context.startActivity(intent);
                     }

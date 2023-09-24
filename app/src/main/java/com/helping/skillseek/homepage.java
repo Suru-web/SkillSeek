@@ -25,14 +25,14 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.divider.MaterialDivider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
+import com.helping.skillseek.Adapter.hireeAdapter;
+import com.helping.skillseek.Objects.hireeDetailsForFB;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -61,13 +61,8 @@ public class homepage extends AppCompatActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
 
-
         Window window = this.getWindow();
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.setStatusBarColor(this.getResources().getColor(R.color.white));
-        window.setNavigationBarColor(this.getResources().getColor(R.color.white));
-
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         int flags = window.getDecorView().getSystemUiVisibility();
         flags |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
         window.getDecorView().setSystemUiVisibility(flags);
@@ -101,6 +96,8 @@ public class homepage extends AppCompatActivity implements View.OnClickListener 
             String authID = auth.getCurrentUser().getUid();
             hirerRef = FirebaseDatabase.getInstance().getReference("hirer");
             hireeRef = FirebaseDatabase.getInstance().getReference("hiree");
+            hirerRef.keepSynced(true);
+            hireeRef.keepSynced(true);
 
             hirerRef.addValueEventListener(new ValueEventListener() {
                 @Override

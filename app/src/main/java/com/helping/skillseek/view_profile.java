@@ -50,7 +50,6 @@ public class view_profile extends AppCompatActivity implements View.OnClickListe
     FirebaseAuth auth;
     String yourCategory;
     ImageView profilePic;
-    CardView cardView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,10 +100,12 @@ public class view_profile extends AppCompatActivity implements View.OnClickListe
         }
         if (yourCategory.equals("Hirer")||yourCategory.equals("hirer")) {
             databaseReference = FirebaseDatabase.getInstance().getReference("hirer").child(uid);
+            databaseReference.keepSynced(true);
             check = 1;
         }
         else if (yourCategory.equals("hiree")||yourCategory.equals("Hiree")){
             databaseReference = FirebaseDatabase.getInstance().getReference("hiree").child(uid);
+            databaseReference.keepSynced(true);
             check = 0;
         }
         databaseReference.addValueEventListener(new ValueEventListener() {

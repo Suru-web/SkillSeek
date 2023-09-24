@@ -1,4 +1,4 @@
-package com.helping.skillseek;
+package com.helping.skillseek.Objects;
 
 public class savedAccount {
   boolean liked;

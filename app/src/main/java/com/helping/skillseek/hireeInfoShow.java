@@ -29,6 +29,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.helping.skillseek.Objects.addCount;
+import com.helping.skillseek.Objects.rateObject;
+import com.helping.skillseek.Objects.savedAccount;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
@@ -104,6 +107,7 @@ public class hireeInfoShow extends AppCompatActivity implements View.OnClickList
 
 
         countAddHiree = FirebaseDatabase.getInstance().getReference("COUNT").child(id);
+        countAddHiree.keepSynced(true);
         countAddHiree.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -134,6 +138,7 @@ public class hireeInfoShow extends AppCompatActivity implements View.OnClickList
 
         if (yourCategory.equals("Hirer")||yourCategory.equals("hirer")) {
             saveLiked = FirebaseDatabase.getInstance().getReference("LIKED").child(adminID).child(id);
+            saveLiked.keepSynced(true);
             saveLiked.child("liked").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -156,6 +161,7 @@ public class hireeInfoShow extends AppCompatActivity implements View.OnClickList
 
 
         databaseReference = FirebaseDatabase.getInstance().getReference("hiree").child(id);
+        databaseReference.keepSynced(true);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

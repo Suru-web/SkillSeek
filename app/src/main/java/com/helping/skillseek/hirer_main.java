@@ -36,8 +36,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
-import java.util.concurrent.atomic.AtomicReference;
+import com.helping.skillseek.Objects.hirerDetails;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
