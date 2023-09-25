@@ -33,6 +33,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.helping.skillseek.Adapter.hireeAdapter;
 import com.helping.skillseek.Objects.hireeDetailsForFB;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -109,6 +110,7 @@ public class homepage extends AppCompatActivity implements View.OnClickListener 
                                     .load(imageURL)
                                     .placeholder(R.drawable.profilepicture)
                                     .error(R.drawable.profilepicture)
+                                    .networkPolicy(NetworkPolicy.OFFLINE)
                                     .into(profilePic);
                         }
                         else {

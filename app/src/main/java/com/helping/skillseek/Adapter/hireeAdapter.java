@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.helping.skillseek.Objects.hireeDetailsForFB;
 import com.helping.skillseek.R;
 import com.helping.skillseek.hireeInfoShow;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -26,7 +28,6 @@ public class hireeAdapter extends RecyclerView.Adapter<hireeAdapter.MyViewHolder
     Context context;
     static ArrayList<hireeDetailsForFB> list;
     String url;
-    ImageView imageView;
 
     public hireeAdapter(Context context, ArrayList<hireeDetailsForFB> list) {
         this.context = context;
@@ -49,7 +50,18 @@ public class hireeAdapter extends RecyclerView.Adapter<hireeAdapter.MyViewHolder
                 .load(user.getdownloadUrl())
                 .placeholder(R.drawable.profilepicture)
                 .error(R.drawable.profilepicture)
-                .into(holder.profileImage);
+                .networkPolicy(NetworkPolicy.OFFLINE)
+                .into(holder.profileImage, new Callback() {
+                    @Override
+                    public void onSuccess() {}
+                    @Override
+                    public void onError(Exception e) {
+                        Picasso.get()
+                                .load(user.getdownloadUrl())
+                                .placeholder(R.drawable.profilepicture)
+                                .into(holder.profileImage);
+                    }
+                });
         holder.name.setText(user.getName());
         holder.skill.setText(user.getSkill());
 

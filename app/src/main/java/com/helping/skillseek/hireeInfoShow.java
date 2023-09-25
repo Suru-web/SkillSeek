@@ -32,6 +32,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.helping.skillseek.Objects.addCount;
 import com.helping.skillseek.Objects.rateObject;
 import com.helping.skillseek.Objects.savedAccount;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
@@ -177,7 +179,20 @@ public class hireeInfoShow extends AppCompatActivity implements View.OnClickList
                             .load(url)
                             .placeholder(R.drawable.profilepicture)
                             .error(R.drawable.profilepicture)
-                            .into(profilepic);
+                            .networkPolicy(NetworkPolicy.OFFLINE)
+                            .into(profilepic, new Callback() {
+                                @Override
+                                public void onSuccess() {}
+
+                                @Override
+                                public void onError(Exception e) {
+                                    Picasso.get()
+                                            .load(url)
+                                            .placeholder(R.drawable.profilepicture)
+                                            .error(R.drawable.profilepicture)
+                                            .into(profilepic);
+                                }
+                            });
                     skill.setText(kaam);
                     username.setText(uname);
                     phone.setText(number);

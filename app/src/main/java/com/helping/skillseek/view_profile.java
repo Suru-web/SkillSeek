@@ -35,6 +35,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -131,7 +133,19 @@ public class view_profile extends AppCompatActivity implements View.OnClickListe
                                 .load(loadImage)
                                 .placeholder(R.drawable.profilepicture)
                                 .error(R.drawable.profilepicture)
-                                .into(profpic);
+                                .networkPolicy(NetworkPolicy.OFFLINE)
+                                .into(profpic, new Callback() {
+                                    @Override
+                                    public void onSuccess() {}
+                                    @Override
+                                    public void onError(Exception e) {
+                                        Picasso.get()
+                                                .load(loadImage)
+                                                .placeholder(R.drawable.profilepicture)
+                                                .error(R.drawable.profilepicture)
+                                                .into(profpic);
+                                    }
+                                });
                     }
                     else {
                         Toast.makeText(view_profile.this,"Profile Pic not found",Toast.LENGTH_SHORT).show();
@@ -156,7 +170,20 @@ public class view_profile extends AppCompatActivity implements View.OnClickListe
                                 .load(loadImage)
                                 .placeholder(R.drawable.profilepicture)
                                 .error(R.drawable.profilepicture)
-                                .into(profpic);
+                                .networkPolicy(NetworkPolicy.OFFLINE)
+                                .into(profpic, new Callback() {
+                                    @Override
+                                    public void onSuccess() {}
+                                    @Override
+                                    public void onError(Exception e) {
+                                        Picasso.get()
+                                                .load(loadImage)
+                                                .placeholder(R.drawable.profilepicture)
+                                                .error(R.drawable.profilepicture)
+                                                .networkPolicy(NetworkPolicy.OFFLINE)
+                                                .into(profpic);
+                                    }
+                                });
                     }
                     else {
                         Toast.makeText(view_profile.this,"Profile Pic not found",Toast.LENGTH_SHORT).show();
